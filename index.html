@@ -876,6 +876,381 @@ var PAGES = {
 
 function today(){ return new Date().toISOString().split('T')[0]; }
 
+function hitungIMT(bb, tb){
+
+  bb = parseFloat(bb);
+  tb = parseFloat(tb);
+
+  if(!bb || !tb) return null;
+
+  const imt = bb / Math.pow(tb/100,2);
+
+  let status = '';
+
+  if(imt < 18.5){
+    status = 'Kurus';
+  }else if(imt < 25){
+    status = 'Normal';
+  }else if(imt < 30){
+    status = 'Gemuk';
+  }else{
+    status = 'Obesitas';
+  }
+
+  return {
+    imt: imt.toFixed(1),
+    status: status
+  };
+}
+
+function statusTensi(td){
+
+  if(!td) return 'Tidak dilakukan pemeriksaan';
+
+  const p = td.split('/');
+
+  if(p.length !== 2) return 'Tidak valid';
+
+  const sistol = parseInt(p[0]);
+  const diastol = parseInt(p[1]);
+
+  if(sistol < 90 || diastol < 60){
+    return 'Hipotensi';
+  }
+
+  if(sistol < 130 && diastol < 80){
+    return 'Normal';
+  }
+
+  if(sistol < 140 || diastol < 90){
+    return 'Pra Hipertensi';
+  }
+
+  return 'Hipertensi';
+}
+
+function statusGDS(gds){
+
+  gds = parseFloat(gds);
+
+  if(!gds){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(gds < 140){
+    return 'Normal';
+  }
+
+  if(gds < 200){
+    return 'Prediabetes';
+  }
+
+  return 'Diabetes';
+}
+
+function statusKolesterol(nilai){
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(nilai < 200){
+    return 'Normal';
+  }
+
+  if(nilai < 240){
+    return 'Borderline Tinggi';
+  }
+
+  return 'Hiperkolesterol';
+}
+
+function statusAsamUrat(nilai,jk){
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(jk === 'P'){
+
+    if(nilai < 2.4){
+      return 'Rendah';
+    }
+
+    if(nilai <= 6){
+      return 'Normal';
+    }
+
+    return 'Tinggi';
+  }
+
+  if(nilai < 3.4){
+    return 'Rendah';
+  }
+
+  if(nilai <= 7){
+    return 'Normal';
+  }
+
+  return 'Tinggi';
+}
+
+function buatRekomendasi(data){
+
+  let hasil = [];
+
+  // STATUS GIZI
+  if(data.gizi === 'Gemuk' || data.gizi === 'Obesitas'){
+
+    hasil.push(
+`⚠️ ${data.gizi}
+
+Yuk mulai hidup sehat agar berat badan ideal!
+
+🚫 Hindari:
+• Gorengan
+• Minuman manis
+• Fast food
+• Makanan tinggi lemak
+
+🥗 Perbanyak:
+• Sayuran
+• Buah segar
+• Air putih minimal 8 gelas/hari
+
+🏃 Aktivitas:
+• Jalan cepat 30 menit/hari
+• Bersepeda
+• Senam ringan
+• Kurangi duduk terlalu lama`
+    );
+
+  }
+
+  if(data.gizi === 'Kurus'){
+
+    hasil.push(
+`⚠️ Berat Badan Kurang
+
+Mari tingkatkan status gizi secara bertahap.
+
+🚫 Hindari:
+• Sering telat makan
+• Diet berlebihan
+
+🥗 Perbanyak:
+• Protein (telur, ikan, ayam)
+• Susu
+• Buah dan sayur
+
+🏃 Aktivitas:
+• Olahraga ringan teratur
+• Istirahat cukup`
+    );
+
+  }
+
+  // TENSI
+  if(data.tensi === 'Hipertensi'){
+
+    hasil.push(
+`⚠️ Tekanan Darah Tinggi
+
+🚫 Kurangi:
+• Garam berlebihan
+• Makanan instan
+• Kopi berlebihan
+• Rokok
+
+🥗 Perbanyak:
+• Sayuran hijau
+• Buah-buahan
+• Air putih
+
+🏃 Aktivitas:
+• Jalan santai
+• Senam
+• Relaksasi dan kelola stres`
+    );
+
+  }
+
+  // GULA DARAH
+  if(
+    data.gula === 'Prediabetes' ||
+    data.gula === 'Diabetes'
+  ){
+
+    hasil.push(
+`⚠️ Gula Darah Tinggi
+
+🚫 Batasi:
+• Minuman manis
+• Kue dan permen
+• Nasi berlebihan
+
+🥗 Perbanyak:
+• Sayuran
+• Protein sehat
+• Air putih
+
+🏃 Aktivitas:
+• Jalan kaki 30 menit/hari
+• Senam diabetes
+• Aktivitas fisik rutin`
+    );
+
+  }
+
+  // KOLESTEROL
+  if(
+    data.kolesterol === 'Hiperkolesterol' ||
+    data.kolesterol === 'Borderline Tinggi'
+  ){
+
+    hasil.push(
+`⚠️ Kolesterol Tinggi
+
+🚫 Kurangi:
+• Jeroan
+• Gorengan
+• Santan berlebihan
+• Kulit ayam
+
+🥗 Perbanyak:
+• Ikan
+• Oatmeal
+• Sayuran
+• Buah tinggi serat
+
+🏃 Aktivitas:
+• Jalan cepat
+• Bersepeda
+• Olahraga aerobik ringan`
+    );
+
+  }
+
+  // ASAM URAT
+  if(data.asamUrat === 'Tinggi'){
+
+    hasil.push(
+`⚠️ Asam Urat Tinggi
+
+🚫 Hindari:
+• Jeroan
+• Seafood berlebihan
+• Daging merah berlebihan
+
+🥗 Perbanyak:
+• Air putih
+• Buah segar
+• Sayuran rendah purin
+
+🏃 Aktivitas:
+• Jalan santai
+• Peregangan ringan
+• Jaga berat badan ideal`
+    );
+
+  }
+
+  if(hasil.length === 0){
+
+    hasil.push(
+`✅ Hasil pemeriksaan dalam batas normal.
+
+Pertahankan pola hidup sehat dengan:
+
+🥗 Konsumsi makanan bergizi seimbang
+🏃 Aktivitas fisik minimal 30 menit/hari
+🛌 Istirahat cukup
+🚭 Hindari asap rokok
+🩺 Periksa kesehatan secara berkala`
+    );
+
+  }
+
+  return hasil.join('\n\n');
+}
+
+function buatPesanWhatsapp(data){
+
+  return `Hallo ${data.nama}
+
+Berikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}
+
+📏 TB : ${data.tb || '-'} cm
+⚖️ BB : ${data.bb || '-'} kg
+👤 Status Gizi : ${data.gizi || '-'}
+
+❤️ Tensi : ${data.td || '-'}
+📊 Status Tensi : ${data.statusTensi || '-'}
+
+💉 GDA : ${data.gds || '-'} mg/dL
+🍬 Status Gula : ${data.statusGula || '-'}
+
+🥚 CHOL : ${data.kol || '-'} mg/dL
+❤️ Status Kolesterol : ${data.statusKol || '-'}
+
+🦴 Asam Urat : ${data.au || '-'} mg/dL
+🥜 Status Asam Urat : ${data.statusAu || '-'}
+
+🩺🧑‍⚕️ Rekomendasi Kesehatan:
+
+${data.rekomendasi || '-'}
+
+Mari ikhtiyar sembuh sesuai sunnah, juga tetap menjaga kesehatan dengan cara:
+
+✅ Cek kesehatan secara berkala
+🚭 Enyahkan asap rokok
+🏃 Rajin aktivitas fisik
+🥗 Diet seimbang
+🛌 Istirahat cukup
+🧘 Kelola stres
+
+Yuk follow media sosial kami:
+
+📸 Instagram: @griya_athariz
+🎵 TikTok: @griya_athariz
+▶️ YouTube: @griya_athariz
+
+Salam sehat,
+Griya Athariz`;
+
+}
+
+function kirimResumeWA(data){
+
+  if(!data.wa){
+    toast('Nomor WhatsApp pasien tidak tersedia','err');
+    return;
+  }
+
+  var nomor = String(data.wa)
+    .replace(/\D/g,'')
+    .replace(/^0/,'62');
+
+  if(nomor.length < 10){
+    toast('Nomor WhatsApp tidak valid','err');
+    return;
+  }
+
+  var pesan = buatPesanWhatsapp(data);
+
+  var url =
+    'https://wa.me/' +
+    nomor +
+    '?text=' +
+    encodeURIComponent(pesan);
+
+  window.open(url,'_blank');
+}
+
 function init(){
   document.getElementById('k-tgl').value = today();
   buildTitik();
@@ -1377,31 +1752,110 @@ function simpanKunjungan(){
 
     if(res.success){
 
-      toast('Kunjungan berhasil disimpan');
+  toast('Kunjungan berhasil disimpan');
 
-      clearKunjungan();
-      loadData();
+  // =====================
+  // GENERATE RESUME WA
+  // =====================
 
-      goto('riwayat');
+  var jk = pData ? pData[4] : '';
 
-    }else{
+  var imtData = hitungIMT(
+  document.getElementById('k-bb').value,
+  document.getElementById('k-tb').value
+);
 
-      toast(res.message || 'Gagal menyimpan', 'err');
+var gizi = imtData
+  ? imtData.status
+  : 'Tidak dilakukan pemeriksaan';
 
-    }
+var tensi = statusTensi(
+  document.getElementById('k-td').value
+);
 
-  })
-  .catch(function(e){
+var gula = statusGDS(
+  document.getElementById('k-gds').value
+);
 
-    console.error(e);
-    toast('Error : ' + e.message, 'err');
+var kol = statusKolesterol(
+  document.getElementById('k-kolesterol').value
+);
 
-  })
-  .finally(function(){
+var au = statusAsamUrat(
+  document.getElementById('k-asamurat').value,
+  jk
+);
 
-    hideLoading();
+var rekomendasi = buatRekomendasi({
+  gizi: gizi,
+  tensi: tensi,
+  gula: gula,
+  kolesterol: kol,
+  asamUrat: au
+});
 
-  });
+  // nomor WA tersedia?
+  if(pData && pData[2]){
+
+    kirimResumeWA({
+
+      nama : pData[1],
+      wa : pData[2],
+
+      tanggal : tgl,
+
+      tb : document.getElementById('k-tb').value,
+      bb : document.getElementById('k-bb').value,
+
+      td : document.getElementById('k-td').value,
+
+      gds : document.getElementById('k-gds').value,
+
+      kol : document.getElementById('k-kolesterol').value,
+
+      au : document.getElementById('k-asamurat').value,
+
+      gizi : gizi,
+      statusTensi : tensi,
+      statusGula : gula,
+      statusKol : kol,
+      statusAu : au,
+
+      rekomendasi : rekomendasi
+
+    });
+
+  }else{
+
+    toast('Nomor pasien tidak tersedia', 'err');
+
+  }
+
+  clearKunjungan();
+
+  loadData();
+
+  goto('riwayat');
+
+}else{
+
+  toast(res.message || 'Gagal menyimpan', 'err');
+
+}
+
+})   
+
+.catch(function(e){
+
+  console.error(e);
+  toast('Error : ' + e.message, 'err');
+
+})
+.finally(function(){
+
+  hideLoading();
+
+});
 
 }
 
