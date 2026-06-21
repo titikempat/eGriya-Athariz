@@ -157,6 +157,62 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   .span2{grid-column:auto}
   .topbar-sub{display:none}
 }
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(3px);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.loading-overlay.show{
+  display:flex;
+}
+
+.loading-box{
+  background:#fff;
+  padding:24px 30px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+  text-align:center;
+  min-width:220px;
+}
+
+.spinner{
+  width:48px;
+  height:48px;
+  border:4px solid #E1F5EE;
+  border-top:4px solid #0B7285;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 12px;
+}
+
+.loading-text{
+  font-size:13px;
+  color:#0B7285;
+  font-weight:600;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.btn-loading{
+  pointer-events:none;
+  opacity:.7;
+}
+
+.btn-loading i{
+  animation:spin 1s linear infinite;
+}
+
+}
 </style>
 </head>
 <body>
@@ -408,6 +464,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 
 <div class="toast" id="toast"></div>
 
+<!-- LOADING -->
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div class="loading-text">Memproses Data...</div>
+  </div>
+</div>
+
+
 <script>
 var GAS_URL = localStorage.getItem('gas_url') || '';
 var allPasien = [];
@@ -495,46 +560,170 @@ function toast(msg, type){
   clearTimeout(el._t); el._t = setTimeout(function(){el.classList.remove('show');}, 3000);
 }
 
+function showLoading(text){
+
+  document.querySelector('#loadingOverlay .loading-text')
+    .textContent = text || 'Memproses Data...';
+
+  document.getElementById('loadingOverlay')
+    .classList.add('show');
+}
+
+function hideLoading(){
+
+  document.getElementById('loadingOverlay')
+    .classList.remove('show');
+}
+
 function setDot(on){
   document.getElementById('gas-dot').className = 'gas-dot' + (on ? '' : ' off');
   document.getElementById('gas-status-txt').textContent = on ? 'Terhubung' : 'Belum terhubung';
 }
 
 function simpanGas(){
+
   var url = document.getElementById('gas-url').value.trim();
-  if(!url){ toast('Masukkan URL GAS terlebih dahulu', 'err'); return; }
-  GAS_URL = url; localStorage.setItem('gas_url', url);
-  setDot(true); toast('URL disimpan! Memuat data...');
+
+  if(!url){
+    toast('Masukkan URL GAS terlebih dahulu','err');
+    return;
+  }
+
+  showLoading('Menyimpan konfigurasi...');
+
+  GAS_URL = url;
+
+  localStorage.setItem('gas_url',url);
+
+  setDot(true);
+
+  toast('URL berhasil disimpan');
+
   loadData();
+
+  setTimeout(function(){
+
+    hideLoading();
+
+  },1000);
+
 }
 
 function testKoneksi(){
-  if(!GAS_URL){ toast('Masukkan URL GAS terlebih dahulu', 'err'); return; }
-  fetch(GAS_URL + '?action=getPasien').then(function(r){
-    if(r.ok){ setDot(true); toast('Koneksi berhasil!'); }
-    else { setDot(false); toast('Koneksi gagal — periksa URL GAS', 'err'); }
-  }).catch(function(e){ setDot(false); toast('Error: ' + e.message, 'err'); });
+
+  if(!GAS_URL){
+    toast('Masukkan URL GAS terlebih dahulu','err');
+    return;
+  }
+
+  showLoading('Menguji koneksi server...');
+
+  fetch(GAS_URL + '?action=getPasien')
+
+    .then(function(r){
+
+      if(r.ok){
+
+        setDot(true);
+        toast('Koneksi berhasil');
+
+      }else{
+
+        setDot(false);
+        toast('Koneksi gagal','err');
+
+      }
+
+    })
+
+    .catch(function(e){
+
+      setDot(false);
+      toast('Error : ' + e.message,'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function loadData(){ loadPasien(); loadKunjungan(); }
 
 function loadPasien(){
+
   if(!GAS_URL) return;
-  fetch(GAS_URL + '?action=getPasien').then(function(r){return r.json();}).then(function(d){
-    allPasien = d.data || [];
-    renderPasien(allPasien);
-    updateDropdown();
-    updateDash();
-  }).catch(function(e){ console.warn(e); });
+
+  showLoading('Memuat data pasien...');
+
+  fetch(GAS_URL + '?action=getPasien')
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      allPasien = d.data || [];
+
+      renderPasien(allPasien);
+      updateDropdown();
+      updateDash();
+
+    })
+
+    .catch(function(e){
+
+      console.error(e);
+      toast('Gagal memuat data pasien', 'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function loadKunjungan(){
+
   if(!GAS_URL) return;
-  fetch(GAS_URL + '?action=getKunjungan').then(function(r){return r.json();}).then(function(d){
-    allKunjungan = d.data || [];
-    renderRiwayat(allKunjungan);
-    updateDash();
-  }).catch(function(e){ console.warn(e); });
+
+  showLoading('Memuat data kunjungan...');
+
+  fetch(GAS_URL + '?action=getKunjungan')
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      allKunjungan = d.data || [];
+
+      renderRiwayat(allKunjungan);
+      updateDash();
+
+    })
+
+    .catch(function(e){
+
+      console.error(e);
+      toast('Gagal memuat data kunjungan', 'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function updateDash(){
@@ -630,7 +819,78 @@ function simpanPasien(){
   var telp = document.getElementById('p-telp').value.trim();
 
   if(!nama || !telp){
-    toast('Nama dan nomor telepon wajib diisi', 'err');
+    toast('Nama dan nomor telepon wajib diisi','err');
+    return;
+  }
+
+  if(!GAS_URL){
+    toast('Hubungkan Google Apps Script di Pengaturan','err');
+    return;
+  }
+
+  showLoading('Menyimpan data pasien...');
+
+  var payload = {
+    action:'addPasien',
+    nama:nama,
+    telp:telp,
+    tglLahir:document.getElementById('p-lahir').value,
+    jk:document.getElementById('p-jk').value,
+    alamat:document.getElementById('p-alamat').value,
+    alergi:document.getElementById('p-alergi').value,
+    kronis:document.getElementById('p-kronis').value,
+    catatan:document.getElementById('p-catatan').value,
+    tglDaftar:today()
+  };
+
+  fetch(GAS_URL,{
+    method:'POST',
+    body:JSON.stringify(payload)
+  })
+
+  .then(function(r){
+    return r.json();
+  })
+
+  .then(function(res){
+
+    if(res.success){
+
+      toast('Pasien berhasil didaftarkan');
+
+      clearPasien();
+      loadPasien();
+
+    }else{
+
+      toast(res.message || 'Gagal menyimpan','err');
+
+    }
+
+  })
+
+  .catch(function(e){
+
+    toast('Error : ' + e.message,'err');
+
+  })
+
+  .finally(function(){
+
+    hideLoading();
+
+  });
+
+}
+
+function simpanKunjungan(){
+
+  var pasien = document.getElementById('k-pasien').value;
+  var jenis  = document.getElementById('k-jenis').value;
+  var tgl    = document.getElementById('k-tgl').value;
+
+  if(!pasien || !jenis || !tgl){
+    toast('Pasien, jenis layanan & tanggal wajib diisi', 'err');
     return;
   }
 
@@ -639,17 +899,53 @@ function simpanPasien(){
     return;
   }
 
+  showLoading('Menyimpan data kunjungan...');
+
+  var pData = allPasien.find(function(p){
+    return p[0] === pasien;
+  });
+
   var payload = {
-    action: 'addPasien',
-    nama: nama,
-    telp: telp,
-    tglLahir: document.getElementById('p-lahir').value,
-    jk: document.getElementById('p-jk').value,
-    alamat: document.getElementById('p-alamat').value,
-    alergi: document.getElementById('p-alergi').value,
-    kronis: document.getElementById('p-kronis').value,
-    catatan: document.getElementById('p-catatan').value,
-    tglDaftar: today()
+    action: 'addKunjungan',
+    tgl: tgl,
+    noRm: pasien,
+    namaPasien: pData ? pData[1] : pasien,
+    jenis: jenis,
+
+    keluhan: document.getElementById('k-keluhan').value,
+    rps: document.getElementById('k-rps').value,
+    harapan: document.getElementById('k-harapan').value,
+
+    td: document.getElementById('k-td').value,
+    nadi: document.getElementById('k-nadi').value,
+    suhu: document.getElementById('k-suhu').value,
+    bb: document.getElementById('k-bb').value,
+    tb: document.getElementById('k-tb').value,
+    kondisiUmum: document.getElementById('k-kondisi').value,
+
+    titikBekam: selectedTitik.join(', '),
+    bekamJenis: document.getElementById('k-bjenis').value,
+    jumlahKop: document.getElementById('k-kop').value,
+    kondisiDarah: getChecked('darah'),
+
+    momUsia: document.getElementById('k-momusia').value,
+    terapiMom: getChecked('mom'),
+    terapisMom: document.getElementById('k-momterapis').value,
+    durasiMom: document.getElementById('k-momdurasi').value,
+
+    babyNama: document.getElementById('k-babyname').value,
+    babyUsia: document.getElementById('k-babyusia').value,
+    babyBb: document.getElementById('k-babybb').value,
+    layananBaby: getChecked('baby'),
+
+    asesmen: document.getElementById('k-asesmen').value,
+    plan: document.getElementById('k-plan').value,
+
+    tarif: document.getElementById('k-tarif').value,
+    statusBayar: document.getElementById('k-bayar').value,
+    notes: document.getElementById('k-notes').value,
+
+    noKunjungan: 'KNJ-' + Date.now().toString().slice(-8)
   };
 
   fetch(GAS_URL, {
@@ -663,10 +959,12 @@ function simpanPasien(){
 
     if(res.success){
 
-      toast('Pasien terdaftar! No. RM: ' + res.noRm);
+      toast('Kunjungan berhasil disimpan');
 
-      clearPasien();
-      loadPasien();
+      clearKunjungan();
+      loadData();
+
+      goto('riwayat');
 
     }else{
 
@@ -677,56 +975,16 @@ function simpanPasien(){
   })
   .catch(function(e){
 
-    toast('Error: ' + e.message, 'err');
+    console.error(e);
+    toast('Error : ' + e.message, 'err');
+
+  })
+  .finally(function(){
+
+    hideLoading();
 
   });
 
-}
-
-function simpanKunjungan(){
-  var pasien = document.getElementById('k-pasien').value;
-  var jenis = document.getElementById('k-jenis').value;
-  var tgl = document.getElementById('k-tgl').value;
-  if(!pasien||!jenis||!tgl){ toast('Pasien, jenis layanan & tanggal wajib diisi', 'err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan', 'err'); return; }
-  var pData = allPasien.filter(function(p){return p[0]===pasien;})[0];
-  var payload = {
-    action:'addKunjungan', tgl:tgl, noRm:pasien,
-    namaPasien:pData ? pData[1] : pasien, jenis:jenis,
-    keluhan:document.getElementById('k-keluhan').value,
-    rps:document.getElementById('k-rps').value,
-    harapan:document.getElementById('k-harapan').value,
-    td:document.getElementById('k-td').value,
-    nadi:document.getElementById('k-nadi').value,
-    suhu:document.getElementById('k-suhu').value,
-    bb:document.getElementById('k-bb').value,
-    tb:document.getElementById('k-tb').value,
-    kondisiUmum:document.getElementById('k-kondisi').value,
-    titikBekam:selectedTitik.join(', '),
-    bekamJenis:document.getElementById('k-bjenis').value,
-    jumlahKop:document.getElementById('k-kop').value,
-    kondisiDarah:getChecked('darah'),
-    momUsia:document.getElementById('k-momusia').value,
-    terapiMom:getChecked('mom'),
-    terapisMom:document.getElementById('k-momterapis').value,
-    durasiMom:document.getElementById('k-momdurasi').value,
-    babyNama:document.getElementById('k-babyname').value,
-    babyUsia:document.getElementById('k-babyusia').value,
-    babyBb:document.getElementById('k-babybb').value,
-    layanaBaby:getChecked('baby'),
-    asesmen:document.getElementById('k-asesmen').value,
-    plan:document.getElementById('k-plan').value,
-    tarif:document.getElementById('k-tarif').value,
-    statusBayar:document.getElementById('k-bayar').value,
-    notes:document.getElementById('k-notes').value,
-    noKunjungan:'KNJ-' + Date.now().toString().slice(-8)
-  };
-  fetch(GAS_URL, {method:'POST', body:JSON.stringify(payload)})
-    .then(function(r){return r.json();})
-    .then(function(res){
-      if(res.success){ toast('Kunjungan berhasil disimpan!'); clearKunjungan(); loadData(); goto('riwayat'); }
-      else toast(res.message || 'Gagal menyimpan', 'err');
-    }).catch(function(e){ toast('Error: ' + e.message, 'err'); });
 }
 
 function clearPasien(){
@@ -749,6 +1007,28 @@ function clearKunjungan(){
   toggleLayanan();
 }
 
+function setBtnLoading(btn,status){
+
+  if(!btn) return;
+
+  if(status){
+
+    btn.dataset.original = btn.innerHTML;
+
+    btn.innerHTML =
+      '<i class="ti ti-loader"></i> Memproses...';
+
+    btn.classList.add('btn-loading');
+
+  }else{
+
+    btn.innerHTML = btn.dataset.original;
+
+    btn.classList.remove('btn-loading');
+
+  }
+
+}
 init();
 </script>
 </body>
