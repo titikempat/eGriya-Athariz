@@ -567,6 +567,130 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   }
 
 }
+
+/* =========================
+   PANEL PEMAYARAN
+========================= */
+
+.payment-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+
+.payment-card{
+  background:var(--card-bg);
+  border:1px solid var(--border-color);
+  border-radius:14px;
+  padding:18px;
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:14px;
+  color:var(--text-main);
+}
+
+.payment-title i{
+  font-size:18px;
+}
+
+.payment-card .form-group{
+  margin-bottom:12px;
+}
+
+.payment-card label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:var(--text-muted);
+}
+
+.payment-card input{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  background:#f5f7fa;
+  font-size:14px;
+  transition:.2s;
+}
+
+.payment-card input:focus{
+  outline:none;
+  background:#fff;
+  box-shadow:
+    0 0 0 2px var(--primary),
+    0 4px 12px rgba(0,0,0,.08);
+}
+
+.qris-upload{
+  border:2px dashed var(--border-color);
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.qris-upload:hover{
+  border-color:var(--primary);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.qris-preview{
+  width:100%;
+  max-width:250px;
+  margin:15px auto 0;
+  display:none;
+  border-radius:12px;
+  border:1px solid var(--border-color);
+  overflow:hidden;
+}
+
+.qris-preview img{
+  width:100%;
+  display:block;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.payment-actions button{
+  min-width:180px;
+}
+
+.bank-info{
+  background:rgba(59,130,246,.08);
+  border:1px solid rgba(59,130,246,.15);
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  margin-top:10px;
+}
+
+@media(max-width:768px){
+
+  .payment-grid{
+    grid-template-columns:1fr;
+  }
+
+  .payment-actions button{
+    width:100%;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -590,7 +714,11 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
       <div class="nav-item" onclick="goto('pasien')"><i class="ti ti-users"></i><span>Data Pasien</span></div>
       <div class="nav-item" onclick="goto('kunjungan')"><i class="ti ti-clipboard-plus"></i><span>Catat Kunjungan</span></div>
       <div class="nav-item" onclick="goto('riwayat')"><i class="ti ti-history"></i><span>Riwayat</span></div>
-      <div class="nav-item" onclick="goto('setup')"><i class="ti ti-settings"></i><span>Pengaturan</span></div>
+      <div class="nav-item" onclick="goto('pembayaran')">
+  <i class="ti ti-credit-card"></i>
+  <span>Pembayaran</span>
+</div>
+      <div class="nav-item" onclick="goto('setup')"><i class="ti ti-settings"></i><span>Konfigurasi</span></div>
     </nav>
     <div class="sidebar-footer">
       <div class="gas-status">
@@ -803,6 +931,146 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
         </div>
       </div>
 
+<!-- PANEL PEMAYARAN -->
+
+<section id="panel-pembayaran" class="panel">
+
+  <div class="card">
+
+    <div class="section-title">
+      <i class="ti ti-credit-card"></i>
+      Metode Pembayaran
+    </div>
+
+    <div class="payment-grid">
+
+      <!-- TRANSFER BANK -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-building-bank"></i>
+          Transfer Bank
+        </div>
+
+        <div class="form-group">
+          <label>Bank</label>
+          <input
+            id="pay-bank"
+            placeholder="Contoh : BCA">
+        </div>
+
+        <div class="form-group">
+          <label>No Rekening</label>
+          <input
+            id="pay-rekening"
+            placeholder="Nomor Rekening">
+        </div>
+
+        <div class="form-group">
+          <label>Atas Nama</label>
+          <input
+            id="pay-an"
+            placeholder="Nama Pemilik Rekening">
+        </div>
+
+      </div>
+
+      <!-- E-WALLET -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-wallet"></i>
+          E-Wallet
+        </div>
+
+        <div class="form-group">
+          <label>DANA</label>
+          <input
+            id="pay-dana"
+            placeholder="Nomor DANA">
+        </div>
+
+        <div class="form-group">
+          <label>OVO</label>
+          <input
+            id="pay-ovo"
+            placeholder="Nomor OVO">
+        </div>
+
+        <div class="form-group">
+          <label>GoPay</label>
+          <input
+            id="pay-gopay"
+            placeholder="Nomor GoPay">
+        </div>
+
+      </div>
+
+      <!-- QRIS -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-qrcode"></i>
+          QRIS
+        </div>
+
+        <label class="qris-upload">
+
+          <input
+            type="file"
+            accept="image/*"
+            onchange="uploadQRIS(event)">
+
+          <i class="ti ti-photo-up"
+             style="font-size:32px"></i>
+
+          <p style="margin-top:10px">
+            Upload Gambar QRIS
+          </p>
+
+        </label>
+
+        <div class="qris-preview">
+
+          <img id="preview-qris">
+
+        </div>
+
+      </div>
+
+      <!-- CASH -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-cash"></i>
+          Cash
+        </div>
+
+        <div class="bank-info">
+          Pembayaran tunai tersedia di lokasi layanan.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="payment-actions">
+
+      <button
+        class="btn btn-primary"
+        onclick="simpanPembayaran()">
+
+        <i class="ti ti-device-floppy"></i>
+        Update Data Pembayaran
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
       <!-- SETUP -->
       <div id="panel-setup" class="panel">
         <div class="card">
@@ -871,6 +1139,7 @@ var PAGES = {
   pasien:{t:'Data Pasien',s:'Daftar & pendaftaran pasien'},
   kunjungan:{t:'Catat Kunjungan',s:'Formulir rekam medis SOAP'},
   riwayat:{t:'Riwayat Kunjungan',s:'Histori semua kunjungan'},
+   pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
   setup:{t:'Pengaturan',s:'Konfigurasi Google Apps Script'}
 };
 
@@ -1303,7 +1572,7 @@ function goto(page){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('panel-'+page).classList.add('active');
-  var order = ['dashboard','pasien','kunjungan','riwayat','setup'];
+  var order = ['dashboard','pasien','kunjungan','riwayat','pembayaran','setup'];
   document.querySelectorAll('.nav-item')[order.indexOf(page)].classList.add('active');
   document.getElementById('topbar-title').textContent = PAGES[page].t;
   document.getElementById('topbar-sub').textContent = PAGES[page].s;
@@ -1918,6 +2187,117 @@ function toggleSidebar(force){
   sidebar.classList.toggle('show', open);
   overlay.classList.toggle('show', open);
 }
+
+function uploadQRIS(e){
+
+  var file = e.target.files[0];
+
+  if(!file) return;
+
+  var reader = new FileReader();
+
+  reader.onload = function(evt){
+
+    localStorage.setItem(
+      'qris_image',
+      evt.target.result
+    );
+
+    var img = document.getElementById('preview-qris');
+
+    if(img){
+      img.src = evt.target.result;
+      img.style.display = 'block';
+    }
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+function simpanPembayaran(){
+
+  var data = {
+
+    bank:
+      document.getElementById('pay-bank')?.value || '',
+
+    rekening:
+      document.getElementById('pay-rekening')?.value || '',
+
+    an:
+      document.getElementById('pay-an')?.value || '',
+
+    dana:
+      document.getElementById('pay-dana')?.value || '',
+
+    ovo:
+      document.getElementById('pay-ovo')?.value || '',
+
+    gopay:
+      document.getElementById('pay-gopay')?.value || ''
+
+  };
+
+  localStorage.setItem(
+    'payment_config',
+    JSON.stringify(data)
+  );
+
+  toast('Data pembayaran berhasil disimpan');
+
+}
+
+function loadPembayaran(){
+
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(document.getElementById('pay-bank'))
+    document.getElementById('pay-bank').value =
+      pay.bank || '';
+
+  if(document.getElementById('pay-rekening'))
+    document.getElementById('pay-rekening').value =
+      pay.rekening || '';
+
+  if(document.getElementById('pay-an'))
+    document.getElementById('pay-an').value =
+      pay.an || '';
+
+  if(document.getElementById('pay-dana'))
+    document.getElementById('pay-dana').value =
+      pay.dana || '';
+
+  if(document.getElementById('pay-ovo'))
+    document.getElementById('pay-ovo').value =
+      pay.ovo || '';
+
+  if(document.getElementById('pay-gopay'))
+    document.getElementById('pay-gopay').value =
+      pay.gopay || '';
+
+  var qris = localStorage.getItem('qris_image');
+
+  if(
+    qris &&
+    document.getElementById('preview-qris')
+  ){
+
+    document.getElementById('preview-qris').src =
+      qris;
+
+    document.getElementById('preview-qris').style.display =
+      'block';
+
+  }
+
+}
+
+loadPembayaran();
+
 init();
 </script>
 </body>
