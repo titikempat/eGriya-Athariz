@@ -340,6 +340,25 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
             <div class="field"><label>Suhu</label><input id="k-suhu" placeholder="36.5 °C"/></div>
             <div class="field"><label>Berat Badan</label><input id="k-bb" placeholder="kg"/></div>
             <div class="field"><label>Tinggi Badan</label><input id="k-tb" placeholder="cm"/></div>
+            <div class="field">
+    <label>Gula Darah Sewaktu (GDS)</label>
+    <input id="k-gds" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>Kolesterol</label>
+    <input id="k-kolesterol" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>Asam Urat</label>
+    <input id="k-asamurat" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>SpO₂</label>
+    <input id="k-spo2" type="number" placeholder="%"/>
+  </div>
             <div class="field"><label>Kondisi Umum</label>
               <select id="k-kondisi"><option>Baik</option><option>Sedang</option><option>Lemah</option></select>
             </div>
@@ -921,6 +940,10 @@ function simpanKunjungan(){
     suhu: document.getElementById('k-suhu').value,
     bb: document.getElementById('k-bb').value,
     tb: document.getElementById('k-tb').value,
+    gds: document.getElementById('k-gds').value,
+	kolesterol: document.getElementById('k-kolesterol').value,
+	asamUrat: document.getElementById('k-asamurat').value,
+	spo2: document.getElementById('k-spo2').value,
     kondisiUmum: document.getElementById('k-kondisi').value,
 
     titikBekam: selectedTitik.join(', '),
@@ -993,7 +1016,10 @@ function clearPasien(){
 }
 
 function clearKunjungan(){
-  ['k-keluhan','k-rps','k-harapan','k-td','k-nadi','k-suhu','k-bb','k-tb','k-asesmen','k-plan','k-tarif','k-notes','k-momusia','k-momterapis','k-momdurasi','k-babyname','k-babyusia','k-babybb','k-kop'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['k-keluhan','k-rps','k-harapan','k-td','k-nadi','k-suhu','k-bb','k-tb','k-gds',
+'k-kolesterol',
+'k-asamurat',
+'k-spo2','k-asesmen','k-plan','k-tarif','k-notes','k-momusia','k-momterapis','k-momdurasi','k-babyname','k-babyusia','k-babybb','k-kop'].forEach(function(id){ document.getElementById(id).value=''; });
   document.getElementById('k-jenis').value = '';
   document.getElementById('k-pasien').value = '';
   document.getElementById('k-kondisi').value = 'Baik';
