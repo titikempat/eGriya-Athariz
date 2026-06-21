@@ -791,14 +791,42 @@ function updateDropdown(){
 }
 
 function filterPasien(){
-  var q = document.getElementById('cari-pasien').value.toLowerCase();
-  renderPasien(allPasien.filter(function(p){return (p[1]||'').toLowerCase().includes(q)||(p[2]||'').includes(q);}));
+
+  var q = document.getElementById('cari-pasien').value.toLowerCase().trim();
+
+  renderPasien(
+    allPasien.filter(function(p){
+
+      var nama = String(p[1] || '').toLowerCase();
+      var telp = String(p[2] || '');
+      var rm   = String(p[0] || '').toLowerCase();
+
+      return nama.includes(q)
+          || telp.includes(q)
+          || rm.includes(q);
+
+    })
+  );
+
 }
 
 function filterRiwayat(){
+
   var q = document.getElementById('cari-riwayat').value.toLowerCase();
   var j = document.getElementById('filter-jenis').value;
-  renderRiwayat(allKunjungan.filter(function(k){return (!q||(k[1]||'').toLowerCase().includes(q))&&(!j||k[2]===j);}));
+
+  renderRiwayat(
+    allKunjungan.filter(function(k){
+
+      var nama = String(k[2] || '').toLowerCase(); // Nama Pasien
+      var jenis = String(k[3] || '');              // Jenis Layanan
+
+      return (!q || nama.includes(q))
+          && (!j || jenis === j);
+
+    })
+  );
+
 }
 
 function toggleLayanan(){
