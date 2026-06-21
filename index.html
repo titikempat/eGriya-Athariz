@@ -147,15 +147,216 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 .detail-lbl{font-size:11px;color:var(--text-muted);font-weight:600;width:130px;flex-shrink:0}
 .detail-val{font-size:13px;color:var(--text);flex:1}
 
-@media(max-width:640px){
-  .sidebar{width:58px}
-  .sidebar-logo p,.sidebar-logo h1,.sidebar-badges,.nav-item span,.sidebar-footer{display:none}
-  .nav-item{justify-content:center;padding:12px}
-  .content{padding:14px 12px}
-  .stats-row{grid-template-columns:1fr 1fr}
-  .form-grid,.g3{grid-template-columns:1fr}
-  .span2{grid-column:auto}
-  .topbar-sub{display:none}
+/* ========================================
+   LAPTOP (DEFAULT)
+   >1024px
+======================================== */
+
+/* Tidak perlu css tambahan
+   karena desain desktop sekarang
+   sudah menjadi default */
+
+
+/* ========================================
+   TABLET
+   769px - 1024px
+======================================== */
+
+@media (min-width:769px) and (max-width:1024px){
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+    padding:14px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .g3{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+
+/* ========================================
+   HP
+   <=768px
+======================================== */
+
+.menu-toggle{
+  display:none;
+}
+
+.sidebar-overlay{
+  display:none;
+}
+
+@media (max-width:768px){
+
+  .shell{
+    display:block;
+  }
+
+  .sidebar{
+
+    position:fixed;
+    top:0;
+    left:-260px;
+
+    width:240px;
+    height:100vh;
+
+    z-index:999;
+
+    transition:.3s;
+
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .topbar{
+    padding:12px;
+    flex-wrap:wrap;
+  }
+
+  .topbar-title{
+    font-size:15px;
+  }
+
+  .topbar-sub{
+    display:none;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .topbar .btn{
+    flex:1;
+    min-width:140px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea{
+    font-size:16px;
+  }
+
+  .patient-row{
+    flex-wrap:wrap;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:8px;
+
+    background:var(--teal);
+    color:#fff;
+
+    cursor:pointer;
+  }
+
+}
+
+
+/* ========================================
+   GLOBAL RESPONSIVE
+======================================== */
+
+.stat-num{
+  word-break:break-word;
 }
 
 .loading-overlay{
@@ -212,12 +413,163 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   animation:spin 1s linear infinite;
 }
 
+/* ==========================
+   RESPONSIVE SIDEBAR
+========================== */
+
+.menu-toggle{
+  display:none;
+  width:40px;
+  height:40px;
+  border:none;
+  background:var(--teal);
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+@media (max-width:768px){
+
+  .shell{
+    display:block;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:240px;
+    height:100vh;
+    z-index:999;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .topbar{
+    padding:12px;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+}
+
+/* TABLET */
+
+@media (min-width:769px) and (max-width:1024px){
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+.sidebar-overlay{
+  display:none;
+}
+
+@media (max-width:768px){
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
 }
 </style>
 </head>
 <body>
-<div class="shell">
+<div id="sidebarOverlay" class="sidebar-overlay"
+     onclick="toggleSidebar(false)">
+</div>
 
+<div class="shell">
   <div class="sidebar">
     <div class="sidebar-logo">
       <h1><i class="ti ti-heart-plus" style="vertical-align:-2px"></i> Rekam Medis</h1>
@@ -245,10 +597,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 
   <div class="main">
     <div class="topbar">
+
+  <button id="menuToggle" class="menu-toggle" onclick="toggleSidebar()">
+    <i class="ti ti-menu-2"></i>
+  </button>
       <div style="flex:1">
         <div class="topbar-title" id="topbar-title">Dashboard</div>
         <div class="topbar-sub" id="topbar-sub">Ringkasan aktivitas klinik</div>
       </div>
+      
       <button class="btn btn-sm" onclick="loadData()"><i class="ti ti-refresh"></i> Refresh</button>
       <button class="btn btn-primary btn-sm" onclick="goto('kunjungan')"><i class="ti ti-plus"></i> Kunjungan Baru</button>
     </div>
@@ -571,6 +928,11 @@ function goto(page){
   document.getElementById('topbar-title').textContent = PAGES[page].t;
   document.getElementById('topbar-sub').textContent = PAGES[page].s;
 }
+
+if(window.innerWidth <= 768){
+  toggleSidebar(false);
+}
+
 
 function toast(msg, type){
   type = type || 'ok';
@@ -1082,6 +1444,20 @@ function setBtnLoading(btn,status){
 
   }
 
+}
+
+function toggleSidebar(force){
+
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+
+  var open =
+    typeof force === 'boolean'
+      ? force
+      : !sidebar.classList.contains('show');
+
+  sidebar.classList.toggle('show', open);
+  overlay.classList.toggle('show', open);
 }
 init();
 </script>
