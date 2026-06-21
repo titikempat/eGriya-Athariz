@@ -629,7 +629,7 @@ function simpanPasien(){
   var telp = document.getElementById('p-telp').value.trim();
   if(!nama||!telp){ toast('Nama dan nomor telepon wajib diisi', 'err'); return; }
   if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan', 'err'); return; }
-
+  var noRm = 'RM-' + Date.now().toString().slice(-6);
   var payload = {
     action:'addPasien', noRm:noRm, nama:nama, telp:telp,
     tglLahir:document.getElementById('p-lahir').value,
