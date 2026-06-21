@@ -625,27 +625,62 @@ function kunjunganDariModal(){
 document.getElementById('modal-pasien').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
 function simpanPasien(){
+
   var nama = document.getElementById('p-nama').value.trim();
   var telp = document.getElementById('p-telp').value.trim();
-  if(!nama||!telp){ toast('Nama dan nomor telepon wajib diisi', 'err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan', 'err'); return; }
-  var noRm = 'RM-' + Date.now().toString().slice(-6);
+
+  if(!nama || !telp){
+    toast('Nama dan nomor telepon wajib diisi', 'err');
+    return;
+  }
+
+  if(!GAS_URL){
+    toast('Hubungkan Google Apps Script di Pengaturan', 'err');
+    return;
+  }
+
   var payload = {
-    action:'addPasien', noRm:noRm, nama:nama, telp:telp,
-    tglLahir:document.getElementById('p-lahir').value,
-    jk:document.getElementById('p-jk').value,
-    alamat:document.getElementById('p-alamat').value,
-    alergi:document.getElementById('p-alergi').value,
-    kronis:document.getElementById('p-kronis').value,
-    catatan:document.getElementById('p-catatan').value,
-    tglDaftar:today()
+    action: 'addPasien',
+    nama: nama,
+    telp: telp,
+    tglLahir: document.getElementById('p-lahir').value,
+    jk: document.getElementById('p-jk').value,
+    alamat: document.getElementById('p-alamat').value,
+    alergi: document.getElementById('p-alergi').value,
+    kronis: document.getElementById('p-kronis').value,
+    catatan: document.getElementById('p-catatan').value,
+    tglDaftar: today()
   };
-  fetch(GAS_URL, {method:'POST', body:JSON.stringify(payload)})
-    .then(function(r){return r.json();})
-    .then(function(res){
-      if(res.success){ toast('Pasien terdaftar! No. RM: ' + noRm); clearPasien(); loadPasien(); }
-      else toast(res.message || 'Gagal menyimpan', 'err');
-    }).catch(function(e){ toast('Error: ' + e.message, 'err'); });
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+  .then(function(r){
+    return r.json();
+  })
+  .then(function(res){
+
+    if(res.success){
+
+      toast('Pasien terdaftar! No. RM: ' + res.noRm);
+
+      clearPasien();
+      loadPasien();
+
+    }else{
+
+      toast(res.message || 'Gagal menyimpan', 'err');
+
+    }
+
+  })
+  .catch(function(e){
+
+    toast('Error: ' + e.message, 'err');
+
+  });
+
 }
 
 function simpanKunjungan(){
