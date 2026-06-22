@@ -1520,6 +1520,9 @@ function kirimResumeWA(data){
     .replace(/\D/g,'')
     .replace(/^0/,'62');
 
+  console.log('WA ASLI :', data.wa);
+  console.log('WA FINAL:', nomor);
+
   if(nomor.length < 10){
     toast('Nomor WhatsApp tidak valid','err');
     return;
