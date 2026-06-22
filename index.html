@@ -734,6 +734,115 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   background:#f8fafc;
   cursor:not-allowed;
 }
+
+/* =========================
+   PAYMENT MODERN UI
+========================= */
+
+.payment-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:16px;
+}
+
+.summary-box{
+  background:var(--card-bg,#fff);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+  transition:.2s;
+}
+
+.summary-box:hover{
+  transform:translateY(-2px);
+}
+
+.summary-box div{
+  margin-bottom:8px;
+  line-height:1.5;
+}
+
+.summary-qris{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+  margin-top:12px;
+}
+
+.btn-show-qris{
+  width:100%;
+  margin-top:10px;
+}
+
+.qris-preview{
+  margin-top:12px;
+  text-align:center;
+}
+
+.qris-preview img{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+}
+
+.qris-upload{
+  min-height:180px;
+  border:2px dashed #0B7285;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  text-align:center;
+  padding:20px;
+}
+
+.qris-upload:hover{
+  background:rgba(11,114,133,.05);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.upload-success{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:600;
+  color:#16a34a;
+  display:none;
+}
+
+.payment-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  font-size:15px;
+  font-weight:700;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
 </style>
 </head>
 <body>
@@ -989,15 +1098,16 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
         </div>
       </div>
 
-<!-- PANEL PEMAYARAN -->
+<!-- PANEL PEMBAYARAN -->
 
 <section id="panel-pembayaran" class="panel">
 
-  <div class="card">
+  <!-- FORM INPUT -->
+  <div id="paymentForm" class="card">
 
     <div class="section-title">
       <i class="ti ti-credit-card"></i>
-      Metode Pembayaran
+      Pengaturan Metode Pembayaran
     </div>
 
     <div class="payment-grid">
@@ -1079,33 +1189,19 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
             accept="image/*"
             onchange="uploadQRIS(event)">
 
-          <i class="ti ti-photo-up"
-             style="font-size:32px"></i>
+          <i class="ti ti-photo-up" style="font-size:32px"></i>
 
           <p style="margin-top:10px">
-            Upload Gambar QRIS
-          </p>
+  Upload Gambar QRIS
+</p>
 
+<div id="upload-status" class="upload-success">
+  ✓ Gambar QRIS berhasil diupload
+</div>
         </label>
 
         <div class="qris-preview">
-
           <img id="preview-qris">
-
-        </div>
-
-      </div>
-
-      <!-- CASH -->
-      <div class="payment-card">
-
-        <div class="payment-title">
-          <i class="ti ti-cash"></i>
-          Cash
-        </div>
-
-        <div class="bank-info">
-          Pembayaran tunai tersedia di lokasi layanan.
         </div>
 
       </div>
@@ -1119,6 +1215,90 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
         onclick="simpanPembayaran()">
 
         <i class="ti ti-device-floppy"></i>
+        Simpan Data Pembayaran
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- CARD HASIL -->
+  <div id="paymentCard" class="card" style="display:none">
+
+    <div class="section-title">
+      <i class="ti ti-credit-card"></i>
+      Metode Pembayaran Aktif
+    </div>
+
+    <div class="payment-summary">
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-building-bank"></i>
+          Transfer Bank
+        </div>
+
+        <div id="show-bank"></div>
+        <div id="show-rekening"></div>
+        <div id="show-an"></div>
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-wallet"></i>
+          E-Wallet
+        </div>
+
+        <div id="show-dana"></div>
+        <div id="show-ovo"></div>
+        <div id="show-gopay"></div>
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-qrcode"></i>
+          QRIS
+        </div>
+
+        <button
+  class="btn btn-outline btn-show-qris"
+  onclick="toggleQRIS()">
+
+  <i class="ti ti-qrcode"></i>
+  Lihat QRIS
+
+</button>
+
+<img id="show-qris" class="summary-qris">
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-cash"></i>
+          Cash
+        </div>
+
+        Pembayaran tunai tersedia di lokasi layanan.
+
+      </div>
+
+    </div>
+
+    <div class="payment-actions">
+
+      <button
+        class="btn btn-outline"
+        onclick="editPembayaran()">
+
+        <i class="ti ti-edit"></i>
         Update Data Pembayaran
 
       </button>
@@ -1128,7 +1308,6 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   </div>
 
 </section>
-
       <!-- SETUP -->
       <div id="panel-setup" class="panel">
         <div class="card">
@@ -2435,16 +2614,47 @@ function uploadQRIS(e){
       evt.target.result
     );
 
-    var img = document.getElementById('preview-qris');
+    var img =
+      document.getElementById('preview-qris');
 
     if(img){
+
       img.src = evt.target.result;
       img.style.display = 'block';
+
     }
+
+    var status =
+      document.getElementById('upload-status');
+
+    if(status){
+
+      status.style.display = 'block';
+
+    }
+
+    toast('QRIS berhasil diupload');
 
   };
 
   reader.readAsDataURL(file);
+
+}
+
+function toggleQRIS(){
+
+  var img =
+    document.getElementById('show-qris');
+
+  if(img.style.display === 'block'){
+
+    img.style.display = 'none';
+
+  }else{
+
+    img.style.display = 'block';
+
+  }
 
 }
 
@@ -2478,6 +2688,8 @@ function simpanPembayaran(){
   );
 
   toast('Data pembayaran berhasil disimpan');
+
+  tampilkanPembayaran();
 
 }
 
@@ -2528,8 +2740,70 @@ function loadPembayaran(){
 
 }
 
-loadPembayaran();
+function tampilkanPembayaran(){
 
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(!pay.bank && !pay.rekening){
+    return;
+  }
+
+  document.getElementById('paymentForm').style.display =
+    'none';
+
+  document.getElementById('paymentCard').style.display =
+    'block';
+
+  document.getElementById('show-bank').innerHTML =
+    '<b>Bank :</b> ' + (pay.bank || '-');
+
+  document.getElementById('show-rekening').innerHTML =
+    '<b>No Rekening :</b> ' + (pay.rekening || '-');
+
+  document.getElementById('show-an').innerHTML =
+    '<b>Atas Nama :</b> ' + (pay.an || '-');
+
+  document.getElementById('show-dana').innerHTML =
+    '<b>DANA :</b> ' + (pay.dana || '-');
+
+  document.getElementById('show-ovo').innerHTML =
+    '<b>OVO :</b> ' + (pay.ovo || '-');
+
+  document.getElementById('show-gopay').innerHTML =
+    '<b>GoPay :</b> ' + (pay.gopay || '-');
+
+  var qris =
+    localStorage.getItem('qris_image');
+
+  if(qris){
+
+    document.getElementById('show-qris').src =
+      qris;
+
+  }
+
+}
+
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display =
+    'none';
+
+  document.getElementById('paymentForm').style.display =
+    'block';
+
+}
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display = 'none';
+  document.getElementById('paymentForm').style.display = 'block';
+
+}
+
+loadPembayaran();
+tampilkanPembayaran();
 init();
 </script>
 </body>
