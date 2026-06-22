@@ -705,6 +705,35 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   font-weight:600;
   color:var(--text-muted);
 }
+
+/* Tanggal lahir & usia */
+
+#p-lahir,
+#p-usia{
+  width:100%;
+  height:46px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  font-size:14px;
+  font-weight:500;
+  outline:none;
+  transition:.2s;
+  box-sizing:border-box;
+}
+
+#p-lahir:focus,
+#p-usia:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(11,114,133,.15);
+}
+
+#p-usia{
+  background:#f8fafc;
+  cursor:not-allowed;
+}
 </style>
 </head>
 <body>
@@ -780,7 +809,22 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
           <div class="form-grid">
             <div class="field"><label>Nama Lengkap *</label><input id="p-nama" placeholder="Nama lengkap pasien"/></div>
             <div class="field"><label>No. Telepon *</label><input id="p-telp" type="tel" placeholder="08xx-xxxx-xxxx"/></div>
-            <div class="field"><label>Tanggal Lahir</label><input id="p-lahir" type="date"/></div>
+            <div class="form-group">
+  <label>Tanggal Lahir</label>
+  <input
+    type="date"
+    id="p-lahir"
+    onchange="hitungUsiaPasien()">
+</div>
+
+<div class="form-group">
+  <label>Usia</label>
+  <input
+    type="text"
+    id="p-usia"
+    readonly
+    placeholder="Otomatis terisi">
+</div>
             <div class="field"><label>Jenis Kelamin</label>
               <select id="p-jk"><option value="">— Pilih —</option><option value="P">Perempuan</option><option value="L">Laki-laki</option></select>
             </div>
@@ -1160,6 +1204,39 @@ var PAGES = {
 };
 
 function today(){ return new Date().toISOString().split('T')[0]; }
+
+function hitungUsiaPasien(){
+
+  var tgl =
+    document.getElementById('p-lahir').value;
+
+  if(!tgl){
+
+    document.getElementById('p-usia').value = '';
+    return;
+
+  }
+
+  var lahir = new Date(tgl);
+  var hariIni = new Date();
+
+  var usia =
+    hariIni.getFullYear() - lahir.getFullYear();
+
+  var m =
+    hariIni.getMonth() - lahir.getMonth();
+
+  if(
+    m < 0 ||
+    (m === 0 && hariIni.getDate() < lahir.getDate())
+  ){
+    usia--;
+  }
+
+  document.getElementById('p-usia').value =
+    usia + ' Tahun';
+
+}
 
 function hitungIMT(bb, tb){
 
@@ -1824,7 +1901,7 @@ function renderPasien(data){
 
     pageData.map(function(p){
 
-      return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[3]||'') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
+      return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[4]||'-') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
 
     }).join('')
 
@@ -1932,19 +2009,88 @@ function toggleLayanan(){
   document.getElementById('f-baby').style.display = v==='Baby Spa' ? 'block' : 'none';
 }
 
+function formatTanggalDisplay(tgl){
+
+  if(!tgl) return '—';
+
+  var d = new Date(tgl);
+
+  if(isNaN(d)) return tgl;
+
+  var hari = String(d.getDate()).padStart(2,'0');
+  var bulan = String(d.getMonth()+1).padStart(2,'0');
+  var tahun = d.getFullYear();
+
+  return hari + '-' + bulan + '-' + tahun;
+
+}
+
 function detailPasien(p){
+
   activePasienRm = p[0];
-  var riwayatPasien = allKunjungan.filter(function(k){return k[1]===p[0];}).slice(-5).reverse();
-  var riwHTML = riwayatPasien.length ? riwayatPasien.map(visitHTML).join('') : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
+
+  var riwayatPasien = allKunjungan
+    .filter(function(k){
+      return k[1] === p[0];
+    })
+    .slice(-5)
+    .reverse();
+
+  var riwHTML = riwayatPasien.length
+    ? riwayatPasien.map(visitHTML).join('')
+    : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
+
   document.getElementById('modal-content').innerHTML =
-    '<div class="rm-card"><div class="rm-no">NO. REKAM MEDIS — ' + (p[0]||'—') + '</div><div class="rm-name">' + (p[1]||'—') + '</div><div class="rm-meta">' + (p[4]==='P'?'Perempuan':'Laki-laki') + ' &middot; ' + (p[3]||'—') + ' &middot; ' + (p[2]||'—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' + (p[5]||'—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' + (p[6]||'—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' + (p[7]||'—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' + (p[8]||'—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' + (p[9]||'—') + '</div></div>' +
-    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' + riwHTML;
+
+    '<div class="rm-card">' +
+
+      '<div class="rm-no">NO. REKAM MEDIS — ' +
+      (p[0] || '—') +
+      '</div>' +
+
+      '<div class="rm-name">' +
+      (p[1] || '—') +
+      '</div>' +
+
+      '<div class="rm-meta">' +
+      (p[5] === 'P' ? 'Perempuan' : 'Laki-laki') +
+      ' &middot; ' +
+      formatTanggalDisplay(p[3]) +
+      ' &middot; ' +
+      (p[2] || '—') +
+      '</div>' +
+
+    '</div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Usia</div><div class="detail-val">' +
+    (p[4] || '—') +
+    ' Tahun</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' +
+    (p[6] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' +
+    (p[7] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' +
+    (p[8] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' +
+    (p[9] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' +
+    formatTanggalDisplay(p[10]) +
+    '</div></div>' +
+
+    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' +
+    riwHTML;
+
   document.getElementById('modal-pasien').classList.add('open');
+
 }
 
 function closeModal(){ document.getElementById('modal-pasien').classList.remove('open'); }
@@ -1978,6 +2124,7 @@ function simpanPasien(){
     nama:nama,
     telp:telp,
     tglLahir:document.getElementById('p-lahir').value,
+    usia: document.getElementById('p-usia').value,
     jk:document.getElementById('p-jk').value,
     alamat:document.getElementById('p-alamat').value,
     alergi:document.getElementById('p-alergi').value,
@@ -2214,7 +2361,7 @@ var rekomendasi = buatRekomendasi({
 }
 
 function clearPasien(){
-  ['p-nama','p-telp','p-lahir','p-alamat','p-alergi','p-kronis','p-catatan'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['p-nama','p-telp','p-lahir','p-usia','p-alamat','p-alergi','p-kronis','p-catatan'].forEach(function(id){ document.getElementById(id).value=''; });
   document.getElementById('p-jk').value = '';
 }
 
