@@ -691,6 +691,20 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   }
 
 }
+
+.pagination{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+}
+
+.page-info{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text-muted);
+}
 </style>
 </head>
 <body>
@@ -1128,6 +1142,8 @@ var allPasien = [];
 var allKunjungan = [];
 var selectedTitik = [];
 var activePasienRm = '';
+var pasienPage = 1;
+var pasienPerPage = 10;
 
 var TITIK = ["Al-Kahil","Yafukh","Akhda'in Kanan","Akhda'in Kiri","Al-Wariq","Anas Shalabi","Katifain Kanan","Katifain Kiri","Dzahr Kanan","Dzahr Kiri","Qufaz Kanan","Qufaz Kiri","Warak Kanan","Warak Kiri","Al-Hajibain","Al-Jawf"];
 var DARAH = ["Pekat","Cair","Berbusa","Warna Gelap","Menggumpal","Normal","Sedikit"];
@@ -1777,11 +1793,75 @@ function visitHTML(k){
 }
 
 function renderPasien(data){
+
   var el = document.getElementById('list-pasien');
-  if(!data.length){ el.innerHTML = '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>'; return; }
-  el.innerHTML = data.map(function(p){
-    return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[3]||'') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
-  }).join('');
+
+  if(!data.length){
+
+    el.innerHTML =
+      '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>';
+
+    return;
+
+  }
+
+  var start =
+    (pasienPage - 1) * pasienPerPage;
+
+  var end =
+    start + pasienPerPage;
+
+  var pageData =
+    data.slice(start,end);
+
+  var totalPage =
+    Math.ceil(data.length / pasienPerPage);
+
+  el.innerHTML =
+
+    pageData.map(function(p){
+
+      return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[3]||'') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
+
+    }).join('')
+
+    +
+
+    '<div class="pagination">' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(-1)" ' +
+      (pasienPage===1?'disabled':'') +
+      '>◀</button>' +
+
+      '<span class="page-info">Halaman ' +
+      pasienPage +
+      ' / ' +
+      totalPage +
+      '</span>' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(1)" ' +
+      (pasienPage===totalPage?'disabled':'') +
+      '>▶</button>' +
+
+    '</div>';
+
+}
+
+function gantiPagePasien(step){
+
+  var totalPage =
+    Math.ceil(allPasien.length / pasienPerPage);
+
+  pasienPage += step;
+
+  if(pasienPage < 1)
+    pasienPage = 1;
+
+  if(pasienPage > totalPage)
+    pasienPage = totalPage;
+
+  renderPasien(allPasien);
+
 }
 
 function renderRiwayat(data){
@@ -1805,19 +1885,21 @@ function filterPasien(){
 
   var q = document.getElementById('cari-pasien').value.toLowerCase().trim();
 
-  renderPasien(
-    allPasien.filter(function(p){
+  pasienPage = 1;
 
-      var nama = String(p[1] || '').toLowerCase();
-      var telp = String(p[2] || '');
-      var rm   = String(p[0] || '').toLowerCase();
+renderPasien(
+  allPasien.filter(function(p){
 
-      return nama.includes(q)
-          || telp.includes(q)
-          || rm.includes(q);
+    var nama = String(p[1] || '').toLowerCase();
+    var telp = String(p[2] || '');
+    var rm   = String(p[0] || '').toLowerCase();
 
-    })
-  );
+    return nama.includes(q)
+        || telp.includes(q)
+        || rm.includes(q);
+
+  })
+);
 
 }
 
