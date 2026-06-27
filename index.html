@@ -57,7 +57,6 @@ nav{flex:1;padding:10px 0}
 .card-hd-act{font-size:12px;color:var(--teal);cursor:pointer;font-weight:500}
 
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.stats-row.layanan{grid-template-columns:repeat(3,1fr);background:rgba(11,114,133,.05);padding:12px;border-radius:var(--radius-lg);margin-bottom:16px}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
 .stat-num{font-size:28px;font-weight:600;color:var(--teal-dark);line-height:1}
 .stat-lbl{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:500}
@@ -148,101 +147,702 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 .detail-lbl{font-size:11px;color:var(--text-muted);font-weight:600;width:130px;flex-shrink:0}
 .detail-val{font-size:13px;color:var(--text);flex:1}
 
+/* ========================================
+   LAPTOP (DEFAULT)
+   >1024px
+======================================== */
+
+/* Tidak perlu css tambahan
+   karena desain desktop sekarang
+   sudah menjadi default */
+
+
+/* ========================================
+   TABLET
+   769px - 1024px
+======================================== */
+
 @media (min-width:769px) and (max-width:1024px){
-  .sidebar{width:80px;}
-  .sidebar-logo h1,.sidebar-logo p,.sidebar-badges,.nav-item span,.sidebar-footer{display:none;}
-  .nav-item{justify-content:center;padding:14px;}
-  .content{padding:16px;}
-  .stats-row{grid-template-columns:repeat(2,1fr);}
-  .g3{grid-template-columns:1fr 1fr;}
-  .titik-grid{grid-template-columns:repeat(3,1fr);}
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+    padding:14px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .g3{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
 }
 
-.menu-toggle{display:none;}
-.sidebar-overlay{display:none;}
+
+/* ========================================
+   HP
+   <=768px
+======================================== */
+
+.menu-toggle{
+  display:none;
+}
+
+.sidebar-overlay{
+  display:none;
+}
 
 @media (max-width:768px){
-  .shell{overflow:visible;height:auto;}
-  .sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:999;transition:.3s;box-shadow:0 0 20px rgba(0,0,0,.15);}
-  .sidebar.show{left:0;}
-  .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:998;display:none;}
-  .sidebar-overlay.show{display:block;}
-  .main{width:100%;}
-  .topbar{padding:12px;flex-wrap:wrap;}
-  .topbar-title{font-size:15px;}
-  .topbar-sub{display:none;}
-  .content{padding:12px;}
-  .stats-row{grid-template-columns:1fr;}
-  .stats-row.layanan{grid-template-columns:1fr;}
-  .form-grid,.g3{grid-template-columns:1fr;}
-  .span2{grid-column:auto;}
-  .search-row{flex-direction:column;}
-  .btn-row{flex-direction:column;}
-  .btn{width:100%;justify-content:center;}
-  .topbar .btn{flex:1;min-width:140px;}
-  .field input,.field select,.field textarea{font-size:16px;}
-  .patient-row{flex-wrap:wrap;}
-  .titik-grid{grid-template-columns:repeat(2,1fr);}
-  .modal{width:95%;padding:16px;}
-  .detail-row{flex-direction:column;gap:2px;}
-  .detail-lbl{width:auto;}
-  .menu-toggle{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;border-radius:8px;background:var(--teal);color:#fff;cursor:pointer;}
+
+  @media (max-width:768px){
+
+  .shell{
+    overflow:visible;
+    height:auto;
+  }
+
 }
 
-.stat-num{word-break:break-word;}
-.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.8);backdrop-filter:blur(3px);z-index:9999;display:none;align-items:center;justify-content:center;}
-.loading-overlay.show{display:flex;}
-.loading-box{background:#fff;padding:24px 30px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;min-width:220px;}
-.spinner{width:48px;height:48px;border:4px solid #E1F5EE;border-top:4px solid #0B7285;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
-.loading-text{font-size:13px;color:#0B7285;font-weight:600;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.btn-loading{pointer-events:none;opacity:.7;}
-.btn-loading i{animation:spin 1s linear infinite;}
+  .sidebar{
 
-.payment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.payment-card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:14px;padding:18px;}
-.payment-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text-main);}
-.payment-title i{font-size:18px;}
-.payment-card .form-group{margin-bottom:12px;}
-.payment-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-muted);}
-.payment-card input{width:100%;padding:12px 14px;border:none;border-radius:12px;background:#f5f7fa;font-size:14px;transition:.2s;}
-.payment-card input:focus{outline:none;background:#fff;box-shadow:0 0 0 2px var(--primary),0 4px 12px rgba(0,0,0,.08);}
-.qris-upload{border:2px dashed var(--border-color);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.2s;}
-.qris-upload:hover{border-color:var(--primary);}
-.qris-upload input{display:none;}
-.qris-preview{width:100%;max-width:250px;margin:15px auto 0;display:none;border-radius:12px;border:1px solid var(--border-color);overflow:hidden;}
-.qris-preview img{width:100%;display:block;}
-.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
-.payment-actions button{min-width:180px;}
+    position:fixed;
+    top:0;
+    left:-260px;
 
-.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;}
-.page-info{font-size:13px;font-weight:600;color:var(--text-muted);}
+    width:240px;
+    height:100vh;
 
-#p-lahir,#p-usia{width:100%;height:46px;padding:0 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);font-size:14px;font-weight:500;outline:none;transition:.2s;box-sizing:border-box;}
-#p-lahir:focus,#p-usia:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,114,133,.15);}
-#p-usia{background:#f8fafc;cursor:not-allowed;}
+    z-index:999;
 
-.payment-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px;}
-.summary-box{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:.2s;}
-.summary-box:hover{transform:translateY(-2px);}
-.summary-box div{margin-bottom:8px;line-height:1.5;}
-.summary-qris{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;margin-top:12px;}
-.btn-show-qris{width:100%;margin-top:10px;}
-.qris-preview{margin-top:12px;text-align:center;}
-.qris-preview img{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;}
-.qris-upload{min-height:180px;border:2px dashed #0B7285;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;text-align:center;padding:20px;}
-.qris-upload:hover{background:rgba(11,114,133,.05);}
-.qris-upload input{display:none;}
-.upload-success{margin-top:12px;font-size:13px;font-weight:600;color:#16a34a;display:none;}
-.payment-card{border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.04);}
-.payment-title{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:15px;font-weight:700;}
-.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
+    transition:.3s;
 
-/* Scedule Styling */
-.table-responsive{width:100%;overflow-x:auto;margin-top:10px;}
-.modern-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;}
-.modern-table th,.modern-table td{padding:12px;text-align:left;border-bottom:1px solid var(--border);}
-.modern-table th{background:var(--teal-light);color:var(--teal-dark);font-weight:600;}
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .topbar{
+    padding:12px;
+    flex-wrap:wrap;
+  }
+
+  .topbar-title{
+    font-size:15px;
+  }
+
+  .topbar-sub{
+    display:none;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .topbar .btn{
+    flex:1;
+    min-width:140px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea{
+    font-size:16px;
+  }
+
+  .patient-row{
+    flex-wrap:wrap;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:8px;
+
+    background:var(--teal);
+    color:#fff;
+
+    cursor:pointer;
+  }
+
+}
+
+
+/* ========================================
+   GLOBAL RESPONSIVE
+======================================== */
+
+.stat-num{
+  word-break:break-word;
+}
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(3px);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.loading-overlay.show{
+  display:flex;
+}
+
+.loading-box{
+  background:#fff;
+  padding:24px 30px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+  text-align:center;
+  min-width:220px;
+}
+
+.spinner{
+  width:48px;
+  height:48px;
+  border:4px solid #E1F5EE;
+  border-top:4px solid #0B7285;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 12px;
+}
+
+.loading-text{
+  font-size:13px;
+  color:#0B7285;
+  font-weight:600;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.btn-loading{
+  pointer-events:none;
+  opacity:.7;
+}
+
+.btn-loading i{
+  animation:spin 1s linear infinite;
+}
+
+/* ==========================
+   RESPONSIVE SIDEBAR
+========================== */
+
+.menu-toggle{
+  display:none;
+  width:40px;
+  height:40px;
+  border:none;
+  background:var(--teal);
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+@media (max-width:768px){
+
+  .shell{
+    display:block;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:240px;
+    height:100vh;
+    z-index:999;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .topbar{
+    padding:12px;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+}
+
+/* TABLET */
+
+@media (min-width:769px) and (max-width:1024px){
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+.sidebar-overlay{
+  display:none;
+}
+
+@media (max-width:768px){
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
+}
+
+/* =========================
+   PANEL PEMAYARAN
+========================= */
+
+.payment-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+
+.payment-card{
+  background:var(--card-bg);
+  border:1px solid var(--border-color);
+  border-radius:14px;
+  padding:18px;
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:14px;
+  color:var(--text-main);
+}
+
+.payment-title i{
+  font-size:18px;
+}
+
+.payment-card .form-group{
+  margin-bottom:12px;
+}
+
+.payment-card label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:var(--text-muted);
+}
+
+.payment-card input{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  background:#f5f7fa;
+  font-size:14px;
+  transition:.2s;
+}
+
+.payment-card input:focus{
+  outline:none;
+  background:#fff;
+  box-shadow:
+    0 0 0 2px var(--primary),
+    0 4px 12px rgba(0,0,0,.08);
+}
+
+.qris-upload{
+  border:2px dashed var(--border-color);
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.qris-upload:hover{
+  border-color:var(--primary);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.qris-preview{
+  width:100%;
+  max-width:250px;
+  margin:15px auto 0;
+  display:none;
+  border-radius:12px;
+  border:1px solid var(--border-color);
+  overflow:hidden;
+}
+
+.qris-preview img{
+  width:100%;
+  display:block;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.payment-actions button{
+  min-width:180px;
+}
+
+.bank-info{
+  background:rgba(59,130,246,.08);
+  border:1px solid rgba(59,130,246,.15);
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  margin-top:10px;
+}
+
+@media(max-width:768px){
+
+  .payment-grid{
+    grid-template-columns:1fr;
+  }
+
+  .payment-actions button{
+    width:100%;
+  }
+
+}
+
+.pagination{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+}
+
+.page-info{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text-muted);
+}
+
+/* Tanggal lahir & usia */
+
+#p-lahir,
+#p-usia{
+  width:100%;
+  height:46px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  font-size:14px;
+  font-weight:500;
+  outline:none;
+  transition:.2s;
+  box-sizing:border-box;
+}
+
+#p-lahir:focus,
+#p-usia:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(11,114,133,.15);
+}
+
+#p-usia{
+  background:#f8fafc;
+  cursor:not-allowed;
+}
+
+/* =========================
+   PAYMENT MODERN UI
+========================= */
+
+.payment-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:16px;
+}
+
+.summary-box{
+  background:var(--card-bg,#fff);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+  transition:.2s;
+}
+
+.summary-box:hover{
+  transform:translateY(-2px);
+}
+
+.summary-box div{
+  margin-bottom:8px;
+  line-height:1.5;
+}
+
+.summary-qris{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+  margin-top:12px;
+}
+
+.btn-show-qris{
+  width:100%;
+  margin-top:10px;
+}
+
+.qris-preview{
+  margin-top:12px;
+  text-align:center;
+}
+
+.qris-preview img{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+}
+
+.qris-upload{
+  min-height:180px;
+  border:2px dashed #0B7285;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  text-align:center;
+  padding:20px;
+}
+
+.qris-upload:hover{
+  background:rgba(11,114,133,.05);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.upload-success{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:600;
+  color:#16a34a;
+  display:none;
+}
+
+.payment-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  font-size:15px;
+  font-weight:700;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
 </style>
 </head>
 <body>
@@ -635,12 +1235,10 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
     <div class="loading-text">Memproses Data...</div>
   </div>
 </div>
-
 <script>
 var GAS_URL = localStorage.getItem('gas_url') || '';
 var allPasien = [];
 var allKunjungan = [];
-var allJadwal = [];
 var selectedTitik = [];
 var activePasienRm = '';
 var pasienPage = 1;
@@ -655,90 +1253,392 @@ var PAGES = {
   dashboard:{t:'Dashboard',s:'Ringkasan aktivitas klinik'},
   pasien:{t:'Data Pasien',s:'Daftar & pendaftaran pasien'},
   kunjungan:{t:'Catat Kunjungan',s:'Formulir rekam medis SOAP'},
-  jadwal:{t:'Atur Jadwal Booking',s:'Kelola jadwal kedatangan pasien'},
   riwayat:{t:'Riwayat Kunjungan',s:'Histori semua kunjungan'},
-  pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
+   pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
   setup:{t:'Pengaturan',s:'Konfigurasi Google Apps Script'}
 };
 
 function today(){ return new Date().toISOString().split('T')[0]; }
 
 function hitungUsiaPasien(){
-  var tgl = document.getElementById('p-lahir').value;
-  if(!tgl){ document.getElementById('p-usia').value = ''; return; }
+
+  var tgl =
+    document.getElementById('p-lahir').value;
+
+  if(!tgl){
+
+    document.getElementById('p-usia').value = '';
+    return;
+
+  }
+
   var lahir = new Date(tgl);
   var hariIni = new Date();
-  var usia = hariIni.getFullYear() - lahir.getFullYear();
-  var m = hariIni.getMonth() - lahir.getMonth();
-  if(m < 0 || (m === 0 && hariIni.getDate() < lahir.getDate())){ usia--; }
-  document.getElementById('p-usia').value = usia + ' Tahun';
+
+  var usia =
+    hariIni.getFullYear() - lahir.getFullYear();
+
+  var m =
+    hariIni.getMonth() - lahir.getMonth();
+
+  if(
+    m < 0 ||
+    (m === 0 && hariIni.getDate() < lahir.getDate())
+  ){
+    usia--;
+  }
+
+  document.getElementById('p-usia').value =
+    usia + ' Tahun';
+
 }
 
 function hitungIMT(bb, tb){
-  bb = parseFloat(bb); tb = parseFloat(tb);
+
+  bb = parseFloat(bb);
+  tb = parseFloat(tb);
+
   if(!bb || !tb) return null;
+
   const imt = bb / Math.pow(tb/100,2);
+
   let status = '';
-  if(imt < 18.5){ status = 'Kurus'; }else if(imt < 25){ status = 'Normal'; }else if(imt < 30){ status = 'Gemuk'; }else{ status = 'Obesitas'; }
-  return { imt: imt.toFixed(1), status: status };
+
+  if(imt < 18.5){
+    status = 'Kurus';
+  }else if(imt < 25){
+    status = 'Normal';
+  }else if(imt < 30){
+    status = 'Gemuk';
+  }else{
+    status = 'Obesitas';
+  }
+
+  return {
+    imt: imt.toFixed(1),
+    status: status
+  };
 }
 
 function statusTensi(td){
+
   if(!td) return 'Tidak dilakukan pemeriksaan';
-  const p = td.split('/'); if(p.length !== 2) return 'Tidak valid';
-  const sistol = parseInt(p[0]); const diastol = parseInt(p[1]);
-  if(sistol < 90 || diastol < 60){ return 'Hipotensi'; }
-  if(sistol < 130 && diastol < 80){ return 'Normal'; }
-  if(sistol < 140 || diastol < 90){ return 'Pra Hipertensi'; }
+
+  const p = td.split('/');
+
+  if(p.length !== 2) return 'Tidak valid';
+
+  const sistol = parseInt(p[0]);
+  const diastol = parseInt(p[1]);
+
+  if(sistol < 90 || diastol < 60){
+    return 'Hipotensi';
+  }
+
+  if(sistol < 130 && diastol < 80){
+    return 'Normal';
+  }
+
+  if(sistol < 140 || diastol < 90){
+    return 'Pra Hipertensi';
+  }
+
   return 'Hipertensi';
 }
 
 function statusGDS(gds){
-  gds = parseFloat(gds); if(!gds){ return 'Tidak dilakukan pemeriksaan'; }
-  if(gds < 140){ return 'Normal'; } if(gds < 200){ return 'Prediabetes'; } return 'Diabetes';
+
+  gds = parseFloat(gds);
+
+  if(!gds){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(gds < 140){
+    return 'Normal';
+  }
+
+  if(gds < 200){
+    return 'Prediabetes';
+  }
+
+  return 'Diabetes';
 }
 
 function statusKolesterol(nilai){
-  nilai = parseFloat(nilai); if(!nilai){ return 'Tidak dilakukan pemeriksaan'; }
-  if(nilai < 200){ return 'Normal'; } if(nilai < 240){ return 'Borderline Tinggi'; } return 'Hiperkolesterol';
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(nilai < 200){
+    return 'Normal';
+  }
+
+  if(nilai < 240){
+    return 'Borderline Tinggi';
+  }
+
+  return 'Hiperkolesterol';
 }
 
 function statusAsamUrat(nilai,jk){
-  nilai = parseFloat(nilai); if(!nilai){ return 'Tidak dilakukan pemeriksaan'; }
-  if(jk === 'P'){
-    if(nilai < 2.4){ return 'Rendah'; } if(nilai <= 6){ return 'Normal'; } return 'Tinggi';
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
   }
-  if(nilai < 3.4){ return 'Rendah'; } if(nilai <= 7){ return 'Normal'; } return 'Tinggi';
+
+  if(jk === 'P'){
+
+    if(nilai < 2.4){
+      return 'Rendah';
+    }
+
+    if(nilai <= 6){
+      return 'Normal';
+    }
+
+    return 'Tinggi';
+  }
+
+  if(nilai < 3.4){
+    return 'Rendah';
+  }
+
+  if(nilai <= 7){
+    return 'Normal';
+  }
+
+  return 'Tinggi';
 }
 
 function buatRekomendasi(data){
+
   let hasil = [];
+
+  // STATUS GIZI
   if(data.gizi === 'Gemuk' || data.gizi === 'Obesitas'){
-    hasil.push(`⚠️ ${data.gizi}\n\nYuk mulai hidup sehat agar berat badan ideal!\n\n🚫 Hindari:\n• Gorengan\n• Minuman manis\n• Fast food\n• Makanan tinggi lemak\n\n🥗 Perbanyak:\n• Sayuran\n• Buah segar\n• Air putih minimal 8 gelas/hari\n\n🏃 Aktivitas:\n• Jalan cepat 30 menit/hari\n• Bersepeda\n• Senam ringan\n• Kurangi duduk terlalu lama`);
+
+    hasil.push(
+`⚠️ ${data.gizi}
+
+Yuk mulai hidup sehat agar berat badan ideal!
+
+🚫 Hindari:
+• Gorengan
+• Minuman manis
+• Fast food
+• Makanan tinggi lemak
+
+🥗 Perbanyak:
+• Sayuran
+• Buah segar
+• Air putih minimal 8 gelas/hari
+
+🏃 Aktivitas:
+• Jalan cepat 30 menit/hari
+• Bersepeda
+• Senam ringan
+• Kurangi duduk terlalu lama`
+    );
+
   }
+
   if(data.gizi === 'Kurus'){
-    hasil.push(`⚠️ Berat Badan Kurang\n\nMari tingkatkan status gizi secara bertahap.\n\n🚫 Hindari:\n• Sering telat makan\n• Diet berlebihan\n\n🥗 Perbanyak:\n• Protein (telur, ikan, ayam)\n• Susu\n• Buah dan sayur\n\n🏃 Aktivitas:\n• Olahraga ringan teratur\n• Istirahat cukup`);
+
+    hasil.push(
+`⚠️ Berat Badan Kurang
+
+Mari tingkatkan status gizi secara bertahap.
+
+🚫 Hindari:
+• Sering telat makan
+• Diet berlebihan
+
+🥗 Perbanyak:
+• Protein (telur, ikan, ayam)
+• Susu
+• Buah dan sayur
+
+🏃 Aktivitas:
+• Olahraga ringan teratur
+• Istirahat cukup`
+    );
+
   }
+
+  // TENSI
   if(data.tensi === 'Hipertensi'){
-    hasil.push(`⚠️ Tekanan Darah Tinggi\n\n🚫 Kurangi:\n• Garam berlebihan\n• Makanan instan\n• Kopi berlebihan\n• Rokok\n\n🥗 Perbanyak:\n• Sayuran hijau\n• Buah-buahan\n• Air putih\n\n🏃 Aktivitas:\n• Jalan santai\n• Senam\n• Relaksasi dan kelola stres`);
+
+    hasil.push(
+`⚠️ Tekanan Darah Tinggi
+
+🚫 Kurangi:
+• Garam berlebihan
+• Makanan instan
+• Kopi berlebihan
+• Rokok
+
+🥗 Perbanyak:
+• Sayuran hijau
+• Buah-buahan
+• Air putih
+
+🏃 Aktivitas:
+• Jalan santai
+• Senam
+• Relaksasi dan kelola stres`
+    );
+
   }
-  if(data.gula === 'Prediabetes' || data.gula === 'Diabetes'){
-    hasil.push(`⚠️ Gula Darah Tinggi\n\n🚫 Batasi:\n• Minuman manis\n• Kue dan permen\n• Nasi berlebihan\n\n🥗 Perbanyak:\n• Sayuran\n• Protein sehat\n• Air putih\n\n🏃 Aktivitas:\n• Jalan kaki 30 menit/hari\n• Senam diabetes\n• Aktivitas fisik rutin`);
+
+  // GULA DARAH
+  if(
+    data.gula === 'Prediabetes' ||
+    data.gula === 'Diabetes'
+  ){
+
+    hasil.push(
+`⚠️ Gula Darah Tinggi
+
+🚫 Batasi:
+• Minuman manis
+• Kue dan permen
+• Nasi berlebihan
+
+🥗 Perbanyak:
+• Sayuran
+• Protein sehat
+• Air putih
+
+🏃 Aktivitas:
+• Jalan kaki 30 menit/hari
+• Senam diabetes
+• Aktivitas fisik rutin`
+    );
+
   }
-  if(data.kolesterol === 'Hiperkolesterol' || data.kolesterol === 'Borderline Tinggi'){
-    hasil.push(`⚠️ Kolesterol Tinggi\n\n🚫 Kurangi:\n• Jeroan\n• Gorengan\n• Santan berlebihan\n• Kulit ayam\n\n🥗 Perbanyak:\n• Ikan\n• Oatmeal\n• Sayuran\n• Buah tinggi serat\n\n🏃 Aktivitas:\n• Jalan cepat\n• Bersepeda\n• Olahraga aerobik ringan`);
+
+  // KOLESTEROL
+  if(
+    data.kolesterol === 'Hiperkolesterol' ||
+    data.kolesterol === 'Borderline Tinggi'
+  ){
+
+    hasil.push(
+`⚠️ Kolesterol Tinggi
+
+🚫 Kurangi:
+• Jeroan
+• Gorengan
+• Santan berlebihan
+• Kulit ayam
+
+🥗 Perbanyak:
+• Ikan
+• Oatmeal
+• Sayuran
+• Buah tinggi serat
+
+🏃 Aktivitas:
+• Jalan cepat
+• Bersepeda
+• Olahraga aerobik ringan`
+    );
+
   }
+
+  // ASAM URAT
   if(data.asamUrat === 'Tinggi'){
-    hasil.push(`⚠️ Asam Urat Tinggi\n\n🚫 Hindari:\n• Jeroan\n• Seafood berlebihan\n• Daging merah berlebihan\n\n🥗 Perbanyak:\n• Air putih\n• Buah segar\n• Sayuran rendah purin\n\n🏃 Aktivitas:\n• Jalan santai\n• Peregangan ringan\n• Jaga berat badan ideal`);
+
+    hasil.push(
+`⚠️ Asam Urat Tinggi
+
+🚫 Hindari:
+• Jeroan
+• Seafood berlebihan
+• Daging merah berlebihan
+
+🥗 Perbanyak:
+• Air putih
+• Buah segar
+• Sayuran rendah purin
+
+🏃 Aktivitas:
+• Jalan santai
+• Peregangan ringan
+• Jaga berat badan ideal`
+    );
+
   }
+
   if(hasil.length === 0){
-    hasil.push(`✅ Hasil pemeriksaan dalam batas normal.\n\nPertahankan pola hidup sehat dengan:\n\n🥗 Konsumsi makanan bergizi seimbang\n🏃 Aktivitas fisik minimal 30 menit/hari\n🛌 Istirahat cukup\n🚭 Hindari asap rokok\n🩺 Periksa kesehatan secara berkala`);
+
+    hasil.push(
+`✅ Hasil pemeriksaan dalam batas normal.
+
+Pertahankan pola hidup sehat dengan:
+
+🥗 Konsumsi makanan bergizi seimbang
+🏃 Aktivitas fisik minimal 30 menit/hari
+🛌 Istirahat cukup
+🚭 Hindari asap rokok
+🩺 Periksa kesehatan secara berkala`
+    );
+
   }
+
   return hasil.join('\n\n');
 }
 
 function buatPesanWhatsapp(data){
-  return `Hallo ${data.nama}\n\nBerikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}\n\n📏 TB : ${data.tb || '-'} cm\n⚖️ BB : ${data.bb || '-'} kg\n👤 Status Gizi : ${data.gizi || '-'}\n\n❤️ Tensi : ${data.td || '-'}\n📊 Status Tensi : ${data.statusTensi || '-'}\n\n💉 GDA : ${data.gds || '-'} mg/dL\n🍬 Status Gula : ${data.statusGula || '-'}\n\n🥚 CHOL : ${data.kol || '-'} mg/dL\n❤️ Status Kolesterol : ${data.statusKol || '-'}\n\n🦴 Asam Urat : ${data.au || '-'} mg/dL\n🥜 Status Asam Urat : ${data.statusAu || '-'}\n\n🩺🧑‍⚕️ Rekomendasi Kesehatan:\n\n${data.rekomendasi || '-'}\n\nMari ikhtiyar sembuh sesuai sunnah, juga tetap menjaga kesehatan dengan cara:\n\n✅ Cek kesehatan secara berkala\n🚭 Enyahkan asap rokok\n🏃 Rajin aktivitas fisik\n🥗 Diet seimbang\n🛌 Istirahat cukup\n🧘 Kelola stres\n\nYuk follow media sosial kami:\n\n📸 Instagram: @griya_athariz\n🎵 TikTok: @griya_athariz\n▶️ YouTube: @griya_athariz\n\nSalam sehat,\nGriya Athariz`;
+
+  return `Hallo ${data.nama}
+
+Berikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}
+
+📏 TB : ${data.tb || '-'} cm
+⚖️ BB : ${data.bb || '-'} kg
+👤 Status Gizi : ${data.gizi || '-'}
+
+❤️ Tensi : ${data.td || '-'}
+📊 Status Tensi : ${data.statusTensi || '-'}
+
+💉 GDA : ${data.gds || '-'} mg/dL
+🍬 Status Gula : ${data.statusGula || '-'}
+
+🥚 CHOL : ${data.kol || '-'} mg/dL
+❤️ Status Kolesterol : ${data.statusKol || '-'}
+
+🦴 Asam Urat : ${data.au || '-'} mg/dL
+🥜 Status Asam Urat : ${data.statusAu || '-'}
+
+🩺🧑‍⚕️ Rekomendasi Kesehatan:
+
+${data.rekomendasi || '-'}
+
+Mari ikhtiyar sembuh sesuai sunnah, juga tetap menjaga kesehatan dengan cara:
+
+✅ Cek kesehatan secara berkala
+🚭 Enyahkan asap rokok
+🏃 Rajin aktivitas fisik
+🥗 Diet seimbang
+🛌 Istirahat cukup
+🧘 Kelola stres
+
+Yuk follow media sosial kami:
+
+📸 Instagram: @griya_athariz
+🎵 TikTok: @griya_athariz
+▶️ YouTube: @griya_athariz
+
+Salam sehat,
+Griya Athariz`;
+
 }
 
 function kirimResumeWA(data){
@@ -763,6 +1663,7 @@ function kirimResumeWA(data){
   window.open(url,'_blank');
 }
 
+
 function init(){
   document.getElementById('k-tgl').value = today();
   document.getElementById('j-tgl').value = today();
@@ -777,7 +1678,6 @@ function init(){
     loadData();
   }
 }
-
 function buildTitik(){
   var g = document.getElementById('titik-grid');
   TITIK.forEach(function(t){
@@ -817,13 +1717,16 @@ function goto(page){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('panel-'+page).classList.add('active');
-  var order = ['dashboard','pasien','kunjungan','jadwal','riwayat','pembayaran','setup'];
+  var order = ['dashboard','pasien','kunjungan','riwayat','pembayaran','setup'];
   document.querySelectorAll('.nav-item')[order.indexOf(page)].classList.add('active');
   document.getElementById('topbar-title').textContent = PAGES[page].t;
   document.getElementById('topbar-sub').textContent = PAGES[page].s;
 }
 
-if(window.innerWidth <= 768){ toggleSidebar(false); }
+if(window.innerWidth <= 768){
+  toggleSidebar(false);
+}
+
 
 function toast(msg, type){
   type = type || 'ok';
@@ -833,11 +1736,19 @@ function toast(msg, type){
 }
 
 function showLoading(text){
-  document.querySelector('#loadingOverlay .loading-text').textContent = text || 'Memproses Data...';
-  document.getElementById('loadingOverlay').classList.add('show');
+
+  document.querySelector('#loadingOverlay .loading-text')
+    .textContent = text || 'Memproses Data...';
+
+  document.getElementById('loadingOverlay')
+    .classList.add('show');
 }
 
-function hideLoading(){ document.getElementById('loadingOverlay').classList.remove('show'); }
+function hideLoading(){
+
+  document.getElementById('loadingOverlay')
+    .classList.remove('show');
+}
 
 function setDot(on){
   document.getElementById('gas-dot').className = 'gas-dot' + (on ? '' : ' off');
@@ -856,25 +1767,86 @@ function simpanGas(){
   setTimeout(function(){ hideLoading(); },1000);
 }
 
+
 function testKoneksi(){
-  if(!GAS_URL){ toast('Masukkan URL GAS terlebih dahulu','err'); return; }
+
+  if(!GAS_URL){
+    toast('Masukkan URL GAS terlebih dahulu','err');
+    return;
+  }
+
   showLoading('Menguji koneksi server...');
+
   fetch(GAS_URL + '?action=getPasien')
-    .then(function(r){ if(r.ok){ setDot(true); toast('Koneksi berhasil'); }else{ setDot(false); toast('Koneksi gagal','err'); } })
-    .catch(function(e){ setDot(false); toast('Error : ' + e.message,'err'); })
-    .finally(function(){ hideLoading(); });
+
+    .then(function(r){
+
+      if(r.ok){
+
+        setDot(true);
+        toast('Koneksi berhasil');
+
+      }else{
+
+        setDot(false);
+        toast('Koneksi gagal','err');
+
+      }
+
+    })
+
+    .catch(function(e){
+
+      setDot(false);
+      toast('Error : ' + e.message,'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function loadData(){ loadPasien(); loadKunjungan(); loadJadwal(); }
 
 function loadPasien(){
+
   if(!GAS_URL) return;
+
   showLoading('Memuat data pasien...');
+
   fetch(GAS_URL + '?action=getPasien')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ allPasien = d.data || []; renderPasien(allPasien); updateDropdown(); updateDash(); })
-    .catch(function(e){ console.error(e); toast('Gagal memuat data pasien', 'err'); })
-    .finally(function(){ hideLoading(); });
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      allPasien = d.data || [];
+
+      renderPasien(allPasien);
+      updateDropdown();
+      updateDash();
+
+    })
+
+    .catch(function(e){
+
+      console.error(e);
+      toast('Gagal memuat data pasien', 'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function loadKunjungan(){
@@ -946,26 +1918,75 @@ function visitHTML(k){
 }
 
 function renderPasien(data){
-  var el = document.getElementById('list-pasien');
-  if(!data.length){ el.innerHTML = '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>'; return; }
-  var start = (pasienPage - 1) * pasienPerPage; var end = start + pasienPerPage;
-  var pageData = data.slice(start,end); var totalPage = Math.ceil(data.length / pasienPerPage);
 
-  el.innerHTML = pageData.map(function(p){
-    return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[4]||'-') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
-  }).join('') +
-  '<div class="pagination">' +
-    '<button class="btn btn-outline" onclick="gantiPagePasien(-1)" ' + (pasienPage===1?'disabled':'') + '>◀</button>' +
-    '<span class="page-info">Halaman ' + pasienPage + ' / ' + totalPage + '</span>' +
-    '<button class="btn btn-outline" onclick="gantiPagePasien(1)" ' + (pasienPage===totalPage?'disabled':'') + '>▶</button>' +
-  '</div>';
+  var el = document.getElementById('list-pasien');
+
+  if(!data.length){
+
+    el.innerHTML =
+      '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>';
+
+    return;
+
+  }
+
+  var start =
+    (pasienPage - 1) * pasienPerPage;
+
+  var end =
+    start + pasienPerPage;
+
+  var pageData =
+    data.slice(start,end);
+
+  var totalPage =
+    Math.ceil(data.length / pasienPerPage);
+
+  el.innerHTML =
+
+    pageData.map(function(p){
+
+      return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[4]||'-') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
+
+    }).join('')
+
+    +
+
+    '<div class="pagination">' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(-1)" ' +
+      (pasienPage===1?'disabled':'') +
+      '>◀</button>' +
+
+      '<span class="page-info">Halaman ' +
+      pasienPage +
+      ' / ' +
+      totalPage +
+      '</span>' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(1)" ' +
+      (pasienPage===totalPage?'disabled':'') +
+      '>▶</button>' +
+
+    '</div>';
+
 }
 
 function gantiPagePasien(step){
-  var totalPage = Math.ceil(allPasien.length / pasienPerPage);
+
+  var totalPage =
+    Math.ceil(allPasien.length / pasienPerPage);
+
   pasienPage += step;
-  if(pasienPage < 1) pasienPage = 1; if(pasienPage > totalPage) pasienPage = totalPage;
+
+  if(pasienPage < 1)
+    pasienPage = 1;
+
+  if(pasienPage > totalPage)
+    pasienPage = totalPage;
+
   renderPasien(allPasien);
+
 }
 
 function renderRiwayat(data){
@@ -1024,9 +2045,12 @@ function renderRiwayat(data){
 
 function updateDropdown(){
   var sel = document.getElementById('k-pasien');
-  var cur = sel.value; sel.innerHTML = '<option value="">— Pilih pasien —</option>';
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">— Pilih pasien —</option>';
   allPasien.forEach(function(p){
-    var o = document.createElement('option'); o.value = p[0]; o.textContent = p[0] + ' — ' + (p[1]||''); sel.appendChild(o);
+    var o = document.createElement('option');
+    o.value = p[0]; o.textContent = p[0] + ' — ' + (p[1]||'');
+    sel.appendChild(o);
   });
   if(cur) sel.value = cur;
 }
@@ -1063,34 +2087,96 @@ function toggleLayanan(){
 }
 
 function formatTanggalDisplay(tgl){
-  if(!tgl) return '—'; var d = new Date(tgl); if(isNaN(d)) return tgl;
-  var hari = String(d.getDate()).padStart(2,'0'); var bulan = String(d.getMonth()+1).padStart(2,'0'); var tahun = d.getFullYear();
+
+  if(!tgl) return '—';
+
+  var d = new Date(tgl);
+
+  if(isNaN(d)) return tgl;
+
+  var hari = String(d.getDate()).padStart(2,'0');
+  var bulan = String(d.getMonth()+1).padStart(2,'0');
+  var tahun = d.getFullYear();
+
   return hari + '-' + bulan + '-' + tahun;
+
 }
 
 function detailPasien(p){
+
   activePasienRm = p[0];
-  var riwayatPasien = allKunjungan.filter(function(k){ return k[1] === p[0]; }).slice(-5).reverse();
-  var riwHTML = riwayatPasien.length ? riwayatPasien.map(visitHTML).join('') : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
+
+  var riwayatPasien = allKunjungan
+    .filter(function(k){
+      return k[1] === p[0];
+    })
+    .slice(-5)
+    .reverse();
+
+  var riwHTML = riwayatPasien.length
+    ? riwayatPasien.map(visitHTML).join('')
+    : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
 
   document.getElementById('modal-content').innerHTML =
+
     '<div class="rm-card">' +
-      '<div class="rm-no">NO. REKAM MEDIS — ' + (p[0] || '—') + '</div>' +
-      '<div class="rm-name">' + (p[1] || '—') + '</div>' +
-      '<div class="rm-meta">' + (p[5] === 'P' ? 'Perempuan' : 'Laki-laki') + ' &middot; ' + formatTanggalDisplay(p[3]) + ' &middot; ' + (p[2] || '—') + '</div>' +
+
+      '<div class="rm-no">NO. REKAM MEDIS — ' +
+      (p[0] || '—') +
+      '</div>' +
+
+      '<div class="rm-name">' +
+      (p[1] || '—') +
+      '</div>' +
+
+      '<div class="rm-meta">' +
+      (p[5] === 'P' ? 'Perempuan' : 'Laki-laki') +
+      ' &middot; ' +
+      formatTanggalDisplay(p[3]) +
+      ' &middot; ' +
+      (p[2] || '—') +
+      '</div>' +
+
     '</div>' +
-    '<div class="detail-row"><div class="detail-lbl">Usia</div><div class="detail-val">' + (p[4] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' + (p[6] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' + (p[7] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' + (p[8] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' + (p[9] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' + formatTanggalDisplay(p[10]) + '</div></div>' +
-    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' + riwHTML;
+
+    '<div class="detail-row"><div class="detail-lbl">Usia</div><div class="detail-val">' +
+    (p[4] || '—') +
+    ' Tahun</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' +
+    (p[6] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' +
+    (p[7] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' +
+    (p[8] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' +
+    (p[9] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' +
+    formatTanggalDisplay(p[10]) +
+    '</div></div>' +
+
+    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' +
+    riwHTML;
+
   document.getElementById('modal-pasien').classList.add('open');
+
 }
 
 function closeModal(){ document.getElementById('modal-pasien').classList.remove('open'); }
-function kunjunganDariModal(){ document.getElementById('k-pasien').value = activePasienRm; closeModal(); goto('kunjungan'); }
+
+function kunjunganDariModal(){
+  document.getElementById('k-pasien').value = activePasienRm;
+  closeModal(); goto('kunjungan');
+}
+
 document.getElementById('modal-pasien').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
 function simpanPasien(){
@@ -1150,52 +2236,190 @@ function salinLinkBooking(){
 }
 
 function simpanKunjungan(){
+
   var pasien = document.getElementById('k-pasien').value;
-  var jenis = document.getElementById('k-jenis').value;
-  var tgl = document.getElementById('k-tgl').value;
-  if(!pasien || !jenis || !tgl){ toast('Pasien, jenis layanan & tanggal wajib diisi', 'err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan', 'err'); return; }
+  var jenis  = document.getElementById('k-jenis').value;
+  var tgl    = document.getElementById('k-tgl').value;
+
+  if(!pasien || !jenis || !tgl){
+    toast('Pasien, jenis layanan & tanggal wajib diisi', 'err');
+    return;
+  }
+
+  if(!GAS_URL){
+    toast('Hubungkan Google Apps Script di Pengaturan', 'err');
+    return;
+  }
 
   showLoading('Menyimpan data kunjungan...');
-  var pData = allPasien.find(function(p){ return p[0] === pasien; });
+
+  var pData = allPasien.find(function(p){
+    return p[0] === pasien;
+  });
+
   var payload = {
-    action: 'addKunjungan', tgl: tgl, noRm: pasien, namaPasien: pData ? pData[1] : pasien, jenis: jenis,
-    keluhan: document.getElementById('k-keluhan').value, rps: document.getElementById('k-rps').value, harapan: document.getElementById('k-harapan').value,
-    td: document.getElementById('k-td').value, nadi: document.getElementById('k-nadi').value, suhu: document.getElementById('k-suhu').value, bb: document.getElementById('k-bb').value, tb: document.getElementById('k-tb').value, gds: document.getElementById('k-gds').value,
-	kolesterol: document.getElementById('k-kolesterol').value, asamUrat: document.getElementById('k-asamurat').value, spo2: document.getElementById('k-spo2').value, kondisiUmum: document.getElementById('k-kondisi').value,
-    titikBekam: selectedTitik.join(', '), bekamJenis: document.getElementById('k-bjenis').value, jumlahKop: document.getElementById('k-kop').value, kondisiDarah: getChecked('darah'),
-    momUsia: document.getElementById('k-momusia').value, terapiMom: getChecked('mom'), terapisMom: document.getElementById('k-momterapis').value, durasiMom: document.getElementById('k-momdurasi').value,
-    babyNama: document.getElementById('k-babyname').value, babyUsia: document.getElementById('k-babyusia').value, babyBb: document.getElementById('k-babybb').value, layananBaby: getChecked('baby'),
-    asesmen: document.getElementById('k-asesmen').value, plan: document.getElementById('k-plan').value, tarif: document.getElementById('k-tarif').value, statusBayar: document.getElementById('k-bayar').value, notes: document.getElementById('k-notes').value,
+    action: 'addKunjungan',
+    tgl: tgl,
+    noRm: pasien,
+    namaPasien: pData ? pData[1] : pasien,
+    jenis: jenis,
+
+    keluhan: document.getElementById('k-keluhan').value,
+    rps: document.getElementById('k-rps').value,
+    harapan: document.getElementById('k-harapan').value,
+
+    td: document.getElementById('k-td').value,
+    nadi: document.getElementById('k-nadi').value,
+    suhu: document.getElementById('k-suhu').value,
+    bb: document.getElementById('k-bb').value,
+    tb: document.getElementById('k-tb').value,
+    gds: document.getElementById('k-gds').value,
+	kolesterol: document.getElementById('k-kolesterol').value,
+	asamUrat: document.getElementById('k-asamurat').value,
+	spo2: document.getElementById('k-spo2').value,
+    kondisiUmum: document.getElementById('k-kondisi').value,
+
+    titikBekam: selectedTitik.join(', '),
+    bekamJenis: document.getElementById('k-bjenis').value,
+    jumlahKop: document.getElementById('k-kop').value,
+    kondisiDarah: getChecked('darah'),
+
+    momUsia: document.getElementById('k-momusia').value,
+    terapiMom: getChecked('mom'),
+    terapisMom: document.getElementById('k-momterapis').value,
+    durasiMom: document.getElementById('k-momdurasi').value,
+
+    babyNama: document.getElementById('k-babyname').value,
+    babyUsia: document.getElementById('k-babyusia').value,
+    babyBb: document.getElementById('k-babybb').value,
+    layananBaby: getChecked('baby'),
+
+    asesmen: document.getElementById('k-asesmen').value,
+    plan: document.getElementById('k-plan').value,
+
+    tarif: document.getElementById('k-tarif').value,
+    statusBayar: document.getElementById('k-bayar').value,
+    notes: document.getElementById('k-notes').value,
+
     noKunjungan: 'KNJ-' + Date.now().toString().slice(-8)
   };
 
-  fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
-  .then(function(r){ return r.json(); })
+  fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+  .then(function(r){
+    return r.json();
+  })
   .then(function(res){
-    if(res.success){
-      toast('Kunjungan berhasil disimpan');
-      var jk = pData ? pData[5] : '';
-      var imtData = hitungIMT(document.getElementById('k-bb').value, document.getElementById('k-tb').value);
-      var gizi = imtData ? imtData.status : 'Tidak dilakukan pemeriksaan';
-      var tensi = statusTensi(document.getElementById('k-td').value);
-      var gula = statusGDS(document.getElementById('k-gds').value);
-      var kol = statusKolesterol(document.getElementById('k-kolesterol').value);
-      var au = statusAsamUrat(document.getElementById('k-asamurat').value, jk);
-      var rekomendasi = buatRekomendasi({ gizi: gizi, tensi: tensi, gula: gula, kolesterol: kol, asamUrat: au });
 
-      if(pData && pData[2]){
-        kirimResumeWA({
-          nama : pData[1], wa : pData[2], tanggal : tgl,
-          tb : document.getElementById('k-tb').value, bb : document.getElementById('k-bb').value, td : document.getElementById('k-td').value, gds : document.getElementById('k-gds').value, kol : document.getElementById('k-kolesterol').value, au : document.getElementById('k-asamurat').value,
-          gizi : gizi, statusTensi : tensi, statusGula : gula, statusKol : kol, statusAu : au, rekomendasi : rekomendasi
-        });
-      }else{ toast('Nomor pasien tidak tersedia', 'err'); }
-      clearKunjungan(); loadData(); goto('riwayat');
-    }else{ toast(res.message || 'Gagal menyimpan', 'err'); }
-  })   
-  .catch(function(e){ console.error(e); toast('Error : ' + e.message, 'err'); })
-  .finally(function(){ hideLoading(); });
+    if(res.success){
+
+  toast('Kunjungan berhasil disimpan');
+
+  // =====================
+  // GENERATE RESUME WA
+  // =====================
+
+  var jk = pData ? pData[4] : '';
+
+  var imtData = hitungIMT(
+  document.getElementById('k-bb').value,
+  document.getElementById('k-tb').value
+);
+
+var gizi = imtData
+  ? imtData.status
+  : 'Tidak dilakukan pemeriksaan';
+
+var tensi = statusTensi(
+  document.getElementById('k-td').value
+);
+
+var gula = statusGDS(
+  document.getElementById('k-gds').value
+);
+
+var kol = statusKolesterol(
+  document.getElementById('k-kolesterol').value
+);
+
+var au = statusAsamUrat(
+  document.getElementById('k-asamurat').value,
+  jk
+);
+
+var rekomendasi = buatRekomendasi({
+  gizi: gizi,
+  tensi: tensi,
+  gula: gula,
+  kolesterol: kol,
+  asamUrat: au
+});
+
+  // nomor WA tersedia?
+  if(pData && pData[2]){
+
+    kirimResumeWA({
+
+      nama : pData[1],
+      wa : pData[2],
+
+      tanggal : tgl,
+
+      tb : document.getElementById('k-tb').value,
+      bb : document.getElementById('k-bb').value,
+
+      td : document.getElementById('k-td').value,
+
+      gds : document.getElementById('k-gds').value,
+
+      kol : document.getElementById('k-kolesterol').value,
+
+      au : document.getElementById('k-asamurat').value,
+
+      gizi : gizi,
+      statusTensi : tensi,
+      statusGula : gula,
+      statusKol : kol,
+      statusAu : au,
+
+      rekomendasi : rekomendasi
+
+    });
+
+  }else{
+
+    toast('Nomor pasien tidak tersedia', 'err');
+
+  }
+
+  clearKunjungan();
+
+  loadData();
+
+  goto('riwayat');
+
+}else{
+
+  toast(res.message || 'Gagal menyimpan', 'err');
+
+}
+
+})   
+
+.catch(function(e){
+
+  console.error(e);
+  toast('Error : ' + e.message, 'err');
+
+})
+.finally(function(){
+
+  hideLoading();
+
+});
+
 }
 
 function clearPasien(){
@@ -1210,66 +2434,247 @@ function clearKunjungan(){
   document.querySelectorAll('.cg-darah,.cg-mom,.cg-baby').forEach(function(c){ c.checked = false; c.closest('.check-item').classList.remove('sel'); });
   toggleLayanan();
 }
+function setBtnLoading(btn,status){
+
+  if(!btn) return;
+
+  if(status){
+
+    btn.dataset.original = btn.innerHTML;
+
+    btn.innerHTML =
+      '<i class="ti ti-loader"></i> Memproses...';
+
+    btn.classList.add('btn-loading');
+
+  }else{
+
+    btn.innerHTML = btn.dataset.original;
+
+    btn.classList.remove('btn-loading');
+
+  }
+
+}
 
 function toggleSidebar(force){
-  var sidebar = document.querySelector('.sidebar'); var overlay = document.getElementById('sidebarOverlay');
-  var open = typeof force === 'boolean' ? force : !sidebar.classList.contains('show');
-  sidebar.classList.toggle('show', open); overlay.classList.toggle('show', open);
+
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+
+  var open =
+    typeof force === 'boolean'
+      ? force
+      : !sidebar.classList.contains('show');
+
+  sidebar.classList.toggle('show', open);
+  overlay.classList.toggle('show', open);
 }
 
 function uploadQRIS(e){
-  var file = e.target.files[0]; if(!file) return;
+
+  var file = e.target.files[0];
+
+  if(!file) return;
+
   var reader = new FileReader();
+
   reader.onload = function(evt){
-    localStorage.setItem('qris_image', evt.target.result);
-    var img = document.getElementById('preview-qris'); if(img){ img.src = evt.target.result; img.style.display = 'block'; }
-    var status = document.getElementById('upload-status'); if(status){ status.style.display = 'block'; }
+
+    localStorage.setItem(
+      'qris_image',
+      evt.target.result
+    );
+
+    var img = document.getElementById('preview-qris');
+    var img =
+      document.getElementById('preview-qris');
+
+    if(img){
+
+      img.src = evt.target.result;
+      img.style.display = 'block';
+
+    }
+
+    var status =
+      document.getElementById('upload-status');
+
+    if(status){
+
+      status.style.display = 'block';
+
+    }
+
     toast('QRIS berhasil diupload');
+
   };
+
   reader.readAsDataURL(file);
+
 }
 
 function toggleQRIS(){
-  var img = document.getElementById('show-qris');
-  img.style.display = (img.style.display === 'block') ? 'none' : 'block';
+
+  var img =
+    document.getElementById('show-qris');
+
+  if(img.style.display === 'block'){
+
+    img.style.display = 'none';
+
+  }else{
+
+    img.style.display = 'block';
+
+  }
+
 }
 
 function simpanPembayaran(){
+
   var data = {
-    bank: document.getElementById('pay-bank')?.value || '', rekening: document.getElementById('pay-rekening')?.value || '', an: document.getElementById('pay-an')?.value || '',
-    dana: document.getElementById('pay-dana')?.value || '', ovo: document.getElementById('pay-ovo')?.value || '', gopay: document.getElementById('pay-gopay')?.value || ''
+
+    bank:
+      document.getElementById('pay-bank')?.value || '',
+
+    rekening:
+      document.getElementById('pay-rekening')?.value || '',
+
+    an:
+      document.getElementById('pay-an')?.value || '',
+
+    dana:
+      document.getElementById('pay-dana')?.value || '',
+
+    ovo:
+      document.getElementById('pay-ovo')?.value || '',
+
+    gopay:
+      document.getElementById('pay-gopay')?.value || ''
+
   };
-  localStorage.setItem('payment_config', JSON.stringify(data));
-  toast('Data pembayaran berhasil disimpan'); tampilkanPembayaran();
+
+  localStorage.setItem(
+    'payment_config',
+    JSON.stringify(data)
+  );
+
+  toast('Data pembayaran berhasil disimpan');
+
+  tampilkanPembayaran();
+
 }
 
 function loadPembayaran(){
-  var pay = JSON.parse(localStorage.getItem('payment_config') || '{}');
-  if(document.getElementById('pay-bank')) document.getElementById('pay-bank').value = pay.bank || '';
-  if(document.getElementById('pay-rekening')) document.getElementById('pay-rekening').value = pay.rekening || '';
-  if(document.getElementById('pay-an')) document.getElementById('pay-an').value = pay.an || '';
-  if(document.getElementById('pay-dana')) document.getElementById('pay-dana').value = pay.dana || '';
-  if(document.getElementById('pay-ovo')) document.getElementById('pay-ovo').value = pay.ovo || '';
-  if(document.getElementById('pay-gopay')) document.getElementById('pay-gopay').value = pay.gopay || '';
+
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(document.getElementById('pay-bank'))
+    document.getElementById('pay-bank').value =
+      pay.bank || '';
+
+  if(document.getElementById('pay-rekening'))
+    document.getElementById('pay-rekening').value =
+      pay.rekening || '';
+
+  if(document.getElementById('pay-an'))
+    document.getElementById('pay-an').value =
+      pay.an || '';
+
+  if(document.getElementById('pay-dana'))
+    document.getElementById('pay-dana').value =
+      pay.dana || '';
+
+  if(document.getElementById('pay-ovo'))
+    document.getElementById('pay-ovo').value =
+      pay.ovo || '';
+
+  if(document.getElementById('pay-gopay'))
+    document.getElementById('pay-gopay').value =
+      pay.gopay || '';
+
   var qris = localStorage.getItem('qris_image');
-  if(qris && document.getElementById('preview-qris')){ document.getElementById('preview-qris').src = qris; document.getElementById('preview-qris').style.display = 'block'; }
+
+  if(
+    qris &&
+    document.getElementById('preview-qris')
+  ){
+
+    document.getElementById('preview-qris').src =
+      qris;
+
+    document.getElementById('preview-qris').style.display =
+      'block';
+
+  }
+
 }
 
+loadPembayaran();
 function tampilkanPembayaran(){
-  var pay = JSON.parse(localStorage.getItem('payment_config') || '{}');
-  if(!pay.bank && !pay.rekening){ return; }
-  document.getElementById('paymentForm').style.display = 'none';
-  document.getElementById('paymentCard').style.display = 'block';
-  document.getElementById('show-bank').innerHTML = '<b>Bank :</b> ' + (pay.bank || '-');
-  document.getElementById('show-rekening').innerHTML = '<b>No Rekening :</b> ' + (pay.rekening || '-');
-  document.getElementById('show-an').innerHTML = '<b>Atas Nama :</b> ' + (pay.an || '-');
-  document.getElementById('show-dana').innerHTML = '<b>DANA :</b> ' + (pay.dana || '-');
-  document.getElementById('show-ovo').innerHTML = '<b>OVO :</b> ' + (pay.ovo || '-');
-  document.getElementById('show-gopay').innerHTML = '<b>GoPay :</b> ' + (pay.gopay || '-');
-  var qris = localStorage.getItem('qris_image'); if(qris){ document.getElementById('show-qris').src = qris; }
+
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(!pay.bank && !pay.rekening){
+    return;
+  }
+
+  document.getElementById('paymentForm').style.display =
+    'none';
+
+  document.getElementById('paymentCard').style.display =
+    'block';
+
+  document.getElementById('show-bank').innerHTML =
+    '<b>Bank :</b> ' + (pay.bank || '-');
+
+  document.getElementById('show-rekening').innerHTML =
+    '<b>No Rekening :</b> ' + (pay.rekening || '-');
+
+  document.getElementById('show-an').innerHTML =
+    '<b>Atas Nama :</b> ' + (pay.an || '-');
+
+  document.getElementById('show-dana').innerHTML =
+    '<b>DANA :</b> ' + (pay.dana || '-');
+
+  document.getElementById('show-ovo').innerHTML =
+    '<b>OVO :</b> ' + (pay.ovo || '-');
+
+  document.getElementById('show-gopay').innerHTML =
+    '<b>GoPay :</b> ' + (pay.gopay || '-');
+
+  var qris =
+    localStorage.getItem('qris_image');
+
+  if(qris){
+
+    document.getElementById('show-qris').src =
+      qris;
+
+  }
+
 }
 
-function editPembayaran(){ document.getElementById('paymentCard').style.display = 'none'; document.getElementById('paymentForm').style.display = 'block'; }
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display =
+    'none';
+
+  document.getElementById('paymentForm').style.display =
+    'block';
+
+}
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display = 'none';
+  document.getElementById('paymentForm').style.display = 'block';
+
+}
 
 loadPembayaran();
 tampilkanPembayaran();
