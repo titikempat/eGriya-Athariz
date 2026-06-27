@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -57,7 +58,6 @@ nav{flex:1;padding:10px 0}
 .card-hd-act{font-size:12px;color:var(--teal);cursor:pointer;font-weight:500}
 
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.stats-row.layanan{grid-template-columns:repeat(3,1fr);background:rgba(11,114,133,.05);padding:12px;border-radius:var(--radius-lg);margin-bottom:16px}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
 .stat-num{font-size:28px;font-weight:600;color:var(--teal-dark);line-height:1}
 .stat-lbl{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:500}
@@ -148,105 +148,708 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 .detail-lbl{font-size:11px;color:var(--text-muted);font-weight:600;width:130px;flex-shrink:0}
 .detail-val{font-size:13px;color:var(--text);flex:1}
 
+/* ========================================
+   LAPTOP (DEFAULT)
+   >1024px
+======================================== */
+
+/* Tidak perlu css tambahan
+   karena desain desktop sekarang
+   sudah menjadi default */
+
+
+/* ========================================
+   TABLET
+   769px - 1024px
+======================================== */
+
 @media (min-width:769px) and (max-width:1024px){
-  .sidebar{width:80px;}
-  .sidebar-logo h1,.sidebar-logo p,.sidebar-badges,.nav-item span,.sidebar-footer{display:none;}
-  .nav-item{justify-content:center;padding:14px;}
-  .content{padding:16px;}
-  .stats-row{grid-template-columns:repeat(2,1fr);}
-  .g3{grid-template-columns:1fr 1fr;}
-  .titik-grid{grid-template-columns:repeat(3,1fr);}
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+    padding:14px;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .g3{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
 }
 
-.menu-toggle{display:none;}
-.sidebar-overlay{display:none;}
+
+/* ========================================
+   HP
+   <=768px
+======================================== */
+
+.menu-toggle{
+  display:none;
+}
+
+.sidebar-overlay{
+  display:none;
+}
 
 @media (max-width:768px){
-  .shell{overflow:visible;height:auto;}
-  .sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:999;transition:.3s;box-shadow:0 0 20px rgba(0,0,0,.15);}
-  .sidebar.show{left:0;}
-  .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:998;display:none;}
-  .sidebar-overlay.show{display:block;}
-  .main{width:100%;}
-  .topbar{padding:12px;flex-wrap:wrap;}
-  .topbar-title{font-size:15px;}
-  .topbar-sub{display:none;}
-  .content{padding:12px;}
-  .stats-row{grid-template-columns:1fr;}
-  .stats-row.layanan{grid-template-columns:1fr;}
-  .form-grid,.g3{grid-template-columns:1fr;}
-  .span2{grid-column:auto;}
-  .search-row{flex-direction:column;}
-  .btn-row{flex-direction:column;}
-  .btn{width:100%;justify-content:center;}
-  .topbar .btn{flex:1;min-width:140px;}
-  .field input,.field select,.field textarea{font-size:16px;}
-  .patient-row{flex-wrap:wrap;}
-  .titik-grid{grid-template-columns:repeat(2,1fr);}
-  .modal{width:95%;padding:16px;}
-  .detail-row{flex-direction:column;gap:2px;}
-  .detail-lbl{width:auto;}
-  .menu-toggle{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;border-radius:8px;background:var(--teal);color:#fff;cursor:pointer;}
+
+  @media (max-width:768px){
+
+  .shell{
+    overflow:visible;
+    height:auto;
+  }
+
 }
 
-.stat-num{word-break:break-word;}
-.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.8);backdrop-filter:blur(3px);z-index:9999;display:none;align-items:center;justify-content:center;}
-.loading-overlay.show{display:flex;}
-.loading-box{background:#fff;padding:24px 30px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;min-width:220px;}
-.spinner{width:48px;height:48px;border:4px solid #E1F5EE;border-top:4px solid #0B7285;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
-.loading-text{font-size:13px;color:#0B7285;font-weight:600;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.btn-loading{pointer-events:none;opacity:.7;}
-.btn-loading i{animation:spin 1s linear infinite;}
+  .sidebar{
 
-.payment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.payment-card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:14px;padding:18px;}
-.payment-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text-main);}
-.payment-title i{font-size:18px;}
-.payment-card .form-group{margin-bottom:12px;}
-.payment-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-muted);}
-.payment-card input{width:100%;padding:12px 14px;border:none;border-radius:12px;background:#f5f7fa;font-size:14px;transition:.2s;}
-.payment-card input:focus{outline:none;background:#fff;box-shadow:0 0 0 2px var(--primary),0 4px 12px rgba(0,0,0,.08);}
-.qris-upload{border:2px dashed var(--border-color);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.2s;}
-.qris-upload:hover{border-color:var(--primary);}
-.qris-upload input{display:none;}
-.qris-preview{width:100%;max-width:250px;margin:15px auto 0;display:none;border-radius:12px;border:1px solid var(--border-color);overflow:hidden;}
-.qris-preview img{width:100%;display:block;}
-.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
-.payment-actions button{min-width:180px;}
+    position:fixed;
+    top:0;
+    left:-260px;
 
-.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;}
-.page-info{font-size:13px;font-weight:600;color:var(--text-muted);}
+    width:240px;
+    height:100vh;
 
-#p-lahir,#p-usia{width:100%;height:46px;padding:0 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);font-size:14px;font-weight:500;outline:none;transition:.2s;box-sizing:border-box;}
-#p-lahir:focus,#p-usia:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,114,133,.15);}
-#p-usia{background:#f8fafc;cursor:not-allowed;}
+    z-index:999;
 
-.payment-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px;}
-.summary-box{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:.2s;}
-.summary-box:hover{transform:translateY(-2px);}
-.summary-box div{margin-bottom:8px;line-height:1.5;}
-.summary-qris{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;margin-top:12px;}
-.btn-show-qris{width:100%;margin-top:10px;}
-.qris-preview{margin-top:12px;text-align:center;}
-.qris-preview img{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;}
-.qris-upload{min-height:180px;border:2px dashed #0B7285;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;text-align:center;padding:20px;}
-.qris-upload:hover{background:rgba(11,114,133,.05);}
-.qris-upload input{display:none;}
-.upload-success{margin-top:12px;font-size:13px;font-weight:600;color:#16a34a;display:none;}
-.payment-card{border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.04);}
-.payment-title{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:15px;font-weight:700;}
-.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
+    transition:.3s;
 
-/* Scedule Styling */
-.table-responsive{width:100%;overflow-x:auto;margin-top:10px;}
-.modern-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;}
-.modern-table th,.modern-table td{padding:12px;text-align:left;border-bottom:1px solid var(--border);}
-.modern-table th{background:var(--teal-light);color:var(--teal-dark);font-weight:600;}
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .topbar{
+    padding:12px;
+    flex-wrap:wrap;
+  }
+
+  .topbar-title{
+    font-size:15px;
+  }
+
+  .topbar-sub{
+    display:none;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .topbar .btn{
+    flex:1;
+    min-width:140px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea{
+    font-size:16px;
+  }
+
+  .patient-row{
+    flex-wrap:wrap;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:8px;
+
+    background:var(--teal);
+    color:#fff;
+
+    cursor:pointer;
+  }
+
+}
+
+
+/* ========================================
+   GLOBAL RESPONSIVE
+======================================== */
+
+.stat-num{
+  word-break:break-word;
+}
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(3px);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.loading-overlay.show{
+  display:flex;
+}
+
+.loading-box{
+  background:#fff;
+  padding:24px 30px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+  text-align:center;
+  min-width:220px;
+}
+
+.spinner{
+  width:48px;
+  height:48px;
+  border:4px solid #E1F5EE;
+  border-top:4px solid #0B7285;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 12px;
+}
+
+.loading-text{
+  font-size:13px;
+  color:#0B7285;
+  font-weight:600;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.btn-loading{
+  pointer-events:none;
+  opacity:.7;
+}
+
+.btn-loading i{
+  animation:spin 1s linear infinite;
+}
+
+/* ==========================
+   RESPONSIVE SIDEBAR
+========================== */
+
+.menu-toggle{
+  display:none;
+  width:40px;
+  height:40px;
+  border:none;
+  background:var(--teal);
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+@media (max-width:768px){
+
+  .shell{
+    display:block;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:240px;
+    height:100vh;
+    z-index:999;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .main{
+    width:100%;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .topbar{
+    padding:12px;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .stats-row{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid,
+  .g3{
+    grid-template-columns:1fr;
+  }
+
+  .span2{
+    grid-column:auto;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .titik-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modal{
+    width:95%;
+    padding:16px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+  }
+
+  .detail-lbl{
+    width:auto;
+  }
+
+}
+
+/* TABLET */
+
+@media (min-width:769px) and (max-width:1024px){
+
+  .sidebar{
+    width:80px;
+  }
+
+  .sidebar-logo h1,
+  .sidebar-logo p,
+  .sidebar-badges,
+  .nav-item span,
+  .sidebar-footer{
+    display:none;
+  }
+
+  .nav-item{
+    justify-content:center;
+  }
+
+  .content{
+    padding:16px;
+  }
+
+  .stats-row{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+.sidebar-overlay{
+  display:none;
+}
+
+@media (max-width:768px){
+
+  .sidebar-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:998;
+    display:none;
+  }
+
+  .sidebar-overlay.show{
+    display:block;
+  }
+
+}
+
+/* =========================
+   PANEL PEMAYARAN
+========================= */
+
+.payment-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+
+.payment-card{
+  background:var(--card-bg);
+  border:1px solid var(--border-color);
+  border-radius:14px;
+  padding:18px;
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:14px;
+  color:var(--text-main);
+}
+
+.payment-title i{
+  font-size:18px;
+}
+
+.payment-card .form-group{
+  margin-bottom:12px;
+}
+
+.payment-card label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:var(--text-muted);
+}
+
+.payment-card input{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  background:#f5f7fa;
+  font-size:14px;
+  transition:.2s;
+}
+
+.payment-card input:focus{
+  outline:none;
+  background:#fff;
+  box-shadow:
+    0 0 0 2px var(--primary),
+    0 4px 12px rgba(0,0,0,.08);
+}
+
+.qris-upload{
+  border:2px dashed var(--border-color);
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.qris-upload:hover{
+  border-color:var(--primary);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.qris-preview{
+  width:100%;
+  max-width:250px;
+  margin:15px auto 0;
+  display:none;
+  border-radius:12px;
+  border:1px solid var(--border-color);
+  overflow:hidden;
+}
+
+.qris-preview img{
+  width:100%;
+  display:block;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.payment-actions button{
+  min-width:180px;
+}
+
+.bank-info{
+  background:rgba(59,130,246,.08);
+  border:1px solid rgba(59,130,246,.15);
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  margin-top:10px;
+}
+
+@media(max-width:768px){
+
+  .payment-grid{
+    grid-template-columns:1fr;
+  }
+
+  .payment-actions button{
+    width:100%;
+  }
+
+}
+
+.pagination{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:20px;
+}
+
+.page-info{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text-muted);
+}
+
+/* Tanggal lahir & usia */
+
+#p-lahir,
+#p-usia{
+  width:100%;
+  height:46px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  font-size:14px;
+  font-weight:500;
+  outline:none;
+  transition:.2s;
+  box-sizing:border-box;
+}
+
+#p-lahir:focus,
+#p-usia:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(11,114,133,.15);
+}
+
+#p-usia{
+  background:#f8fafc;
+  cursor:not-allowed;
+}
+
+/* =========================
+   PAYMENT MODERN UI
+========================= */
+
+.payment-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:16px;
+}
+
+.summary-box{
+  background:var(--card-bg,#fff);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+  transition:.2s;
+}
+
+.summary-box:hover{
+  transform:translateY(-2px);
+}
+
+.summary-box div{
+  margin-bottom:8px;
+  line-height:1.5;
+}
+
+.summary-qris{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+  margin-top:12px;
+}
+
+.btn-show-qris{
+  width:100%;
+  margin-top:10px;
+}
+
+.qris-preview{
+  margin-top:12px;
+  text-align:center;
+}
+
+.qris-preview img{
+  width:180px;
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.08);
+  display:none;
+}
+
+.qris-upload{
+  min-height:180px;
+  border:2px dashed #0B7285;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  text-align:center;
+  padding:20px;
+}
+
+.qris-upload:hover{
+  background:rgba(11,114,133,.05);
+}
+
+.qris-upload input{
+  display:none;
+}
+
+.upload-success{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:600;
+  color:#16a34a;
+  display:none;
+}
+
+.payment-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.payment-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  font-size:15px;
+  font-weight:700;
+}
+
+.payment-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+}
 </style>
 </head>
 <body>
-<div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+<div id="sidebarOverlay" class="sidebar-overlay"
+     onclick="toggleSidebar(false)">
+</div>
 
 <div class="shell">
   <div class="sidebar">
@@ -263,9 +866,11 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
       <div class="nav-item active" onclick="goto('dashboard')"><i class="ti ti-dashboard"></i><span>Dashboard</span></div>
       <div class="nav-item" onclick="goto('pasien')"><i class="ti ti-users"></i><span>Data Pasien</span></div>
       <div class="nav-item" onclick="goto('kunjungan')"><i class="ti ti-clipboard-plus"></i><span>Catat Kunjungan</span></div>
-      <div class="nav-item" onclick="goto('jadwal')"><i class="ti ti-calendar-clock"></i><span>Atur Jadwal</span></div>
       <div class="nav-item" onclick="goto('riwayat')"><i class="ti ti-history"></i><span>Riwayat</span></div>
-      <div class="nav-item" onclick="goto('pembayaran')"><i class="ti ti-credit-card"></i><span>Pembayaran</span></div>
+      <div class="nav-item" onclick="goto('pembayaran')">
+  <i class="ti ti-credit-card"></i>
+  <span>Pembayaran</span>
+</div>
       <div class="nav-item" onclick="goto('setup')"><i class="ti ti-settings"></i><span>Konfigurasi</span></div>
     </nav>
     <div class="sidebar-footer">
@@ -278,11 +883,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 
   <div class="main">
     <div class="topbar">
-      <button id="menuToggle" class="menu-toggle" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
+
+  <button id="menuToggle" class="menu-toggle" onclick="toggleSidebar()">
+    <i class="ti ti-menu-2"></i>
+  </button>
       <div style="flex:1">
         <div class="topbar-title" id="topbar-title">Dashboard</div>
         <div class="topbar-sub" id="topbar-sub">Ringkasan aktivitas klinik</div>
       </div>
+      
       <button class="btn btn-sm" onclick="loadData()"><i class="ti ti-refresh"></i> Refresh</button>
       <button class="btn btn-primary btn-sm" onclick="goto('kunjungan')"><i class="ti ti-plus"></i> Kunjungan Baru</button>
     </div>
@@ -291,42 +900,11 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 
       <!-- DASHBOARD -->
       <div id="panel-dashboard" class="panel active">
-        <!-- GLOBAL STATS -->
         <div class="stats-row">
           <div class="stat"><i class="ti ti-users stat-ic"></i><div class="stat-num" id="s-total">—</div><div class="stat-lbl">Total Pasien</div></div>
           <div class="stat"><i class="ti ti-calendar-month stat-ic"></i><div class="stat-num" id="s-bulan">—</div><div class="stat-lbl">Kunjungan Bulan Ini</div></div>
           <div class="stat"><i class="ti ti-calendar-today stat-ic"></i><div class="stat-num" id="s-hari">—</div><div class="stat-lbl">Kunjungan Hari Ini</div></div>
         </div>
-        
-        <!-- FILTER LAYANAN COUNTER -->
-        <div class="section-label">Distribusi Layanan Terpilih</div>
-        <div class="stats-row layanan">
-          <div class="stat" style="border-left: 4px solid var(--teal-mid)"><div class="stat-num" id="s-bekam">0</div><div class="stat-lbl">Total Pasien Bekam</div></div>
-          <div class="stat" style="border-left: 4px solid #EF9F27"><div class="stat-num" id="s-mom">0</div><div class="stat-lbl">Total Pasien Mom Spa</div></div>
-          <div class="stat" style="border-left: 4px solid #378ADD"><div class="stat-num" id="s-baby">0</div><div class="stat-lbl">Total Pasien Baby Spa</div></div>
-        </div>
-
-        <!-- ANTREAN JADWAL HARI INI -->
-        <div class="card">
-          <div class="card-hd"><i class="ti ti-calendar-event"></i><span>Jadwal &amp; Antrean Pelanggan Hari Ini</span><span class="card-hd-act" onclick="goto('jadwal')">Kelola Jadwal →</span></div>
-          <div class="table-responsive">
-            <table class="modern-table">
-              <thead>
-                <tr>
-                  <th>Jam</th>
-                  <th>Nama Pelanggan</th>
-                  <th>No Layanan/WA</th>
-                  <th>Layanan</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="dash-jadwal-list">
-                <tr><td colspan="5" class="empty">Belum ada jadwal hari ini</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
         <div class="card">
           <div class="card-hd"><i class="ti ti-list"></i><span>Kunjungan Terbaru</span><span class="card-hd-act" onclick="goto('riwayat')">Lihat semua →</span></div>
           <div id="recent-list"><div class="empty"><i class="ti ti-plug-off"></i><p>Hubungkan Google Apps Script di menu Pengaturan</p></div></div>
@@ -341,8 +919,22 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
           <div class="form-grid">
             <div class="field"><label>Nama Lengkap *</label><input id="p-nama" placeholder="Nama lengkap pasien"/></div>
             <div class="field"><label>No. Telepon *</label><input id="p-telp" type="tel" placeholder="08xx-xxxx-xxxx"/></div>
-            <div class="form-group"><label>Tanggal Lahir</label><input type="date" id="p-lahir" onchange="hitungUsiaPasien()"></div>
-            <div class="form-group"><label>Usia</label><input type="text" id="p-usia" readonly placeholder="Otomatis terisi"></div>
+            <div class="form-group">
+  <label>Tanggal Lahir</label>
+  <input
+    type="date"
+    id="p-lahir"
+    onchange="hitungUsiaPasien()">
+</div>
+
+<div class="form-group">
+  <label>Usia</label>
+  <input
+    type="text"
+    id="p-usia"
+    readonly
+    placeholder="Otomatis terisi">
+</div>
             <div class="field"><label>Jenis Kelamin</label>
               <select id="p-jk"><option value="">— Pilih —</option><option value="P">Perempuan</option><option value="L">Laki-laki</option></select>
             </div>
@@ -373,6 +965,7 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
       <div id="panel-kunjungan" class="panel">
         <div class="card">
           <div class="card-hd"><i class="ti ti-clipboard-plus"></i><span>Formulir Rekam Medis — SOAP Note</span></div>
+
           <div class="section-label">Informasi Kunjungan</div>
           <div class="form-grid g3">
             <div class="field"><label>Tanggal *</label><input id="k-tgl" type="date"/></div>
@@ -384,11 +977,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
                 <option value="Baby Spa">Baby Spa</option>
               </select>
             </div>
-            <div class="field"><label>Pasien *</label><select id="k-pasien"><option value="">— Pilih pasien —</option></select></div>
+            <div class="field"><label>Pasien *</label>
+              <select id="k-pasien"><option value="">— Pilih pasien —</option></select>
+            </div>
           </div>
 
           <div class="section-label" style="color:#1D9E75">S — Subjektif (Keluhan Pasien)</div>
-          <div class="form-grid g1"><div class="field"><label>Keluhan Utama</label><textarea id="k-keluhan" placeholder="Keluhan yang disampaikan pasien..."></textarea></div></div>
+          <div class="form-grid g1">
+            <div class="field"><label>Keluhan Utama</label><textarea id="k-keluhan" placeholder="Keluhan yang disampaikan pasien..."></textarea></div>
+          </div>
           <div class="form-grid">
             <div class="field"><label>Riwayat Penyakit Sekarang</label><textarea id="k-rps" placeholder="Sejak kapan, sudah berapa lama, faktor pemberat/peringan..."></textarea></div>
             <div class="field"><label>Harapan / Tujuan</label><textarea id="k-harapan" placeholder="Ingin relaksasi, terapi nyeri, tumbuh kembang bayi..."></textarea></div>
@@ -401,21 +998,44 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
             <div class="field"><label>Suhu</label><input id="k-suhu" placeholder="36.5 °C"/></div>
             <div class="field"><label>Berat Badan</label><input id="k-bb" placeholder="kg"/></div>
             <div class="field"><label>Tinggi Badan</label><input id="k-tb" placeholder="cm"/></div>
-            <div class="field"><label>Gula Darah Sewaktu (GDS)</label><input id="k-gds" type="number" placeholder="mg/dL"/></div>
-            <div class="field"><label>Kolesterol</label><input id="k-kolesterol" type="number" placeholder="mg/dL"/></div>
-            <div class="field"><label>Asam Urat</label><input id="k-asamurat" type="number" placeholder="mg/dL"/></div>
-            <div class="field"><label>SpO₂</label><input id="k-spo2" type="number" placeholder="%"/></div>
-            <div class="field"><label>Kondisi Umum</label><select id="k-kondisi"><option>Baik</option><option>Sedang</option><option>Lemah</option></select></div>
+            <div class="field">
+    <label>Gula Darah Sewaktu (GDS)</label>
+    <input id="k-gds" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>Kolesterol</label>
+    <input id="k-kolesterol" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>Asam Urat</label>
+    <input id="k-asamurat" type="number" placeholder="mg/dL"/>
+  </div>
+
+  <div class="field">
+    <label>SpO₂</label>
+    <input id="k-spo2" type="number" placeholder="%"/>
+  </div>
+            <div class="field"><label>Kondisi Umum</label>
+              <select id="k-kondisi"><option>Baik</option><option>Sedang</option><option>Lemah</option></select>
+            </div>
           </div>
 
           <div id="f-bekam" style="display:none">
             <div class="section-label" style="color:#0F6E56">Detail Bekam</div>
             <div class="form-grid">
-              <div class="field"><label>Jenis Bekam</label><select id="k-bjenis"><option>Bekam Basah</option><option>Bekam Kering</option><option>Bekam Api</option></select></div>
+              <div class="field"><label>Jenis Bekam</label>
+                <select id="k-bjenis"><option>Bekam Basah</option><option>Bekam Kering</option><option>Bekam Api</option></select>
+              </div>
               <div class="field"><label>Jumlah Kop</label><input id="k-kop" type="number" min="1" max="30" placeholder="0"/></div>
             </div>
-            <div class="field" style="margin-top:10px"><label>Titik Bekam (klik untuk pilih)</label><div class="titik-grid" id="titik-grid" style="margin-top:6px"></div></div>
-            <div class="field" style="margin-top:10px"><label>Kondisi Darah</label><div class="check-group" id="cg-darah"></div></div>
+            <div class="field" style="margin-top:10px"><label>Titik Bekam (klik untuk pilih)</label>
+              <div class="titik-grid" id="titik-grid" style="margin-top:6px"></div>
+            </div>
+            <div class="field" style="margin-top:10px"><label>Kondisi Darah</label>
+              <div class="check-group" id="cg-darah"></div>
+            </div>
           </div>
 
           <div id="f-mom" style="display:none">
@@ -425,7 +1045,9 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
               <div class="field"><label>Terapis</label><input id="k-momterapis" placeholder="Nama terapis"/></div>
               <div class="field"><label>Durasi (menit)</label><input id="k-momdurasi" type="number" placeholder="60"/></div>
             </div>
-            <div class="field" style="margin-top:4px"><label>Terapi yang Diberikan</label><div class="check-group" id="cg-mom"></div></div>
+            <div class="field" style="margin-top:4px"><label>Terapi yang Diberikan</label>
+              <div class="check-group" id="cg-mom"></div>
+            </div>
           </div>
 
           <div id="f-baby" style="display:none">
@@ -435,7 +1057,9 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
               <div class="field"><label>Usia Bayi</label><input id="k-babyusia" placeholder="3 bulan 2 minggu"/></div>
               <div class="field"><label>Berat Bayi</label><input id="k-babybb" placeholder="kg"/></div>
             </div>
-            <div class="field" style="margin-top:4px"><label>Layanan Bayi</label><div class="check-group" id="cg-baby"></div></div>
+            <div class="field" style="margin-top:4px"><label>Layanan Bayi</label>
+              <div class="check-group" id="cg-baby"></div>
+            </div>
           </div>
 
           <div class="section-label" style="color:#633806">A — Asesmen &amp; P — Plan</div>
@@ -445,72 +1069,14 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
           </div>
           <div class="form-grid" style="margin-top:12px">
             <div class="field"><label>Tarif (Rp)</label><input id="k-tarif" type="number" placeholder="0"/></div>
-            <div class="field"><label>Status Pembayaran</label><select id="k-bayar"><option>Lunas</option><option>Belum Lunas</option><option>Cicilan</option></select></div>
+            <div class="field"><label>Status Pembayaran</label>
+              <select id="k-bayar"><option>Lunas</option><option>Belum Lunas</option><option>Cicilan</option></select>
+            </div>
             <div class="field span2"><label>Catatan Tambahan</label><textarea id="k-notes" placeholder="Reaksi setelah terapi, saran minum air putih, istirahat..."></textarea></div>
           </div>
           <div class="btn-row">
             <button class="btn" onclick="clearKunjungan()"><i class="ti ti-eraser"></i> Bersihkan</button>
             <button class="btn btn-primary" onclick="simpanKunjungan()"><i class="ti ti-device-floppy"></i> Simpan Kunjungan</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PANEL JADWAL -->
-      <div id="panel-jadwal" class="panel">
-        <div class="card">
-          <div class="card-hd"><i class="ti ti-link"></i><span>Link Booking Mandiri Pelanggan</span></div>
-          <p style="color:var(--text-muted); margin-bottom: 10px;">Gunakan tautan di bawah ini untuk dibagikan kepada calon pelanggan agar mereka dapat mengisi jadwal mandiri tanpa membuka dashboard utama.</p>
-          <div style="display:flex; gap:8px;">
-            <input id="j-booking-url" readonly style="font-family:'DM Mono', monospace; background:var(--bg); padding:8px 12px; border:1px solid var(--border); border-radius:var(--radius-sm); flex:1;" value="Hubungkan URL GAS terlebih dahulu...">
-            <button class="btn btn-primary" onclick="salinLinkBooking()"><i class="ti ti-copy"></i> Salin Link</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd"><i class="ti ti-calendar-plus"></i><span>Buat Jadwal / Booking Baru (Internal Admin)</span></div>
-          <div class="form-grid g3">
-            <div class="field"><label>Tanggal Layanan *</label><input id="j-tgl" type="date"/></div>
-            <div class="field"><label>Jam Layanan *</label><input id="j-jam" type="time"/></div>
-            <div class="field"><label>Jenis Layanan *</label>
-              <select id="j-layanan">
-                <option value="Bekam">Bekam</option>
-                <option value="Mom Spa">Mom Spa</option>
-                <option value="Baby Spa">Baby Spa</option>
-              </select>
-            </div>
-            <div class="field"><label>Nama Pelanggan *</label><input id="j-nama" placeholder="Nama Pelanggan"/></div>
-            <div class="field"><label>No. WA Pelanggan *</label><input id="j-telp" type="tel" placeholder="08xxxxxxxxxx"/></div>
-            <div class="field"><label>Status Booking</label>
-              <select id="j-status"><option>Booking</option><option>Selesai</option><option>Batal</option></select>
-            </div>
-          </div>
-          <div class="btn-row">
-            <button class="btn btn-primary" onclick="simpanJadwal()"><i class="ti ti-device-floppy"></i> Simpan Jadwal</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd"><i class="ti ti-calendar-week"></i><span>Semua Log Booking &amp; Jadwal</span></div>
-          <div class="search-row">
-            <input id="cari-jadwal" type="date" onchange="filterJadwal()"/>
-            <button class="btn btn-sm" onclick="loadJadwal()"><i class="ti ti-refresh"></i></button>
-          </div>
-          <div class="table-responsive">
-            <table class="modern-table">
-              <thead>
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Jam</th>
-                  <th>Nama</th>
-                  <th>No. WA</th>
-                  <th>Layanan</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="list-jadwal-all">
-                <tr><td colspan="6" class="empty">Belum ada data booking</td></tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -533,59 +1099,216 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
         </div>
       </div>
 
-      <!-- PEMBAYARAN -->
-      <section id="panel-pembayaran" class="panel">
-        <div id="paymentForm" class="card">
-          <div class="card-hd"><i class="ti ti-credit-card"></i><span>Pengaturan Metode Pembayaran</span></div>
-          <div class="payment-grid">
-            <div class="payment-card">
-              <div class="payment-title"><i class="ti ti-building-bank"></i>Transfer Bank</div>
-              <div class="form-group"><label>Bank</label><input id="pay-bank" placeholder="Contoh : BCA"></div>
-              <div class="form-group"><label>No Rekening</label><input id="pay-rekening" placeholder="Nomor Rekening"></div>
-              <div class="form-group"><label>Atas Nama</label><input id="pay-an" placeholder="Nama Pemilik Rekening"></div>
-            </div>
-            <div class="payment-card">
-              <div class="payment-title"><i class="ti ti-wallet"></i>E-Wallet</div>
-              <div class="form-group"><label>DANA</label><input id="pay-dana" placeholder="Nomor DANA"></div>
-              <div class="form-group"><label>OVO</label><input id="pay-ovo" placeholder="Nomor OVO"></div>
-              <div class="form-group"><label>GoPay</label><input id="pay-gopay" placeholder="Nomor GoPay"></div>
-            </div>
-            <div class="payment-card">
-              <div class="payment-title"><i class="ti ti-qrcode"></i>QRIS</div>
-              <label class="qris-upload">
-                <input type="file" accept="image/*" onchange="uploadQRIS(event)">
-                <i class="ti ti-photo-up" style="font-size:32px"></i>
-                <p style="margin-top:10px">Upload Gambar QRIS</p>
-                <div id="upload-status" class="upload-success">✓ Gambar QRIS berhasil diupload</div>
-              </label>
-              <div class="qris-preview"><img id="preview-qris"></div>
-            </div>
-          </div>
-          <div class="payment-actions"><button class="btn btn-primary" onclick="simpanPembayaran()"><i class="ti ti-device-floppy"></i>Simpan Data Pembayaran</button></div>
+<!-- PANEL PEMBAYARAN -->
+
+<section id="panel-pembayaran" class="panel">
+
+  <!-- FORM INPUT -->
+  <div id="paymentForm" class="card">
+
+    <div class="section-title">
+      <i class="ti ti-credit-card"></i>
+      Pengaturan Metode Pembayaran
+    </div>
+
+    <div class="payment-grid">
+
+      <!-- TRANSFER BANK -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-building-bank"></i>
+          Transfer Bank
         </div>
 
-        <div id="paymentCard" class="card" style="display:none">
-          <div class="card-hd"><i class="ti ti-credit-card"></i><span>Metode Pembayaran Aktif</span></div>
-          <div class="payment-summary">
-            <div class="summary-box">
-              <div class="payment-title"><i class="ti ti-building-bank"></i>Transfer Bank</div>
-              <div id="show-bank"></div><div id="show-rekening"></div><div id="show-an"></div>
-            </div>
-            <div class="summary-box">
-              <div class="payment-title"><i class="ti ti-wallet"></i>E-Wallet</div>
-              <div id="show-dana"></div><div id="show-ovo"></div><div id="show-gopay"></div>
-            </div>
-            <div class="summary-box">
-              <div class="payment-title"><i class="ti ti-qrcode"></i>QRIS</div>
-              <button class="btn btn-outline btn-show-qris" onclick="toggleQRIS()"><i class="ti ti-qrcode"></i>Lihat QRIS</button>
-              <img id="show-qris" class="summary-qris">
-            </div>
-            <div class="summary-box"><div class="payment-title"><i class="ti ti-cash"></i>Cash</div>Pembayaran tunai tersedia di lokasi layanan.</div>
-          </div>
-          <div class="payment-actions"><button class="btn" onclick="editPembayaran()"><i class="ti ti-edit"></i>Update Data Pembayaran</button></div>
+        <div class="form-group">
+          <label>Bank</label>
+          <input
+            id="pay-bank"
+            placeholder="Contoh : BCA">
         </div>
-      </section>
 
+        <div class="form-group">
+          <label>No Rekening</label>
+          <input
+            id="pay-rekening"
+            placeholder="Nomor Rekening">
+        </div>
+
+        <div class="form-group">
+          <label>Atas Nama</label>
+          <input
+            id="pay-an"
+            placeholder="Nama Pemilik Rekening">
+        </div>
+
+      </div>
+
+      <!-- E-WALLET -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-wallet"></i>
+          E-Wallet
+        </div>
+
+        <div class="form-group">
+          <label>DANA</label>
+          <input
+            id="pay-dana"
+            placeholder="Nomor DANA">
+        </div>
+
+        <div class="form-group">
+          <label>OVO</label>
+          <input
+            id="pay-ovo"
+            placeholder="Nomor OVO">
+        </div>
+
+        <div class="form-group">
+          <label>GoPay</label>
+          <input
+            id="pay-gopay"
+            placeholder="Nomor GoPay">
+        </div>
+
+      </div>
+
+      <!-- QRIS -->
+      <div class="payment-card">
+
+        <div class="payment-title">
+          <i class="ti ti-qrcode"></i>
+          QRIS
+        </div>
+
+        <label class="qris-upload">
+
+          <input
+            type="file"
+            accept="image/*"
+            onchange="uploadQRIS(event)">
+
+          <i class="ti ti-photo-up" style="font-size:32px"></i>
+
+          <p style="margin-top:10px">
+  Upload Gambar QRIS
+</p>
+
+<div id="upload-status" class="upload-success">
+  ✓ Gambar QRIS berhasil diupload
+</div>
+        </label>
+
+        <div class="qris-preview">
+          <img id="preview-qris">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="payment-actions">
+
+      <button
+        class="btn btn-primary"
+        onclick="simpanPembayaran()">
+
+        <i class="ti ti-device-floppy"></i>
+        Simpan Data Pembayaran
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- CARD HASIL -->
+  <div id="paymentCard" class="card" style="display:none">
+
+    <div class="section-title">
+      <i class="ti ti-credit-card"></i>
+      Metode Pembayaran Aktif
+    </div>
+
+    <div class="payment-summary">
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-building-bank"></i>
+          Transfer Bank
+        </div>
+
+        <div id="show-bank"></div>
+        <div id="show-rekening"></div>
+        <div id="show-an"></div>
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-wallet"></i>
+          E-Wallet
+        </div>
+
+        <div id="show-dana"></div>
+        <div id="show-ovo"></div>
+        <div id="show-gopay"></div>
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-qrcode"></i>
+          QRIS
+        </div>
+
+        <button
+  class="btn btn-outline btn-show-qris"
+  onclick="toggleQRIS()">
+
+  <i class="ti ti-qrcode"></i>
+  Lihat QRIS
+
+</button>
+
+<img id="show-qris" class="summary-qris">
+
+      </div>
+
+      <div class="summary-box">
+
+        <div class="payment-title">
+          <i class="ti ti-cash"></i>
+          Cash
+        </div>
+
+        Pembayaran tunai tersedia di lokasi layanan.
+
+      </div>
+
+    </div>
+
+    <div class="payment-actions">
+
+      <button
+        class="btn btn-outline"
+        onclick="editPembayaran()">
+
+        <i class="ti ti-edit"></i>
+        Update Data Pembayaran
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
       <!-- SETUP -->
       <div id="panel-setup" class="panel">
         <div class="card">
@@ -598,6 +1321,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
             <button class="btn btn-primary" onclick="simpanGas()"><i class="ti ti-link"></i> Simpan &amp; Hubungkan</button>
             <button class="btn" onclick="testKoneksi()"><i class="ti ti-plug"></i> Test Koneksi</button>
           </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><i class="ti ti-book"></i><span>Panduan Setup</span></div>
+          <div class="setup-step"><div class="step-num">1</div><div class="step-text">Buka <a href="https://sheets.google.com" target="_blank" style="color:var(--teal)">Google Sheets</a> → buat spreadsheet baru, beri nama <strong>Rekam Medis Klinik</strong></div></div>
+          <div class="setup-step"><div class="step-num">2</div><div class="step-text">Buat dua sheet: <code>Pasien</code> dan <code>Kunjungan</code></div></div>
+          <div class="setup-step"><div class="step-num">3</div><div class="step-text">Klik menu <strong>Extensions → Apps Script</strong> → paste kode GAS yang telah disediakan terpisah</div></div>
+          <div class="setup-step"><div class="step-num">4</div><div class="step-text">Jalankan fungsi <code>setupAwal()</code> sekali untuk membuat header kolom otomatis</div></div>
+          <div class="setup-step"><div class="step-num">5</div><div class="step-text">Klik <strong>Deploy → New Deployment → Web App</strong>, atur <em>Execute as: Me</em> dan <em>Access: Anyone</em></div></div>
+          <div class="setup-step"><div class="step-num">6</div><div class="step-text">Copy URL deployment → paste di kolom di atas → klik <strong>Simpan &amp; Hubungkan</strong></div></div>
         </div>
       </div>
 
@@ -627,11 +1359,11 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   </div>
 </div>
 
+
 <script>
 var GAS_URL = localStorage.getItem('gas_url') || '';
 var allPasien = [];
 var allKunjungan = [];
-var allJadwal = [];
 var selectedTitik = [];
 var activePasienRm = '';
 var pasienPage = 1;
@@ -646,137 +1378,434 @@ var PAGES = {
   dashboard:{t:'Dashboard',s:'Ringkasan aktivitas klinik'},
   pasien:{t:'Data Pasien',s:'Daftar & pendaftaran pasien'},
   kunjungan:{t:'Catat Kunjungan',s:'Formulir rekam medis SOAP'},
-  jadwal:{t:'Atur Jadwal Booking',s:'Kelola jadwal kedatangan pasien'},
   riwayat:{t:'Riwayat Kunjungan',s:'Histori semua kunjungan'},
-  pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
+   pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
   setup:{t:'Pengaturan',s:'Konfigurasi Google Apps Script'}
 };
 
 function today(){ return new Date().toISOString().split('T')[0]; }
 
 function hitungUsiaPasien(){
-  var tgl = document.getElementById('p-lahir').value;
-  if(!tgl){ document.getElementById('p-usia').value = ''; return; }
+
+  var tgl =
+    document.getElementById('p-lahir').value;
+
+  if(!tgl){
+
+    document.getElementById('p-usia').value = '';
+    return;
+
+  }
+
   var lahir = new Date(tgl);
   var hariIni = new Date();
-  var usia = hariIni.getFullYear() - lahir.getFullYear();
-  var m = hariIni.getMonth() - lahir.getMonth();
-  if(m < 0 || (m === 0 && hariIni.getDate() < lahir.getDate())){ usia--; }
-  document.getElementById('p-usia').value = usia + ' Tahun';
+
+  var usia =
+    hariIni.getFullYear() - lahir.getFullYear();
+
+  var m =
+    hariIni.getMonth() - lahir.getMonth();
+
+  if(
+    m < 0 ||
+    (m === 0 && hariIni.getDate() < lahir.getDate())
+  ){
+    usia--;
+  }
+
+  document.getElementById('p-usia').value =
+    usia + ' Tahun';
+
 }
 
 function hitungIMT(bb, tb){
-  bb = parseFloat(bb); tb = parseFloat(tb);
+
+  bb = parseFloat(bb);
+  tb = parseFloat(tb);
+
   if(!bb || !tb) return null;
+
   const imt = bb / Math.pow(tb/100,2);
+
   let status = '';
-  if(imt < 18.5){ status = 'Kurus'; }else if(imt < 25){ status = 'Normal'; }else if(imt < 30){ status = 'Gemuk'; }else{ status = 'Obesitas'; }
-  return { imt: imt.toFixed(1), status: status };
+
+  if(imt < 18.5){
+    status = 'Kurus';
+  }else if(imt < 25){
+    status = 'Normal';
+  }else if(imt < 30){
+    status = 'Gemuk';
+  }else{
+    status = 'Obesitas';
+  }
+
+  return {
+    imt: imt.toFixed(1),
+    status: status
+  };
 }
 
 function statusTensi(td){
+
   if(!td) return 'Tidak dilakukan pemeriksaan';
-  const p = td.split('/'); if(p.length !== 2) return 'Tidak valid';
-  const sistol = parseInt(p[0]); const diastol = parseInt(p[1]);
-  if(sistol < 90 || diastol < 60){ return 'Hipotensi'; }
-  if(sistol < 130 && diastol < 80){ return 'Normal'; }
-  if(sistol < 140 || diastol < 90){ return 'Pra Hipertensi'; }
+
+  const p = td.split('/');
+
+  if(p.length !== 2) return 'Tidak valid';
+
+  const sistol = parseInt(p[0]);
+  const diastol = parseInt(p[1]);
+
+  if(sistol < 90 || diastol < 60){
+    return 'Hipotensi';
+  }
+
+  if(sistol < 130 && diastol < 80){
+    return 'Normal';
+  }
+
+  if(sistol < 140 || diastol < 90){
+    return 'Pra Hipertensi';
+  }
+
   return 'Hipertensi';
 }
 
 function statusGDS(gds){
-  gds = parseFloat(gds); if(!gds){ return 'Tidak dilakukan pemeriksaan'; }
-  if(gds < 140){ return 'Normal'; } if(gds < 200){ return 'Prediabetes'; } return 'Diabetes';
+
+  gds = parseFloat(gds);
+
+  if(!gds){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(gds < 140){
+    return 'Normal';
+  }
+
+  if(gds < 200){
+    return 'Prediabetes';
+  }
+
+  return 'Diabetes';
 }
 
 function statusKolesterol(nilai){
-  nilai = parseFloat(nilai); if(!nilai){ return 'Tidak dilakukan pemeriksaan'; }
-  if(nilai < 200){ return 'Normal'; } if(nilai < 240){ return 'Borderline Tinggi'; } return 'Hiperkolesterol';
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
+  }
+
+  if(nilai < 200){
+    return 'Normal';
+  }
+
+  if(nilai < 240){
+    return 'Borderline Tinggi';
+  }
+
+  return 'Hiperkolesterol';
 }
 
 function statusAsamUrat(nilai,jk){
-  nilai = parseFloat(nilai); if(!nilai){ return 'Tidak dilakukan pemeriksaan'; }
-  if(jk === 'P'){
-    if(nilai < 2.4){ return 'Rendah'; } if(nilai <= 6){ return 'Normal'; } return 'Tinggi';
+
+  nilai = parseFloat(nilai);
+
+  if(!nilai){
+    return 'Tidak dilakukan pemeriksaan';
   }
-  if(nilai < 3.4){ return 'Rendah'; } if(nilai <= 7){ return 'Normal'; } return 'Tinggi';
+
+  if(jk === 'P'){
+
+    if(nilai < 2.4){
+      return 'Rendah';
+    }
+
+    if(nilai <= 6){
+      return 'Normal';
+    }
+
+    return 'Tinggi';
+  }
+
+  if(nilai < 3.4){
+    return 'Rendah';
+  }
+
+  if(nilai <= 7){
+    return 'Normal';
+  }
+
+  return 'Tinggi';
 }
 
 function buatRekomendasi(data){
+
   let hasil = [];
+
+  // STATUS GIZI
   if(data.gizi === 'Gemuk' || data.gizi === 'Obesitas'){
-    hasil.push(`⚠️ ${data.gizi}\n\nYuk mulai hidup sehat agar berat badan ideal!\n\n🚫 Hindari:\n• Gorengan\n• Minuman manis\n• Fast food\n• Makanan tinggi lemak\n\n🥗 Perbanyak:\n• Sayuran\n• Buah segar\n• Air putih minimal 8 gelas/hari\n\n🏃 Aktivitas:\n• Jalan cepat 30 menit/hari\n• Bersepeda\n• Senam ringan\n• Kurangi duduk terlalu lama`);
+
+    hasil.push(
+`⚠️ ${data.gizi}
+
+Yuk mulai hidup sehat agar berat badan ideal!
+
+🚫 Hindari:
+• Gorengan
+• Minuman manis
+• Fast food
+• Makanan tinggi lemak
+
+🥗 Perbanyak:
+• Sayuran
+• Buah segar
+• Air putih minimal 8 gelas/hari
+
+🏃 Aktivitas:
+• Jalan cepat 30 menit/hari
+• Bersepeda
+• Senam ringan
+• Kurangi duduk terlalu lama`
+    );
+
   }
+
   if(data.gizi === 'Kurus'){
-    hasil.push(`⚠️ Berat Badan Kurang\n\nMari tingkatkan status gizi secara bertahap.\n\n🚫 Hindari:\n• Sering telat makan\n• Diet berlebihan\n\n🥗 Perbanyak:\n• Protein (telur, ikan, ayam)\n• Susu\n• Buah dan sayur\n\n🏃 Aktivitas:\n• Olahraga ringan teratur\n• Istirahat cukup`);
+
+    hasil.push(
+`⚠️ Berat Badan Kurang
+
+Mari tingkatkan status gizi secara bertahap.
+
+🚫 Hindari:
+• Sering telat makan
+• Diet berlebihan
+
+🥗 Perbanyak:
+• Protein (telur, ikan, ayam)
+• Susu
+• Buah dan sayur
+
+🏃 Aktivitas:
+• Olahraga ringan teratur
+• Istirahat cukup`
+    );
+
   }
+
+  // TENSI
   if(data.tensi === 'Hipertensi'){
-    hasil.push(`⚠️ Tekanan Darah Tinggi\n\n🚫 Kurangi:\n• Garam berlebihan\n• Makanan instan\n• Kopi berlebihan\n• Rokok\n\n🥗 Perbanyak:\n• Sayuran hijau\n• Buah-buahan\n• Air putih\n\n🏃 Aktivitas:\n• Jalan santai\n• Senam\n• Relaksasi dan kelola stres`);
+
+    hasil.push(
+`⚠️ Tekanan Darah Tinggi
+
+🚫 Kurangi:
+• Garam berlebihan
+• Makanan instan
+• Kopi berlebihan
+• Rokok
+
+🥗 Perbanyak:
+• Sayuran hijau
+• Buah-buahan
+• Air putih
+
+🏃 Aktivitas:
+• Jalan santai
+• Senam
+• Relaksasi dan kelola stres`
+    );
+
   }
-  if(data.gula === 'Prediabetes' || data.gula === 'Diabetes'){
-    hasil.push(`⚠️ Gula Darah Tinggi\n\n🚫 Batasi:\n• Minuman manis\n• Kue dan permen\n• Nasi berlebihan\n\n🥗 Perbanyak:\n• Sayuran\n• Protein sehat\n• Air putih\n\n🏃 Aktivitas:\n• Jalan kaki 30 menit/hari\n• Senam diabetes\n• Aktivitas fisik rutin`);
+
+  // GULA DARAH
+  if(
+    data.gula === 'Prediabetes' ||
+    data.gula === 'Diabetes'
+  ){
+
+    hasil.push(
+`⚠️ Gula Darah Tinggi
+
+🚫 Batasi:
+• Minuman manis
+• Kue dan permen
+• Nasi berlebihan
+
+🥗 Perbanyak:
+• Sayuran
+• Protein sehat
+• Air putih
+
+🏃 Aktivitas:
+• Jalan kaki 30 menit/hari
+• Senam diabetes
+• Aktivitas fisik rutin`
+    );
+
   }
-  if(data.kolesterol === 'Hiperkolesterol' || data.kolesterol === 'Borderline Tinggi'){
-    hasil.push(`⚠️ Kolesterol Tinggi\n\n🚫 Kurangi:\n• Jeroan\n• Gorengan\n• Santan berlebihan\n• Kulit ayam\n\n🥗 Perbanyak:\n• Ikan\n• Oatmeal\n• Sayuran\n• Buah tinggi serat\n\n🏃 Aktivitas:\n• Jalan cepat\n• Bersepeda\n• Olahraga aerobik ringan`);
+
+  // KOLESTEROL
+  if(
+    data.kolesterol === 'Hiperkolesterol' ||
+    data.kolesterol === 'Borderline Tinggi'
+  ){
+
+    hasil.push(
+`⚠️ Kolesterol Tinggi
+
+🚫 Kurangi:
+• Jeroan
+• Gorengan
+• Santan berlebihan
+• Kulit ayam
+
+🥗 Perbanyak:
+• Ikan
+• Oatmeal
+• Sayuran
+• Buah tinggi serat
+
+🏃 Aktivitas:
+• Jalan cepat
+• Bersepeda
+• Olahraga aerobik ringan`
+    );
+
   }
+
+  // ASAM URAT
   if(data.asamUrat === 'Tinggi'){
-    hasil.push(`⚠️ Asam Urat Tinggi\n\n🚫 Hindari:\n• Jeroan\n• Seafood berlebihan\n• Daging merah berlebihan\n\n🥗 Perbanyak:\n• Air putih\n• Buah segar\n• Sayuran rendah purin\n\n🏃 Aktivitas:\n• Jalan santai\n• Peregangan ringan\n• Jaga berat badan ideal`);
+
+    hasil.push(
+`⚠️ Asam Urat Tinggi
+
+🚫 Hindari:
+• Jeroan
+• Seafood berlebihan
+• Daging merah berlebihan
+
+🥗 Perbanyak:
+• Air putih
+• Buah segar
+• Sayuran rendah purin
+
+🏃 Aktivitas:
+• Jalan santai
+• Peregangan ringan
+• Jaga berat badan ideal`
+    );
+
   }
+
   if(hasil.length === 0){
-    hasil.push(`✅ Hasil pemeriksaan dalam batas normal.\n\nPertahankan pola hidup sehat dengan:\n\n🥗 Konsumsi makanan bergizi seimbang\n🏃 Aktivitas fisik minimal 30 menit/hari\n🛌 Istirahat cukup\n🚭 Hindari asap rokok\n🩺 Periksa kesehatan secara berkala`);
+
+    hasil.push(
+`✅ Hasil pemeriksaan dalam batas normal.
+
+Pertahankan pola hidup sehat dengan:
+
+🥗 Konsumsi makanan bergizi seimbang
+🏃 Aktivitas fisik minimal 30 menit/hari
+🛌 Istirahat cukup
+🚭 Hindari asap rokok
+🩺 Periksa kesehatan secara berkala`
+    );
+
   }
+
   return hasil.join('\n\n');
 }
 
 function buatPesanWhatsapp(data){
-  return `Hallo ${data.nama}\n\nBerikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}\n\n📏 TB : ${data.tb || '-'} cm\n⚖️ BB : ${data.bb || '-'} kg\n👤 Status Gizi : ${data.gizi || '-'}\n\n❤️ Tensi : ${data.td || '-'}\n📊 Status Tensi : ${data.statusTensi || '-'}\n\n💉 GDA : ${data.gds || '-'} mg/dL\n🍬 Status Gula : ${data.statusGula || '-'}\n\n🥚 CHOL : ${data.kol || '-'} mg/dL\n❤️ Status Kolesterol : ${data.statusKol || '-'}\n\n🦴 Asam Urat : ${data.au || '-'} mg/dL\n🥜 Status Asam Urat : ${data.statusAu || '-'}\n\n🩺🧑‍⚕️ Rekomendasi Kesehatan:\n\n${data.rekomendasi || '-'}\n\nMari ikhtiyar sembuh sesuai sunnah, juga tetap menjaga kesehatan dengan cara:\n\n✅ Cek kesehatan secara berkala\n🚭 Enyahkan asap rokok\n🏃 Rajin aktivitas fisik\n🥗 Diet seimbang\n🛌 Istirahat cukup\n🧘 Kelola stres\n\nYuk follow media sosial kami:\n\n📸 Instagram: @griya_athariz\n🎵 TikTok: @griya_athariz\n▶️ YouTube: @griya_athariz\n\nSalam sehat,\nGriya Athariz`;
+
+  return `Hallo ${data.nama}
+
+Berikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}
+
+📏 TB : ${data.tb || '-'} cm
+⚖️ BB : ${data.bb || '-'} kg
+👤 Status Gizi : ${data.gizi || '-'}
+
+❤️ Tensi : ${data.td || '-'}
+📊 Status Tensi : ${data.statusTensi || '-'}
+
+💉 GDA : ${data.gds || '-'} mg/dL
+🍬 Status Gula : ${data.statusGula || '-'}
+
+🥚 CHOL : ${data.kol || '-'} mg/dL
+❤️ Status Kolesterol : ${data.statusKol || '-'}
+
+🦴 Asam Urat : ${data.au || '-'} mg/dL
+🥜 Status Asam Urat : ${data.statusAu || '-'}
+
+🩺🧑‍⚕️ Rekomendasi Kesehatan:
+
+${data.rekomendasi || '-'}
+
+Mari ikhtiyar sembuh sesuai sunnah, juga tetap menjaga kesehatan dengan cara:
+
+✅ Cek kesehatan secara berkala
+🚭 Enyahkan asap rokok
+🏃 Rajin aktivitas fisik
+🥗 Diet seimbang
+🛌 Istirahat cukup
+🧘 Kelola stres
+
+Yuk follow media sosial kami:
+
+📸 Instagram: @griya_athariz
+🎵 TikTok: @griya_athariz
+▶️ YouTube: @griya_athariz
+
+Salam sehat,
+Griya Athariz`;
+
 }
 
 function kirimResumeWA(data){
+
   if(!data.wa){
     toast('Nomor WhatsApp pasien tidak tersedia','err');
     return;
   }
-  var nomor = String(data.wa).replace(/\D/g,'');
-  if (nomor.startsWith('0')) {
-    nomor = '62' + nomor.slice(1);
-  } else if (nomor.startsWith('8')) {
-    nomor = '62' + nomor;
-  }
+
+  var nomor = String(data.wa)
+    .replace(/\D/g,'')
+    .replace(/^0/,'62');
+
   console.log('WA ASLI :', data.wa);
   console.log('WA FINAL:', nomor);
+
   if(nomor.length < 10){
     toast('Nomor WhatsApp tidak valid','err');
     return;
   }
+
   var pesan = buatPesanWhatsapp(data);
-  var url = 'https://api.whatsapp.com/send?phone=' + nomor + '&text=' + encodeURIComponent(pesan);
+
+  var url =
+    'https://wa.me/' +
+    nomor +
+    '?text=' +
+    encodeURIComponent(pesan);
+
   window.open(url,'_blank');
 }
 
 function init(){
   document.getElementById('k-tgl').value = today();
-  document.getElementById('j-tgl').value = today();
   buildTitik();
   buildCG('cg-darah', DARAH, 'darah');
   buildCG('cg-mom', TERAPI_MOM, 'mom');
   buildCG('cg-baby', LAYANAN_BABY, 'baby');
-  
   if(GAS_URL){
     document.getElementById('gas-url').value = GAS_URL;
-    document.getElementById('j-booking-url').value = GAS_URL + '?page=booking';
     setDot(true);
     loadData();
-  }
-
-  // ✨ TAMBAHKAN LOGIKA ROUTING INI DI BAWAH INI ✨
-  // Mengecek apakah di URL browser terdapat parameter ?page=booking
-  var urlParams = new URLSearchParams(window.location.search);
-  var page = urlParams.get('page');
-  
-  if (page === 'booking') {
-    // Jika ada, panggil fungsi goto bawaan script Anda untuk langsung menuju panel jadwal
-    goto('jadwal');
   }
 }
 
@@ -819,13 +1848,16 @@ function goto(page){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('panel-'+page).classList.add('active');
-  var order = ['dashboard','pasien','kunjungan','jadwal','riwayat','pembayaran','setup'];
+  var order = ['dashboard','pasien','kunjungan','riwayat','pembayaran','setup'];
   document.querySelectorAll('.nav-item')[order.indexOf(page)].classList.add('active');
   document.getElementById('topbar-title').textContent = PAGES[page].t;
   document.getElementById('topbar-sub').textContent = PAGES[page].s;
 }
 
-if(window.innerWidth <= 768){ toggleSidebar(false); }
+if(window.innerWidth <= 768){
+  toggleSidebar(false);
+}
+
 
 function toast(msg, type){
   type = type || 'ok';
@@ -835,11 +1867,19 @@ function toast(msg, type){
 }
 
 function showLoading(text){
-  document.querySelector('#loadingOverlay .loading-text').textContent = text || 'Memproses Data...';
-  document.getElementById('loadingOverlay').classList.add('show');
+
+  document.querySelector('#loadingOverlay .loading-text')
+    .textContent = text || 'Memproses Data...';
+
+  document.getElementById('loadingOverlay')
+    .classList.add('show');
 }
 
-function hideLoading(){ document.getElementById('loadingOverlay').classList.remove('show'); }
+function hideLoading(){
+
+  document.getElementById('loadingOverlay')
+    .classList.remove('show');
+}
 
 function setDot(on){
   document.getElementById('gas-dot').className = 'gas-dot' + (on ? '' : ' off');
@@ -847,54 +1887,149 @@ function setDot(on){
 }
 
 function simpanGas(){
+
   var url = document.getElementById('gas-url').value.trim();
-  if(!url){ toast('Masukkan URL GAS terlebih dahulu','err'); return; }
+
+  if(!url){
+    toast('Masukkan URL GAS terlebih dahulu','err');
+    return;
+  }
+
   showLoading('Menyimpan konfigurasi...');
+
   GAS_URL = url;
+
   localStorage.setItem('gas_url',url);
-  document.getElementById('j-booking-url').value = url + '?page=booking';
-  setDot(true); toast('URL berhasil disimpan');
+
+  setDot(true);
+
+  toast('URL berhasil disimpan');
+
   loadData();
-  setTimeout(function(){ hideLoading(); },1000);
+
+  setTimeout(function(){
+
+    hideLoading();
+
+  },1000);
+
 }
 
 function testKoneksi(){
-  if(!GAS_URL){ toast('Masukkan URL GAS terlebih dahulu','err'); return; }
+
+  if(!GAS_URL){
+    toast('Masukkan URL GAS terlebih dahulu','err');
+    return;
+  }
+
   showLoading('Menguji koneksi server...');
+
   fetch(GAS_URL + '?action=getPasien')
-    .then(function(r){ if(r.ok){ setDot(true); toast('Koneksi berhasil'); }else{ setDot(false); toast('Koneksi gagal','err'); } })
-    .catch(function(e){ setDot(false); toast('Error : ' + e.message,'err'); })
-    .finally(function(){ hideLoading(); });
+
+    .then(function(r){
+
+      if(r.ok){
+
+        setDot(true);
+        toast('Koneksi berhasil');
+
+      }else{
+
+        setDot(false);
+        toast('Koneksi gagal','err');
+
+      }
+
+    })
+
+    .catch(function(e){
+
+      setDot(false);
+      toast('Error : ' + e.message,'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
-function loadData(){ loadPasien(); loadKunjungan(); loadJadwal(); }
+function loadData(){ loadPasien(); loadKunjungan(); }
 
 function loadPasien(){
+
   if(!GAS_URL) return;
+
   showLoading('Memuat data pasien...');
+
   fetch(GAS_URL + '?action=getPasien')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ allPasien = d.data || []; renderPasien(allPasien); updateDropdown(); updateDash(); })
-    .catch(function(e){ console.error(e); toast('Gagal memuat data pasien', 'err'); })
-    .finally(function(){ hideLoading(); });
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      allPasien = d.data || [];
+
+      renderPasien(allPasien);
+      updateDropdown();
+      updateDash();
+
+    })
+
+    .catch(function(e){
+
+      console.error(e);
+      toast('Gagal memuat data pasien', 'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function loadKunjungan(){
-  if(!GAS_URL) return;
-  showLoading('Memuat data kunjungan...');
-  fetch(GAS_URL + '?action=getKunjungan')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ allKunjungan = d.data || []; renderRiwayat(allKunjungan); updateDash(); })
-    .catch(function(e){ console.error(e); toast('Gagal memuat data kunjungan', 'err'); })
-    .finally(function(){ hideLoading(); });
-}
 
-function loadJadwal(){
   if(!GAS_URL) return;
-  fetch(GAS_URL + '?action=getJadwal')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ allJadwal = d.data || []; renderJadwal(allJadwal); updateDashJadwal(); })
-    .catch(function(e){ console.error("Gagal load jadwal", e); });
+
+  showLoading('Memuat data kunjungan...');
+
+  fetch(GAS_URL + '?action=getKunjungan')
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      allKunjungan = d.data || [];
+
+      renderRiwayat(allKunjungan);
+      updateDash();
+
+    })
+
+    .catch(function(e){
+
+      console.error(e);
+      toast('Gagal memuat data kunjungan', 'err');
+
+    })
+
+    .finally(function(){
+
+      hideLoading();
+
+    });
+
 }
 
 function updateDash(){
@@ -903,71 +2038,90 @@ function updateDash(){
   var td = today();
   document.getElementById('s-bulan').textContent = allKunjungan.filter(function(k){return String(k[0]).startsWith(bln);}).length;
   document.getElementById('s-hari').textContent = allKunjungan.filter(function(k){return String(k[0]).split('T')[0]===td;}).length;
-  
-  // Update Filter Counter Layanan Spesifik Berdasarkan Semua Riwayat Kunjungan
-  var cBekam = allKunjungan.filter(function(k){ return k[3] === 'Bekam'; }).length;
-  var cMom = allKunjungan.filter(function(k){ return k[3] === 'Mom Spa'; }).length;
-  var cBaby = allKunjungan.filter(function(k){ return k[3] === 'Baby Spa'; }).length;
-  
-  document.getElementById('s-bekam').textContent = cBekam;
-  document.getElementById('s-mom').textContent = cMom;
-  document.getElementById('s-baby').textContent = cBaby;
-
   var recent = allKunjungan.slice(-8).reverse();
   document.getElementById('recent-list').innerHTML = recent.length
     ? recent.map(visitHTML).join('')
     : '<div class="empty"><i class="ti ti-calendar-off"></i><p>Belum ada kunjungan</p></div>';
 }
 
-function updateDashJadwal(){
-  var td = today();
-  var hariIniJadwal = allJadwal.filter(function(j){ return j[0] === td; });
-  var el = document.getElementById('dash-jadwal-list');
-  if(!hariIniJadwal.length){
-    el.innerHTML = '<tr><td colspan="5" class="empty">Belum ada antrean jadwal hari ini</td></tr>';
-    return;
-  }
-  hariIniJadwal.sort((a,b) => String(a[1]).localeCompare(String(b[1])));
-  el.innerHTML = hariIniJadwal.map(function(j){
-    return `<tr>
-      <td><b>${j[1] || '—'}</b></td>
-      <td>${j[2] || '—'}</td>
-      <td>${j[3] || '—'}</td>
-      <td><span class="tag ${j[4]==='Bekam'?'tag-bekam':j[4]==='Mom Spa'?'tag-mom':'tag-baby'}">${j[4]}</span></td>
-      <td><b style="color:var(--teal)">${j[5] || 'Booking'}</b></td>
-    </tr>`;
-  }).join('');
-}
-
 function visitHTML(k){
-  var j = k[3] || '';
+  var j = k[2] || '';
   var cls = j==='Bekam'?'bekam':j==='Mom Spa'?'mom':'baby';
   var tcls = j==='Bekam'?'tag-bekam':j==='Mom Spa'?'tag-mom':'tag-baby';
-  var bayar = k[29] || 'Lunas';
+  var bayar = k[28] || 'Lunas';
   return '<div class="visit-item ' + cls + '"><div class="visit-head"><span class="visit-date"><i class="ti ti-calendar" style="font-size:11px;vertical-align:-1px"></i> ' + (k[0]||'—') + ' &middot; <strong>' + (k[2]||'—') + '</strong></span><span class="tag ' + tcls + '">' + j + '</span></div><div class="visit-detail">' + (k[1]||'—') + ' &middot; ' + ((k[4]||'').slice(0,55)||'—') + ' &middot; <span class="tag ' + (bayar==='Lunas'?'tag-lunas':'tag-belum') + '" style="padding:1px 6px">' + bayar + '</span></div></div>';
 }
 
 function renderPasien(data){
-  var el = document.getElementById('list-pasien');
-  if(!data.length){ el.innerHTML = '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>'; return; }
-  var start = (pasienPage - 1) * pasienPerPage; var end = start + pasienPerPage;
-  var pageData = data.slice(start,end); var totalPage = Math.ceil(data.length / pasienPerPage);
 
-  el.innerHTML = pageData.map(function(p){
-    return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[4]||'-') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
-  }).join('') +
-  '<div class="pagination">' +
-    '<button class="btn btn-outline" onclick="gantiPagePasien(-1)" ' + (pasienPage===1?'disabled':'') + '>◀</button>' +
-    '<span class="page-info">Halaman ' + pasienPage + ' / ' + totalPage + '</span>' +
-    '<button class="btn btn-outline" onclick="gantiPagePasien(1)" ' + (pasienPage===totalPage?'disabled':'') + '>▶</button>' +
-  '</div>';
+  var el = document.getElementById('list-pasien');
+
+  if(!data.length){
+
+    el.innerHTML =
+      '<div class="empty"><i class="ti ti-users-group"></i><p>Belum ada pasien terdaftar</p></div>';
+
+    return;
+
+  }
+
+  var start =
+    (pasienPage - 1) * pasienPerPage;
+
+  var end =
+    start + pasienPerPage;
+
+  var pageData =
+    data.slice(start,end);
+
+  var totalPage =
+    Math.ceil(data.length / pasienPerPage);
+
+  el.innerHTML =
+
+    pageData.map(function(p){
+
+      return '<div class="patient-row" onclick=\'detailPasien(' + JSON.stringify(p).replace(/'/g,"&#39;") + ')\'><div class="avatar">' + (p[1]||'?').charAt(0).toUpperCase() + '</div><div style="flex:1"><div class="patient-name">' + (p[1]||'—') + '</div><div class="patient-sub">' + (p[0]||'') + ' &middot; ' + (p[4]||'-') + ' &middot; ' + (p[2]||'') + '</div></div><i class="ti ti-chevron-right" style="color:var(--text-hint)"></i></div>';
+
+    }).join('')
+
+    +
+
+    '<div class="pagination">' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(-1)" ' +
+      (pasienPage===1?'disabled':'') +
+      '>◀</button>' +
+
+      '<span class="page-info">Halaman ' +
+      pasienPage +
+      ' / ' +
+      totalPage +
+      '</span>' +
+
+      '<button class="btn btn-outline" onclick="gantiPagePasien(1)" ' +
+      (pasienPage===totalPage?'disabled':'') +
+      '>▶</button>' +
+
+    '</div>';
+
 }
 
 function gantiPagePasien(step){
-  var totalPage = Math.ceil(allPasien.length / pasienPerPage);
+
+  var totalPage =
+    Math.ceil(allPasien.length / pasienPerPage);
+
   pasienPage += step;
-  if(pasienPage < 1) pasienPage = 1; if(pasienPage > totalPage) pasienPage = totalPage;
+
+  if(pasienPage < 1)
+    pasienPage = 1;
+
+  if(pasienPage > totalPage)
+    pasienPage = totalPage;
+
   renderPasien(allPasien);
+
 }
 
 function renderRiwayat(data){
@@ -975,53 +2129,57 @@ function renderRiwayat(data){
   document.getElementById('list-riwayat').innerHTML = d.length ? d.map(visitHTML).join('') : '<div class="empty"><i class="ti ti-calendar-off"></i><p>Belum ada riwayat kunjungan</p></div>';
 }
 
-function renderJadwal(data){
-  var el = document.getElementById('list-jadwal-all');
-  if(!data.length){ el.innerHTML = '<tr><td colspan="6" class="empty">Belum ada data booking</td></tr>'; return; }
-  var sorted = data.slice().reverse();
-  el.innerHTML = sorted.map(function(j){
-    return `<tr>
-      <td>${j[0]}</td>
-      <td>${j[1]}</td>
-      <td>${j[2]}</td>
-      <td>${j[3]}</td>
-      <td><span class="tag ${j[4]==='Bekam'?'tag-bekam':j[4]==='Mom Spa'?'tag-mom':'tag-baby'}">${j[4]}</span></td>
-      <td><b>${j[5]}</b></td>
-    </tr>`;
-  }).join('');
-}
-
 function updateDropdown(){
   var sel = document.getElementById('k-pasien');
-  var cur = sel.value; sel.innerHTML = '<option value="">— Pilih pasien —</option>';
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">— Pilih pasien —</option>';
   allPasien.forEach(function(p){
-    var o = document.createElement('option'); o.value = p[0]; o.textContent = p[0] + ' — ' + (p[1]||''); sel.appendChild(o);
+    var o = document.createElement('option');
+    o.value = p[0]; o.textContent = p[0] + ' — ' + (p[1]||'');
+    sel.appendChild(o);
   });
   if(cur) sel.value = cur;
 }
 
 function filterPasien(){
+
   var q = document.getElementById('cari-pasien').value.toLowerCase().trim();
+
   pasienPage = 1;
-  renderPasien(allPasien.filter(function(p){
-    var nama = String(p[1] || '').toLowerCase(); var telp = String(p[2] || ''); var rm = String(p[0] || '').toLowerCase();
-    return nama.includes(q) || telp.includes(q) || rm.includes(q);
-  }));
+
+renderPasien(
+  allPasien.filter(function(p){
+
+    var nama = String(p[1] || '').toLowerCase();
+    var telp = String(p[2] || '');
+    var rm   = String(p[0] || '').toLowerCase();
+
+    return nama.includes(q)
+        || telp.includes(q)
+        || rm.includes(q);
+
+  })
+);
+
 }
 
 function filterRiwayat(){
+
   var q = document.getElementById('cari-riwayat').value.toLowerCase();
   var j = document.getElementById('filter-jenis').value;
-  renderRiwayat(allKunjungan.filter(function(k){
-    var nama = String(k[2] || '').toLowerCase(); var jenis = String(k[3] || '');
-    return (!q || nama.includes(q)) && (!j || jenis === j);
-  }));
-}
 
-function filterJadwal(){
-  var tgl = document.getElementById('cari-jadwal').value;
-  if(!tgl){ renderJadwal(allJadwal); return; }
-  renderJadwal(allJadwal.filter(function(j){ return j[0] === tgl; }));
+  renderRiwayat(
+    allKunjungan.filter(function(k){
+
+      var nama = String(k[2] || '').toLowerCase(); // Nama Pasien
+      var jenis = String(k[3] || '');              // Jenis Layanan
+
+      return (!q || nama.includes(q))
+          && (!j || jenis === j);
+
+    })
+  );
+
 }
 
 function toggleLayanan(){
@@ -1032,139 +2190,354 @@ function toggleLayanan(){
 }
 
 function formatTanggalDisplay(tgl){
-  if(!tgl) return '—'; var d = new Date(tgl); if(isNaN(d)) return tgl;
-  var hari = String(d.getDate()).padStart(2,'0'); var bulan = String(d.getMonth()+1).padStart(2,'0'); var tahun = d.getFullYear();
+
+  if(!tgl) return '—';
+
+  var d = new Date(tgl);
+
+  if(isNaN(d)) return tgl;
+
+  var hari = String(d.getDate()).padStart(2,'0');
+  var bulan = String(d.getMonth()+1).padStart(2,'0');
+  var tahun = d.getFullYear();
+
   return hari + '-' + bulan + '-' + tahun;
+
 }
 
 function detailPasien(p){
+
   activePasienRm = p[0];
-  var riwayatPasien = allKunjungan.filter(function(k){ return k[1] === p[0]; }).slice(-5).reverse();
-  var riwHTML = riwayatPasien.length ? riwayatPasien.map(visitHTML).join('') : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
+
+  var riwayatPasien = allKunjungan
+    .filter(function(k){
+      return k[1] === p[0];
+    })
+    .slice(-5)
+    .reverse();
+
+  var riwHTML = riwayatPasien.length
+    ? riwayatPasien.map(visitHTML).join('')
+    : '<div class="empty" style="padding:14px"><p>Belum ada riwayat kunjungan</p></div>';
 
   document.getElementById('modal-content').innerHTML =
+
     '<div class="rm-card">' +
-      '<div class="rm-no">NO. REKAM MEDIS — ' + (p[0] || '—') + '</div>' +
-      '<div class="rm-name">' + (p[1] || '—') + '</div>' +
-      '<div class="rm-meta">' + (p[5] === 'P' ? 'Perempuan' : 'Laki-laki') + ' &middot; ' + formatTanggalDisplay(p[3]) + ' &middot; ' + (p[2] || '—') + '</div>' +
+
+      '<div class="rm-no">NO. REKAM MEDIS — ' +
+      (p[0] || '—') +
+      '</div>' +
+
+      '<div class="rm-name">' +
+      (p[1] || '—') +
+      '</div>' +
+
+      '<div class="rm-meta">' +
+      (p[5] === 'P' ? 'Perempuan' : 'Laki-laki') +
+      ' &middot; ' +
+      formatTanggalDisplay(p[3]) +
+      ' &middot; ' +
+      (p[2] || '—') +
+      '</div>' +
+
     '</div>' +
-    '<div class="detail-row"><div class="detail-lbl">Usia</div><div class="detail-val">' + (p[4] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' + (p[6] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' + (p[7] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' + (p[8] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' + (p[9] || '—') + '</div></div>' +
-    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' + formatTanggalDisplay(p[10]) + '</div></div>' +
-    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' + riwHTML;
+
+    '<div class="detail-row"><div class="detail-lbl">Usia</div><div class="detail-val">' +
+    (p[4] || '—') +
+    ' Tahun</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alamat</div><div class="detail-val">' +
+    (p[6] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Alergi</div><div class="detail-val">' +
+    (p[7] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Penyakit Kronis</div><div class="detail-val">' +
+    (p[8] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Catatan Khusus</div><div class="detail-val">' +
+    (p[9] || '—') +
+    '</div></div>' +
+
+    '<div class="detail-row"><div class="detail-lbl">Tgl Daftar</div><div class="detail-val">' +
+    formatTanggalDisplay(p[10]) +
+    '</div></div>' +
+
+    '<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:14px 0 8px">RIWAYAT KUNJUNGAN</div>' +
+    riwHTML;
+
   document.getElementById('modal-pasien').classList.add('open');
+
 }
 
 function closeModal(){ document.getElementById('modal-pasien').classList.remove('open'); }
-function kunjunganDariModal(){ document.getElementById('k-pasien').value = activePasienRm; closeModal(); goto('kunjungan'); }
+
+function kunjunganDariModal(){
+  document.getElementById('k-pasien').value = activePasienRm;
+  closeModal(); goto('kunjungan');
+}
+
 document.getElementById('modal-pasien').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
 function simpanPasien(){
-  var nama = document.getElementById('p-nama').value.trim(); var telp = document.getElementById('p-telp').value.trim();
-  if(!nama || !telp){ toast('Nama dan nomor telepon wajib diisi','err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan','err'); return; }
+
+  var nama = document.getElementById('p-nama').value.trim();
+  var telp = document.getElementById('p-telp').value.trim();
+
+  if(!nama || !telp){
+    toast('Nama dan nomor telepon wajib diisi','err');
+    return;
+  }
+
+  if(!GAS_URL){
+    toast('Hubungkan Google Apps Script di Pengaturan','err');
+    return;
+  }
+
   showLoading('Menyimpan data pasien...');
+
   var payload = {
-    action:'addPasien', nama:nama, telp:telp, tglLahir:document.getElementById('p-lahir').value,
-    usia: document.getElementById('p-usia').value, jk:document.getElementById('p-jk').value,
-    alamat:document.getElementById('p-alamat').value, alergi:document.getElementById('p-alergi').value,
-    kronis:document.getElementById('p-kronis').value, catatan:document.getElementById('p-catatan').value, tglDaftar:today()
-  };
-  fetch(GAS_URL,{ method:'POST', body:JSON.stringify(payload) })
-  .then(function(r){ return r.json(); })
-  .then(function(res){ if(res.success){ toast('Pasien berhasil didaftarkan'); clearPasien(); loadPasien(); }else{ toast(res.message || 'Gagal menyimpan','err'); } })
-  .catch(function(e){ toast('Error : ' + e.message,'err'); }).finally(function(){ hideLoading(); });
-}
-
-function simpanJadwal(){
-  var tgl = document.getElementById('j-tgl').value;
-  var jam = document.getElementById('j-jam').value;
-  var nama = document.getElementById('j-nama').value.trim();
-  var telp = document.getElementById('j-telp').value.trim();
-  var layanan = document.getElementById('j-layanan').value;
-  var status = document.getElementById('j-status').value;
-
-  if(!tgl || !jam || !nama || !telp){ toast('Semua kolom wajib diisi','err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan','err'); return; }
-
-  showLoading('Menyimpan jadwal...');
-  var payload = {
-    action: 'addJadwal', tgl: tgl, jam: jam, nama: nama, telp: telp, layanan: layanan, status: status
+    action:'addPasien',
+    nama:nama,
+    telp:telp,
+    tglLahir:document.getElementById('p-lahir').value,
+    usia: document.getElementById('p-usia').value,
+    jk:document.getElementById('p-jk').value,
+    alamat:document.getElementById('p-alamat').value,
+    alergi:document.getElementById('p-alergi').value,
+    kronis:document.getElementById('p-kronis').value,
+    catatan:document.getElementById('p-catatan').value,
+    tglDaftar:today()
   };
 
-  fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
-  .then(r => r.json())
-  .then(res => {
-    if(res.success){
-      toast('Jadwal Berhasil disimpan!');
-      document.getElementById('j-nama').value = '';
-      document.getElementById('j-telp').value = '';
-      loadJadwal();
-    } else { toast('Gagal menyimpan jadwal','err'); }
+  fetch(GAS_URL,{
+    method:'POST',
+    body:JSON.stringify(payload)
   })
-  .catch(e => toast('Error: ' + e.message, 'err'))
-  .finally(() => hideLoading());
-}
 
-function salinLinkBooking(){
-  var copyText = document.getElementById("j-booking-url");
-  if(!GAS_URL) { toast('Konfigurasi URL GAS dulu','err'); return;}
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(copyText.value);
-  toast('Link booking pelanggan berhasil disalin!');
+  .then(function(r){
+    return r.json();
+  })
+
+  .then(function(res){
+
+    if(res.success){
+
+      toast('Pasien berhasil didaftarkan');
+
+      clearPasien();
+      loadPasien();
+
+    }else{
+
+      toast(res.message || 'Gagal menyimpan','err');
+
+    }
+
+  })
+
+  .catch(function(e){
+
+    toast('Error : ' + e.message,'err');
+
+  })
+
+  .finally(function(){
+
+    hideLoading();
+
+  });
+
 }
 
 function simpanKunjungan(){
+
   var pasien = document.getElementById('k-pasien').value;
-  var jenis = document.getElementById('k-jenis').value;
-  var tgl = document.getElementById('k-tgl').value;
-  if(!pasien || !jenis || !tgl){ toast('Pasien, jenis layanan & tanggal wajib diisi', 'err'); return; }
-  if(!GAS_URL){ toast('Hubungkan Google Apps Script di Pengaturan', 'err'); return; }
+  var jenis  = document.getElementById('k-jenis').value;
+  var tgl    = document.getElementById('k-tgl').value;
+
+  if(!pasien || !jenis || !tgl){
+    toast('Pasien, jenis layanan & tanggal wajib diisi', 'err');
+    return;
+  }
+
+  if(!GAS_URL){
+    toast('Hubungkan Google Apps Script di Pengaturan', 'err');
+    return;
+  }
 
   showLoading('Menyimpan data kunjungan...');
-  var pData = allPasien.find(function(p){ return p[0] === pasien; });
+
+  var pData = allPasien.find(function(p){
+    return p[0] === pasien;
+  });
+
   var payload = {
-    action: 'addKunjungan', tgl: tgl, noRm: pasien, namaPasien: pData ? pData[1] : pasien, jenis: jenis,
-    keluhan: document.getElementById('k-keluhan').value, rps: document.getElementById('k-rps').value, harapan: document.getElementById('k-harapan').value,
-    td: document.getElementById('k-td').value, nadi: document.getElementById('k-nadi').value, suhu: document.getElementById('k-suhu').value, bb: document.getElementById('k-bb').value, tb: document.getElementById('k-tb').value, gds: document.getElementById('k-gds').value,
-	kolesterol: document.getElementById('k-kolesterol').value, asamUrat: document.getElementById('k-asamurat').value, spo2: document.getElementById('k-spo2').value, kondisiUmum: document.getElementById('k-kondisi').value,
-    titikBekam: selectedTitik.join(', '), bekamJenis: document.getElementById('k-bjenis').value, jumlahKop: document.getElementById('k-kop').value, kondisiDarah: getChecked('darah'),
-    momUsia: document.getElementById('k-momusia').value, terapiMom: getChecked('mom'), terapisMom: document.getElementById('k-momterapis').value, durasiMom: document.getElementById('k-momdurasi').value,
-    babyNama: document.getElementById('k-babyname').value, babyUsia: document.getElementById('k-babyusia').value, babyBb: document.getElementById('k-babybb').value, layananBaby: getChecked('baby'),
-    asesmen: document.getElementById('k-asesmen').value, plan: document.getElementById('k-plan').value, tarif: document.getElementById('k-tarif').value, statusBayar: document.getElementById('k-bayar').value, notes: document.getElementById('k-notes').value,
+    action: 'addKunjungan',
+    tgl: tgl,
+    noRm: pasien,
+    namaPasien: pData ? pData[1] : pasien,
+    jenis: jenis,
+
+    keluhan: document.getElementById('k-keluhan').value,
+    rps: document.getElementById('k-rps').value,
+    harapan: document.getElementById('k-harapan').value,
+
+    td: document.getElementById('k-td').value,
+    nadi: document.getElementById('k-nadi').value,
+    suhu: document.getElementById('k-suhu').value,
+    bb: document.getElementById('k-bb').value,
+    tb: document.getElementById('k-tb').value,
+    gds: document.getElementById('k-gds').value,
+	kolesterol: document.getElementById('k-kolesterol').value,
+	asamUrat: document.getElementById('k-asamurat').value,
+	spo2: document.getElementById('k-spo2').value,
+    kondisiUmum: document.getElementById('k-kondisi').value,
+
+    titikBekam: selectedTitik.join(', '),
+    bekamJenis: document.getElementById('k-bjenis').value,
+    jumlahKop: document.getElementById('k-kop').value,
+    kondisiDarah: getChecked('darah'),
+
+    momUsia: document.getElementById('k-momusia').value,
+    terapiMom: getChecked('mom'),
+    terapisMom: document.getElementById('k-momterapis').value,
+    durasiMom: document.getElementById('k-momdurasi').value,
+
+    babyNama: document.getElementById('k-babyname').value,
+    babyUsia: document.getElementById('k-babyusia').value,
+    babyBb: document.getElementById('k-babybb').value,
+    layananBaby: getChecked('baby'),
+
+    asesmen: document.getElementById('k-asesmen').value,
+    plan: document.getElementById('k-plan').value,
+
+    tarif: document.getElementById('k-tarif').value,
+    statusBayar: document.getElementById('k-bayar').value,
+    notes: document.getElementById('k-notes').value,
+
     noKunjungan: 'KNJ-' + Date.now().toString().slice(-8)
   };
 
-  fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
-  .then(function(r){ return r.json(); })
+  fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+  .then(function(r){
+    return r.json();
+  })
   .then(function(res){
-    if(res.success){
-      toast('Kunjungan berhasil disimpan');
-      var jk = pData ? pData[5] : '';
-      var imtData = hitungIMT(document.getElementById('k-bb').value, document.getElementById('k-tb').value);
-      var gizi = imtData ? imtData.status : 'Tidak dilakukan pemeriksaan';
-      var tensi = statusTensi(document.getElementById('k-td').value);
-      var gula = statusGDS(document.getElementById('k-gds').value);
-      var kol = statusKolesterol(document.getElementById('k-kolesterol').value);
-      var au = statusAsamUrat(document.getElementById('k-asamurat').value, jk);
-      var rekomendasi = buatRekomendasi({ gizi: gizi, tensi: tensi, gula: gula, kolesterol: kol, asamUrat: au });
 
-      if(pData && pData[2]){
-        kirimResumeWA({
-          nama : pData[1], wa : pData[2], tanggal : tgl,
-          tb : document.getElementById('k-tb').value, bb : document.getElementById('k-bb').value, td : document.getElementById('k-td').value, gds : document.getElementById('k-gds').value, kol : document.getElementById('k-kolesterol').value, au : document.getElementById('k-asamurat').value,
-          gizi : gizi, statusTensi : tensi, statusGula : gula, statusKol : kol, statusAu : au, rekomendasi : rekomendasi
-        });
-      }else{ toast('Nomor pasien tidak tersedia', 'err'); }
-      clearKunjungan(); loadData(); goto('riwayat');
-    }else{ toast(res.message || 'Gagal menyimpan', 'err'); }
-  })   
-  .catch(function(e){ console.error(e); toast('Error : ' + e.message, 'err'); })
-  .finally(function(){ hideLoading(); });
+    if(res.success){
+
+  toast('Kunjungan berhasil disimpan');
+
+  // =====================
+  // GENERATE RESUME WA
+  // =====================
+
+  var jk = pData ? pData[4] : '';
+
+  var imtData = hitungIMT(
+  document.getElementById('k-bb').value,
+  document.getElementById('k-tb').value
+);
+
+var gizi = imtData
+  ? imtData.status
+  : 'Tidak dilakukan pemeriksaan';
+
+var tensi = statusTensi(
+  document.getElementById('k-td').value
+);
+
+var gula = statusGDS(
+  document.getElementById('k-gds').value
+);
+
+var kol = statusKolesterol(
+  document.getElementById('k-kolesterol').value
+);
+
+var au = statusAsamUrat(
+  document.getElementById('k-asamurat').value,
+  jk
+);
+
+var rekomendasi = buatRekomendasi({
+  gizi: gizi,
+  tensi: tensi,
+  gula: gula,
+  kolesterol: kol,
+  asamUrat: au
+});
+
+  // nomor WA tersedia?
+  if(pData && pData[2]){
+
+    kirimResumeWA({
+
+      nama : pData[1],
+      wa : pData[2],
+
+      tanggal : tgl,
+
+      tb : document.getElementById('k-tb').value,
+      bb : document.getElementById('k-bb').value,
+
+      td : document.getElementById('k-td').value,
+
+      gds : document.getElementById('k-gds').value,
+
+      kol : document.getElementById('k-kolesterol').value,
+
+      au : document.getElementById('k-asamurat').value,
+
+      gizi : gizi,
+      statusTensi : tensi,
+      statusGula : gula,
+      statusKol : kol,
+      statusAu : au,
+
+      rekomendasi : rekomendasi
+
+    });
+
+  }else{
+
+    toast('Nomor pasien tidak tersedia', 'err');
+
+  }
+
+  clearKunjungan();
+
+  loadData();
+
+  goto('riwayat');
+
+}else{
+
+  toast(res.message || 'Gagal menyimpan', 'err');
+
+}
+
+})   
+
+.catch(function(e){
+
+  console.error(e);
+  toast('Error : ' + e.message, 'err');
+
+})
+.finally(function(){
+
+  hideLoading();
+
+});
+
 }
 
 function clearPasien(){
@@ -1173,72 +2546,262 @@ function clearPasien(){
 }
 
 function clearKunjungan(){
-  ['k-keluhan','k-rps','k-harapan','k-td','k-nadi','k-suhu','k-bb','k-tb','k-gds','k-kolesterol','k-asamurat','k-spo2','k-asesmen','k-plan','k-tarif','k-notes','k-momusia','k-momterapis','k-momdurasi','k-babyname','k-babyusia','k-babybb','k-kop'].forEach(function(id){ document.getElementById(id).value=''; });
-  document.getElementById('k-jenis').value = ''; document.getElementById('k-pasien').value = ''; document.getElementById('k-kondisi').value = 'Baik'; document.getElementById('k-bayar').value = 'Lunas';
-  selectedTitik = []; document.querySelectorAll('.titik-btn').forEach(function(b){b.classList.remove('sel');});
-  document.querySelectorAll('.cg-darah,.cg-mom,.cg-baby').forEach(function(c){ c.checked = false; c.closest('.check-item').classList.remove('sel'); });
+  ['k-keluhan','k-rps','k-harapan','k-td','k-nadi','k-suhu','k-bb','k-tb','k-gds',
+'k-kolesterol',
+'k-asamurat',
+'k-spo2','k-asesmen','k-plan','k-tarif','k-notes','k-momusia','k-momterapis','k-momdurasi','k-babyname','k-babyusia','k-babybb','k-kop'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('k-jenis').value = '';
+  document.getElementById('k-pasien').value = '';
+  document.getElementById('k-kondisi').value = 'Baik';
+  document.getElementById('k-bayar').value = 'Lunas';
+  selectedTitik = [];
+  document.querySelectorAll('.titik-btn').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.cg-darah,.cg-mom,.cg-baby').forEach(function(c){
+    c.checked = false;
+    c.closest('.check-item').classList.remove('sel');
+  });
   toggleLayanan();
 }
 
+function setBtnLoading(btn,status){
+
+  if(!btn) return;
+
+  if(status){
+
+    btn.dataset.original = btn.innerHTML;
+
+    btn.innerHTML =
+      '<i class="ti ti-loader"></i> Memproses...';
+
+    btn.classList.add('btn-loading');
+
+  }else{
+
+    btn.innerHTML = btn.dataset.original;
+
+    btn.classList.remove('btn-loading');
+
+  }
+
+}
+
 function toggleSidebar(force){
-  var sidebar = document.querySelector('.sidebar'); var overlay = document.getElementById('sidebarOverlay');
-  var open = typeof force === 'boolean' ? force : !sidebar.classList.contains('show');
-  sidebar.classList.toggle('show', open); overlay.classList.toggle('show', open);
+
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+
+  var open =
+    typeof force === 'boolean'
+      ? force
+      : !sidebar.classList.contains('show');
+
+  sidebar.classList.toggle('show', open);
+  overlay.classList.toggle('show', open);
 }
 
 function uploadQRIS(e){
-  var file = e.target.files[0]; if(!file) return;
+
+  var file = e.target.files[0];
+
+  if(!file) return;
+
   var reader = new FileReader();
+
   reader.onload = function(evt){
-    localStorage.setItem('qris_image', evt.target.result);
-    var img = document.getElementById('preview-qris'); if(img){ img.src = evt.target.result; img.style.display = 'block'; }
-    var status = document.getElementById('upload-status'); if(status){ status.style.display = 'block'; }
+
+    localStorage.setItem(
+      'qris_image',
+      evt.target.result
+    );
+
+    var img =
+      document.getElementById('preview-qris');
+
+    if(img){
+
+      img.src = evt.target.result;
+      img.style.display = 'block';
+
+    }
+
+    var status =
+      document.getElementById('upload-status');
+
+    if(status){
+
+      status.style.display = 'block';
+
+    }
+
     toast('QRIS berhasil diupload');
+
   };
+
   reader.readAsDataURL(file);
+
 }
 
 function toggleQRIS(){
-  var img = document.getElementById('show-qris');
-  img.style.display = (img.style.display === 'block') ? 'none' : 'block';
+
+  var img =
+    document.getElementById('show-qris');
+
+  if(img.style.display === 'block'){
+
+    img.style.display = 'none';
+
+  }else{
+
+    img.style.display = 'block';
+
+  }
+
 }
 
 function simpanPembayaran(){
+
   var data = {
-    bank: document.getElementById('pay-bank')?.value || '', rekening: document.getElementById('pay-rekening')?.value || '', an: document.getElementById('pay-an')?.value || '',
-    dana: document.getElementById('pay-dana')?.value || '', ovo: document.getElementById('pay-ovo')?.value || '', gopay: document.getElementById('pay-gopay')?.value || ''
+
+    bank:
+      document.getElementById('pay-bank')?.value || '',
+
+    rekening:
+      document.getElementById('pay-rekening')?.value || '',
+
+    an:
+      document.getElementById('pay-an')?.value || '',
+
+    dana:
+      document.getElementById('pay-dana')?.value || '',
+
+    ovo:
+      document.getElementById('pay-ovo')?.value || '',
+
+    gopay:
+      document.getElementById('pay-gopay')?.value || ''
+
   };
-  localStorage.setItem('payment_config', JSON.stringify(data));
-  toast('Data pembayaran berhasil disimpan'); tampilkanPembayaran();
+
+  localStorage.setItem(
+    'payment_config',
+    JSON.stringify(data)
+  );
+
+  toast('Data pembayaran berhasil disimpan');
+
+  tampilkanPembayaran();
+
 }
 
 function loadPembayaran(){
-  var pay = JSON.parse(localStorage.getItem('payment_config') || '{}');
-  if(document.getElementById('pay-bank')) document.getElementById('pay-bank').value = pay.bank || '';
-  if(document.getElementById('pay-rekening')) document.getElementById('pay-rekening').value = pay.rekening || '';
-  if(document.getElementById('pay-an')) document.getElementById('pay-an').value = pay.an || '';
-  if(document.getElementById('pay-dana')) document.getElementById('pay-dana').value = pay.dana || '';
-  if(document.getElementById('pay-ovo')) document.getElementById('pay-ovo').value = pay.ovo || '';
-  if(document.getElementById('pay-gopay')) document.getElementById('pay-gopay').value = pay.gopay || '';
+
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(document.getElementById('pay-bank'))
+    document.getElementById('pay-bank').value =
+      pay.bank || '';
+
+  if(document.getElementById('pay-rekening'))
+    document.getElementById('pay-rekening').value =
+      pay.rekening || '';
+
+  if(document.getElementById('pay-an'))
+    document.getElementById('pay-an').value =
+      pay.an || '';
+
+  if(document.getElementById('pay-dana'))
+    document.getElementById('pay-dana').value =
+      pay.dana || '';
+
+  if(document.getElementById('pay-ovo'))
+    document.getElementById('pay-ovo').value =
+      pay.ovo || '';
+
+  if(document.getElementById('pay-gopay'))
+    document.getElementById('pay-gopay').value =
+      pay.gopay || '';
+
   var qris = localStorage.getItem('qris_image');
-  if(qris && document.getElementById('preview-qris')){ document.getElementById('preview-qris').src = qris; document.getElementById('preview-qris').style.display = 'block'; }
+
+  if(
+    qris &&
+    document.getElementById('preview-qris')
+  ){
+
+    document.getElementById('preview-qris').src =
+      qris;
+
+    document.getElementById('preview-qris').style.display =
+      'block';
+
+  }
+
 }
 
 function tampilkanPembayaran(){
-  var pay = JSON.parse(localStorage.getItem('payment_config') || '{}');
-  if(!pay.bank && !pay.rekening){ return; }
-  document.getElementById('paymentForm').style.display = 'none';
-  document.getElementById('paymentCard').style.display = 'block';
-  document.getElementById('show-bank').innerHTML = '<b>Bank :</b> ' + (pay.bank || '-');
-  document.getElementById('show-rekening').innerHTML = '<b>No Rekening :</b> ' + (pay.rekening || '-');
-  document.getElementById('show-an').innerHTML = '<b>Atas Nama :</b> ' + (pay.an || '-');
-  document.getElementById('show-dana').innerHTML = '<b>DANA :</b> ' + (pay.dana || '-');
-  document.getElementById('show-ovo').innerHTML = '<b>OVO :</b> ' + (pay.ovo || '-');
-  document.getElementById('show-gopay').innerHTML = '<b>GoPay :</b> ' + (pay.gopay || '-');
-  var qris = localStorage.getItem('qris_image'); if(qris){ document.getElementById('show-qris').src = qris; }
+
+  var pay = JSON.parse(
+    localStorage.getItem('payment_config') || '{}'
+  );
+
+  if(!pay.bank && !pay.rekening){
+    return;
+  }
+
+  document.getElementById('paymentForm').style.display =
+    'none';
+
+  document.getElementById('paymentCard').style.display =
+    'block';
+
+  document.getElementById('show-bank').innerHTML =
+    '<b>Bank :</b> ' + (pay.bank || '-');
+
+  document.getElementById('show-rekening').innerHTML =
+    '<b>No Rekening :</b> ' + (pay.rekening || '-');
+
+  document.getElementById('show-an').innerHTML =
+    '<b>Atas Nama :</b> ' + (pay.an || '-');
+
+  document.getElementById('show-dana').innerHTML =
+    '<b>DANA :</b> ' + (pay.dana || '-');
+
+  document.getElementById('show-ovo').innerHTML =
+    '<b>OVO :</b> ' + (pay.ovo || '-');
+
+  document.getElementById('show-gopay').innerHTML =
+    '<b>GoPay :</b> ' + (pay.gopay || '-');
+
+  var qris =
+    localStorage.getItem('qris_image');
+
+  if(qris){
+
+    document.getElementById('show-qris').src =
+      qris;
+
+  }
+
 }
 
-function editPembayaran(){ document.getElementById('paymentCard').style.display = 'none'; document.getElementById('paymentForm').style.display = 'block'; }
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display =
+    'none';
+
+  document.getElementById('paymentForm').style.display =
+    'block';
+
+}
+function editPembayaran(){
+
+  document.getElementById('paymentCard').style.display = 'none';
+  document.getElementById('paymentForm').style.display = 'block';
+
+}
 
 loadPembayaran();
 tampilkanPembayaran();
