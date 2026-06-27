@@ -761,11 +761,22 @@ function init(){
   buildCG('cg-darah', DARAH, 'darah');
   buildCG('cg-mom', TERAPI_MOM, 'mom');
   buildCG('cg-baby', LAYANAN_BABY, 'baby');
+  
   if(GAS_URL){
     document.getElementById('gas-url').value = GAS_URL;
     document.getElementById('j-booking-url').value = GAS_URL + '?page=booking';
     setDot(true);
     loadData();
+  }
+
+  // ✨ TAMBAHKAN LOGIKA ROUTING INI DI BAWAH INI ✨
+  // Mengecek apakah di URL browser terdapat parameter ?page=booking
+  var urlParams = new URLSearchParams(window.location.search);
+  var page = urlParams.get('page');
+  
+  if (page === 'booking') {
+    // Jika ada, panggil fungsi goto bawaan script Anda untuk langsung menuju panel jadwal
+    goto('jadwal');
   }
 }
 
