@@ -1767,15 +1767,20 @@ Griya Athariz`;
 }
 
 function kirimResumeWA(data){
-
   if(!data.wa){
     toast('Nomor WhatsApp pasien tidak tersedia','err');
     return;
   }
 
-  var nomor = String(data.wa)
-    .replace(/\D/g,'')
-    .replace(/^0/,'62');
+  // 1. Ambil angka saja
+  var nomor = String(data.wa).replace(/\D/g, '');
+
+  // 2. Logika konversi kode negara yang aman
+  if (nomor.startsWith('0')) {
+    nomor = '62' + nomor.slice(1);
+  } else if (nomor.startsWith('8')) {
+    nomor = '62' + nomor;
+  }
 
   console.log('WA ASLI :', data.wa);
   console.log('WA FINAL:', nomor);
@@ -1786,14 +1791,11 @@ function kirimResumeWA(data){
   }
 
   var pesan = buatPesanWhatsapp(data);
+  
+  // Menggunakan api.whatsapp.com agar support di mobile/desktop dengan baik
+  var url = 'https://api.whatsapp.com/send?phone=' + nomor + '&text=' + encodeURIComponent(pesan);
 
-  var url =
-    'https://wa.me/' +
-    nomor +
-    '?text=' +
-    encodeURIComponent(pesan);
-
-  window.open(url,'_blank');
+  window.open(url, '_blank');
 }
 
 function init(){
