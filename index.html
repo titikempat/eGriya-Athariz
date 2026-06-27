@@ -969,24 +969,57 @@ function gantiPagePasien(step){
 }
 
 function renderRiwayat(data){
-  var d = data.slice().reverse();
-  document.getElementById('list-riwayat').innerHTML = d.length ? d.map(visitHTML).join('') : '<div class="empty"><i class="ti ti-calendar-off"></i><p>Belum ada riwayat kunjungan</p></div>';
-}
+  var el = document.getElementById('list-riwayat');
+  if(!data.length){
+    el.innerHTML = '<div class="empty"><i class="ti ti-calendar-off"></i><p>Belum ada riwayat kunjungan</p></div>';
+    return;
+  }
 
-function renderJadwal(data){
-  var el = document.getElementById('list-jadwal-all');
-  if(!data.length){ el.innerHTML = '<tr><td colspan="6" class="empty">Belum ada data booking</td></tr>'; return; }
-  var sorted = data.slice().reverse();
-  el.innerHTML = sorted.map(function(j){
-    return `<tr>
-      <td>${j[0]}</td>
-      <td>${j[1]}</td>
-      <td>${j[2]}</td>
-      <td>${j[3]}</td>
-      <td><span class="tag ${j[4]==='Bekam'?'tag-bekam':j[4]==='Mom Spa'?'tag-mom':'tag-baby'}">${j[4]}</span></td>
-      <td><b>${j[5]}</b></td>
-    </tr>`;
-  }).join('');
+  // Membuat struktur tabel modern
+  var html = '<div class="table-responsive"><table class="modern-table"><thead>' +
+             '<tr><th>Tanggal</th><th>No. RM</th><th>Nama Pasien</th><th>Layanan</th><th>Keluhan</th><th>Catatan/Plan</th><th>Aksi</th></tr>' +
+             '</thead><tbody>';
+
+  data.forEach(function(k){
+    var noRm = k[1] || '';
+    
+    // 🔍 Cari nomor WhatsApp pasien di data allPasien berdasarkan No. RM
+    var pasienObj = allPasien.find(function(p) { return p[0] === noRm; });
+    var telpPasien = pasienObj ? pasienObj[2] : ''; // Kolom indeks ke-2 adalah No. Telepon
+
+    // 💬 Membuat template teks pesan WhatsApp manual
+    var pesanWa = encodeURIComponent(
+      "Halo " + (k[2] || 'Pasien') + ",\n\n" +
+      "Terima kasih telah melakukan kunjungan *" + (k[3] || '') + "* pada tanggal " + (k[0] || '') + " di eGriya Athariz.\n" +
+      "Keluhan Utama: " + (k[4] || '-') + "\n" +
+      "Rencana/Plan: " + (k[30] || '-') + "\n\n" +
+      "Semoga lekas sembuh dan sehat selalu. 🙏"
+    );
+
+    html += '<tr>' +
+            '<td>' + (k[0]||'—') + '</td>' +
+            '<td><b>' + noRm + '</b></td>' +
+            '<td>' + (k[2]||'—') + '</td>' +
+            '<td><span class="tag ' + (k[3]==='Bekam'?'tag-bekam':k[3]==='Mom Spa'?'tag-mom':'tag-baby') + '">' + (k[3]||'—') + '</span></td>' +
+            '<td>' + ((k[4]||'').slice(0,50) || '—') + '</td>' +
+            '<td>' + ((k[30]||'').slice(0,50) || '—') + '</td>' +
+            '<td>' +
+              '<div style="display:flex;gap:4px;">' +
+                '<button class="btn btn-sm" onclick=\'detailKunjungan(' + JSON.stringify(k).replace(/'/g,"&#39;") + ')\' title="Detail">' +
+                  '<i class="ti ti-eye"></i>' +
+                '</button>' +
+                // 🟢 Tombol WhatsApp hanya muncul jika nomor telepon ditemukan di database
+                (telpPasien ? 
+                '<a href="https://wa.me/' + telpPasien + '?text=' + pesanWa + '" target="_blank" class="btn btn-sm" style="background-color:#25D366;border-color:#25D366;color:white;display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;" title="Kirim WA Manual">' +
+                  '<i class="ti ti-brand-whatsapp" style="font-size:15px;"></i>' +
+                '</a>' : '') +
+              '</div>' +
+            '</td>' +
+            '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  el.innerHTML = html;
 }
 
 function updateDropdown(){
