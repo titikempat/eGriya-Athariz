@@ -57,6 +57,7 @@ nav{flex:1;padding:10px 0}
 .card-hd-act{font-size:12px;color:var(--teal);cursor:pointer;font-weight:500}
 
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stats-row.layanan{grid-template-columns:repeat(3,1fr);background:rgba(11,114,133,.05);padding:12px;border-radius:var(--radius-lg);margin-bottom:16px}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
 .stat-num{font-size:28px;font-weight:600;color:var(--teal-dark);line-height:1}
 .stat-lbl{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:500}
@@ -147,704 +148,104 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 .detail-lbl{font-size:11px;color:var(--text-muted);font-weight:600;width:130px;flex-shrink:0}
 .detail-val{font-size:13px;color:var(--text);flex:1}
 
-/* ========================================
-   LAPTOP (DEFAULT)
-   >1024px
-======================================== */
-
-/* Tidak perlu css tambahan
-   karena desain desktop sekarang
-   sudah menjadi default */
-
-
-/* ========================================
-   TABLET
-   769px - 1024px
-======================================== */
-
 @media (min-width:769px) and (max-width:1024px){
-
-  .sidebar{
-    width:80px;
-  }
-
-  .sidebar-logo h1,
-  .sidebar-logo p,
-  .sidebar-badges,
-  .nav-item span,
-  .sidebar-footer{
-    display:none;
-  }
-
-  .nav-item{
-    justify-content:center;
-    padding:14px;
-  }
-
-  .content{
-    padding:16px;
-  }
-
-  .stats-row{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .g3{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .titik-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
+  .sidebar{width:80px;}
+  .sidebar-logo h1,.sidebar-logo p,.sidebar-badges,.nav-item span,.sidebar-footer{display:none;}
+  .nav-item{justify-content:center;padding:14px;}
+  .content{padding:16px;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .g3{grid-template-columns:1fr 1fr;}
+  .titik-grid{grid-template-columns:repeat(3,1fr);}
 }
 
-
-/* ========================================
-   HP
-   <=768px
-======================================== */
-
-.menu-toggle{
-  display:none;
-}
-
-.sidebar-overlay{
-  display:none;
-}
+.menu-toggle{display:none;}
+.sidebar-overlay{display:none;}
 
 @media (max-width:768px){
-
-  @media (max-width:768px){
-
-  .shell{
-    overflow:visible;
-    height:auto;
-  }
-
+  .shell{overflow:visible;height:auto;}
+  .sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:999;transition:.3s;box-shadow:0 0 20px rgba(0,0,0,.15);}
+  .sidebar.show{left:0;}
+  .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:998;display:none;}
+  .sidebar-overlay.show{display:block;}
+  .main{width:100%;}
+  .topbar{padding:12px;flex-wrap:wrap;}
+  .topbar-title{font-size:15px;}
+  .topbar-sub{display:none;}
+  .content{padding:12px;}
+  .stats-row{grid-template-columns:1fr;}
+  .stats-row.layanan{grid-template-columns:1fr;}
+  .form-grid,.g3{grid-template-columns:1fr;}
+  .span2{grid-column:auto;}
+  .search-row{flex-direction:column;}
+  .btn-row{flex-direction:column;}
+  .btn{width:100%;justify-content:center;}
+  .topbar .btn{flex:1;min-width:140px;}
+  .field input,.field select,.field textarea{font-size:16px;}
+  .patient-row{flex-wrap:wrap;}
+  .titik-grid{grid-template-columns:repeat(2,1fr);}
+  .modal{width:95%;padding:16px;}
+  .detail-row{flex-direction:column;gap:2px;}
+  .detail-lbl{width:auto;}
+  .menu-toggle{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;border-radius:8px;background:var(--teal);color:#fff;cursor:pointer;}
 }
 
-  .sidebar{
-
-    position:fixed;
-    top:0;
-    left:-260px;
-
-    width:240px;
-    height:100vh;
-
-    z-index:999;
-
-    transition:.3s;
-
-    box-shadow:0 0 20px rgba(0,0,0,.15);
-  }
-
-  .sidebar.show{
-    left:0;
-  }
-
-  .sidebar-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.4);
-    z-index:998;
-    display:none;
-  }
-
-  .sidebar-overlay.show{
-    display:block;
-  }
-
-  .main{
-    width:100%;
-  }
-
-  .topbar{
-    padding:12px;
-    flex-wrap:wrap;
-  }
-
-  .topbar-title{
-    font-size:15px;
-  }
-
-  .topbar-sub{
-    display:none;
-  }
-
-  .content{
-    padding:12px;
-  }
-
-  .stats-row{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid,
-  .g3{
-    grid-template-columns:1fr;
-  }
-
-  .span2{
-    grid-column:auto;
-  }
-
-  .search-row{
-    flex-direction:column;
-  }
-
-  .btn-row{
-    flex-direction:column;
-  }
-
-  .btn{
-    width:100%;
-    justify-content:center;
-  }
-
-  .topbar .btn{
-    flex:1;
-    min-width:140px;
-  }
-
-  .field input,
-  .field select,
-  .field textarea{
-    font-size:16px;
-  }
-
-  .patient-row{
-    flex-wrap:wrap;
-  }
-
-  .titik-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .modal{
-    width:95%;
-    padding:16px;
-  }
-
-  .detail-row{
-    flex-direction:column;
-    gap:2px;
-  }
-
-  .detail-lbl{
-    width:auto;
-  }
-
-  .menu-toggle{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    width:40px;
-    height:40px;
-
-    border:none;
-    border-radius:8px;
-
-    background:var(--teal);
-    color:#fff;
-
-    cursor:pointer;
-  }
-
-}
-
-
-/* ========================================
-   GLOBAL RESPONSIVE
-======================================== */
-
-.stat-num{
-  word-break:break-word;
-}
-
-.loading-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.8);
-  backdrop-filter:blur(3px);
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.loading-overlay.show{
-  display:flex;
-}
-
-.loading-box{
-  background:#fff;
-  padding:24px 30px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
-  text-align:center;
-  min-width:220px;
-}
-
-.spinner{
-  width:48px;
-  height:48px;
-  border:4px solid #E1F5EE;
-  border-top:4px solid #0B7285;
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 12px;
-}
-
-.loading-text{
-  font-size:13px;
-  color:#0B7285;
-  font-weight:600;
-}
-
-@keyframes spin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-
-.btn-loading{
-  pointer-events:none;
-  opacity:.7;
-}
-
-.btn-loading i{
-  animation:spin 1s linear infinite;
-}
-
-/* ==========================
-   RESPONSIVE SIDEBAR
-========================== */
-
-.menu-toggle{
-  display:none;
-  width:40px;
-  height:40px;
-  border:none;
-  background:var(--teal);
-  color:#fff;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:20px;
-}
-
-@media (max-width:768px){
-
-  .shell{
-    display:block;
-  }
-
-  .sidebar{
-    position:fixed;
-    top:0;
-    left:-260px;
-    width:240px;
-    height:100vh;
-    z-index:999;
-    transition:.3s;
-    box-shadow:0 0 20px rgba(0,0,0,.15);
-  }
-
-  .sidebar.show{
-    left:0;
-  }
-
-  .main{
-    width:100%;
-  }
-
-  .menu-toggle{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-
-  .topbar{
-    padding:12px;
-  }
-
-  .content{
-    padding:12px;
-  }
-
-  .stats-row{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid,
-  .g3{
-    grid-template-columns:1fr;
-  }
-
-  .span2{
-    grid-column:auto;
-  }
-
-  .search-row{
-    flex-direction:column;
-  }
-
-  .btn-row{
-    flex-direction:column;
-  }
-
-  .btn{
-    width:100%;
-    justify-content:center;
-  }
-
-  .titik-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .modal{
-    width:95%;
-    padding:16px;
-  }
-
-  .detail-row{
-    flex-direction:column;
-  }
-
-  .detail-lbl{
-    width:auto;
-  }
-
-}
-
-/* TABLET */
-
-@media (min-width:769px) and (max-width:1024px){
-
-  .sidebar{
-    width:80px;
-  }
-
-  .sidebar-logo h1,
-  .sidebar-logo p,
-  .sidebar-badges,
-  .nav-item span,
-  .sidebar-footer{
-    display:none;
-  }
-
-  .nav-item{
-    justify-content:center;
-  }
-
-  .content{
-    padding:16px;
-  }
-
-  .stats-row{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-.sidebar-overlay{
-  display:none;
-}
-
-@media (max-width:768px){
-
-  .sidebar-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:998;
-    display:none;
-  }
-
-  .sidebar-overlay.show{
-    display:block;
-  }
-
-}
-
-/* =========================
-   PANEL PEMAYARAN
-========================= */
-
-.payment-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;
-}
-
-.payment-card{
-  background:var(--card-bg);
-  border:1px solid var(--border-color);
-  border-radius:14px;
-  padding:18px;
-}
-
-.payment-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:14px;
-  color:var(--text-main);
-}
-
-.payment-title i{
-  font-size:18px;
-}
-
-.payment-card .form-group{
-  margin-bottom:12px;
-}
-
-.payment-card label{
-  display:block;
-  font-size:12px;
-  font-weight:600;
-  margin-bottom:6px;
-  color:var(--text-muted);
-}
-
-.payment-card input{
-  width:100%;
-  padding:12px 14px;
-  border:none;
-  border-radius:12px;
-  background:#f5f7fa;
-  font-size:14px;
-  transition:.2s;
-}
-
-.payment-card input:focus{
-  outline:none;
-  background:#fff;
-  box-shadow:
-    0 0 0 2px var(--primary),
-    0 4px 12px rgba(0,0,0,.08);
-}
-
-.qris-upload{
-  border:2px dashed var(--border-color);
-  border-radius:12px;
-  padding:20px;
-  text-align:center;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.qris-upload:hover{
-  border-color:var(--primary);
-}
-
-.qris-upload input{
-  display:none;
-}
-
-.qris-preview{
-  width:100%;
-  max-width:250px;
-  margin:15px auto 0;
-  display:none;
-  border-radius:12px;
-  border:1px solid var(--border-color);
-  overflow:hidden;
-}
-
-.qris-preview img{
-  width:100%;
-  display:block;
-}
-
-.payment-actions{
-  margin-top:20px;
-  display:flex;
-  justify-content:flex-end;
-}
-
-.payment-actions button{
-  min-width:180px;
-}
-
-.bank-info{
-  background:rgba(59,130,246,.08);
-  border:1px solid rgba(59,130,246,.15);
-  padding:12px;
-  border-radius:10px;
-  font-size:13px;
-  margin-top:10px;
-}
-
-@media(max-width:768px){
-
-  .payment-grid{
-    grid-template-columns:1fr;
-  }
-
-  .payment-actions button{
-    width:100%;
-  }
-
-}
-
-.pagination{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-  margin-top:20px;
-}
-
-.page-info{
-  font-size:13px;
-  font-weight:600;
-  color:var(--text-muted);
-}
-
-/* Tanggal lahir & usia */
-
-#p-lahir,
-#p-usia{
-  width:100%;
-  height:46px;
-  padding:0 14px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--card);
-  color:var(--text);
-  font-size:14px;
-  font-weight:500;
-  outline:none;
-  transition:.2s;
-  box-sizing:border-box;
-}
-
-#p-lahir:focus,
-#p-usia:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(11,114,133,.15);
-}
-
-#p-usia{
-  background:#f8fafc;
-  cursor:not-allowed;
-}
-
-/* =========================
-   PAYMENT MODERN UI
-========================= */
-
-.payment-summary{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-  margin-top:16px;
-}
-
-.summary-box{
-  background:var(--card-bg,#fff);
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 4px 18px rgba(0,0,0,.05);
-  transition:.2s;
-}
-
-.summary-box:hover{
-  transform:translateY(-2px);
-}
-
-.summary-box div{
-  margin-bottom:8px;
-  line-height:1.5;
-}
-
-.summary-qris{
-  width:180px;
-  max-width:100%;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.08);
-  display:none;
-  margin-top:12px;
-}
-
-.btn-show-qris{
-  width:100%;
-  margin-top:10px;
-}
-
-.qris-preview{
-  margin-top:12px;
-  text-align:center;
-}
-
-.qris-preview img{
-  width:180px;
-  max-width:100%;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.08);
-  display:none;
-}
-
-.qris-upload{
-  min-height:180px;
-  border:2px dashed #0B7285;
-  border-radius:16px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:.2s;
-  text-align:center;
-  padding:20px;
-}
-
-.qris-upload:hover{
-  background:rgba(11,114,133,.05);
-}
-
-.qris-upload input{
-  display:none;
-}
-
-.upload-success{
-  margin-top:12px;
-  font-size:13px;
-  font-weight:600;
-  color:#16a34a;
-  display:none;
-}
-
-.payment-card{
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:18px;
-  padding:18px;
-  background:#fff;
-  box-shadow:0 4px 18px rgba(0,0,0,.04);
-}
-
-.payment-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:16px;
-  font-size:15px;
-  font-weight:700;
-}
-
-.payment-actions{
-  margin-top:20px;
-  display:flex;
-  justify-content:flex-end;
-}
+.stat-num{word-break:break-word;}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.8);backdrop-filter:blur(3px);z-index:9999;display:none;align-items:center;justify-content:center;}
+.loading-overlay.show{display:flex;}
+.loading-box{background:#fff;padding:24px 30px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;min-width:220px;}
+.spinner{width:48px;height:48px;border:4px solid #E1F5EE;border-top:4px solid #0B7285;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+.loading-text{font-size:13px;color:#0B7285;font-weight:600;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.btn-loading{pointer-events:none;opacity:.7;}
+.btn-loading i{animation:spin 1s linear infinite;}
+
+.payment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.payment-card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:14px;padding:18px;}
+.payment-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text-main);}
+.payment-title i{font-size:18px;}
+.payment-card .form-group{margin-bottom:12px;}
+.payment-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-muted);}
+.payment-card input{width:100%;padding:12px 14px;border:none;border-radius:12px;background:#f5f7fa;font-size:14px;transition:.2s;}
+.payment-card input:focus{outline:none;background:#fff;box-shadow:0 0 0 2px var(--primary),0 4px 12px rgba(0,0,0,.08);}
+.qris-upload{border:2px dashed var(--border-color);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.2s;}
+.qris-upload:hover{border-color:var(--primary);}
+.qris-upload input{display:none;}
+.qris-preview{width:100%;max-width:250px;margin:15px auto 0;display:none;border-radius:12px;border:1px solid var(--border-color);overflow:hidden;}
+.qris-preview img{width:100%;display:block;}
+.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
+.payment-actions button{min-width:180px;}
+
+.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;}
+.page-info{font-size:13px;font-weight:600;color:var(--text-muted);}
+
+#p-lahir,#p-usia{width:100%;height:46px;padding:0 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);font-size:14px;font-weight:500;outline:none;transition:.2s;box-sizing:border-box;}
+#p-lahir:focus,#p-usia:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,114,133,.15);}
+#p-usia{background:#f8fafc;cursor:not-allowed;}
+
+.payment-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px;}
+.summary-box{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:.2s;}
+.summary-box:hover{transform:translateY(-2px);}
+.summary-box div{margin-bottom:8px;line-height:1.5;}
+.summary-qris{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;margin-top:12px;}
+.btn-show-qris{width:100%;margin-top:10px;}
+.qris-preview{margin-top:12px;text-align:center;}
+.qris-preview img{width:180px;max-width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.08);display:none;}
+.qris-upload{min-height:180px;border:2px dashed #0B7285;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;text-align:center;padding:20px;}
+.qris-upload:hover{background:rgba(11,114,133,.05);}
+.qris-upload input{display:none;}
+.upload-success{margin-top:12px;font-size:13px;font-weight:600;color:#16a34a;display:none;}
+.payment-card{border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.04);}
+.payment-title{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:15px;font-weight:700;}
+.payment-actions{margin-top:20px;display:flex;justify-content:flex-end;}
+
+/* Scedule Styling */
+.table-responsive{width:100%;overflow-x:auto;margin-top:10px;}
+.modern-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;}
+.modern-table th,.modern-table td{padding:12px;text-align:left;border-bottom:1px solid var(--border);}
+.modern-table th{background:var(--teal-light);color:var(--teal-dark);font-weight:600;}
 </style>
 </head>
+
 <body>
 <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar(false)"></div>
 
@@ -1253,8 +654,9 @@ var PAGES = {
   dashboard:{t:'Dashboard',s:'Ringkasan aktivitas klinik'},
   pasien:{t:'Data Pasien',s:'Daftar & pendaftaran pasien'},
   kunjungan:{t:'Catat Kunjungan',s:'Formulir rekam medis SOAP'},
+  jadwal:{t:'Atur Jadwal',s:'Manajemen booking dan jadwal pelanggan'},
   riwayat:{t:'Riwayat Kunjungan',s:'Histori semua kunjungan'},
-   pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
+  pembayaran:{t:'Pembayaran',s:'Metode pembayaran klinik'},
   setup:{t:'Pengaturan',s:'Konfigurasi Google Apps Script'}
 };
 
@@ -1595,11 +997,56 @@ Pertahankan pola hidup sehat dengan:
   return hasil.join('\n\n');
 }
 
+function formatTanggalWA(tanggal){
+
+  if(!tanggal) return '-';
+
+  var d = new Date(tanggal);
+
+  if(isNaN(d)) return tanggal;
+
+  var hariNama = [
+    'Minggu',
+    'Senin',
+    'Selasa',
+    'Rabu',
+    'Kamis',
+    'Jumat',
+    'Sabtu'
+  ];
+
+  var bulanNama = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+  ];
+
+  return (
+    hariNama[d.getDay()] +
+    ', ' +
+    d.getDate() +
+    ' ' +
+    bulanNama[d.getMonth()] +
+    ' ' +
+    d.getFullYear()
+  );
+
+}
+
 function buatPesanWhatsapp(data){
 
   return `Hallo ${data.nama}
 
-Berikut hasil pemeriksaan Anda pada tanggal ${data.tanggal}
+Berikut hasil pemeriksaan Anda pada hari ${formatTanggalWA(data.tanggal)}
 
 📏 TB : ${data.tb || '-'} cm
 ⚖️ BB : ${data.bb || '-'} kg
@@ -1646,12 +1093,17 @@ function kirimResumeWA(data){
     toast('Nomor WhatsApp pasien tidak tersedia','err');
     return;
   }
-  var nomor = String(data.wa).replace(/\D/g,'');
-  if (nomor.startsWith('0')) {
-    nomor = '62' + nomor.slice(1);
-  } else if (nomor.startsWith('8')) {
-    nomor = '62' + nomor;
-  }
+  var nomor = String(data.wa || '').trim();
+	nomor = nomor.replace(/[^\d]/g,'');
+  if(nomor.startsWith('0')){
+  nomor = '62' + nomor.substring(1);
+}
+else if(nomor.startsWith('8')){
+  nomor = '62' + nomor;
+}
+else if(nomor.startsWith('620')){
+  nomor = '62' + nomor.substring(2);
+}
   console.log('WA ASLI :', data.wa);
   console.log('WA FINAL:', nomor);
   if(nomor.length < 10){
@@ -1717,7 +1169,15 @@ function goto(page){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('panel-'+page).classList.add('active');
-  var order = ['dashboard','pasien','kunjungan','riwayat','pembayaran','setup'];
+  var order = [
+  'dashboard',
+  'pasien',
+  'kunjungan',
+  'jadwal',
+  'riwayat',
+  'pembayaran',
+  'setup'
+];
   document.querySelectorAll('.nav-item')[order.indexOf(page)].classList.add('active');
   document.getElementById('topbar-title').textContent = PAGES[page].t;
   document.getElementById('topbar-sub').textContent = PAGES[page].s;
@@ -2030,10 +1490,10 @@ function renderRiwayat(data){
                   '<i class="ti ti-eye"></i>' +
                 '</button>' +
                 // 🟢 Tombol WhatsApp hanya muncul jika nomor telepon ditemukan di database
-                (telpPasien ? 
-                '<a href="https://wa.me/' + telpPasien + '?text=' + pesanWa + '" target="_blank" class="btn btn-sm" style="background-color:#25D366;border-color:#25D366;color:white;display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;" title="Kirim WA Manual">' +
-                  '<i class="ti ti-brand-whatsapp" style="font-size:15px;"></i>' +
-                '</a>' : '') +
+                (telpPasien ?
+'<button class="btn btn-sm" onclick=\'kirimResumeRiwayat(' + JSON.stringify(k).replace(/'/g,"&#39;") + ')\' style="background-color:#25D366;border-color:#25D366;color:white;" title="Kirim Ulang Resume">' +
+  '<i class="ti ti-brand-whatsapp"></i>' +
+'</button>' : '') +
               '</div>' +
             '</td>' +
             '</tr>';
@@ -2167,6 +1627,94 @@ function detailPasien(p){
     riwHTML;
 
   document.getElementById('modal-pasien').classList.add('open');
+
+}
+
+function detailKunjungan(k){
+
+  var noRm = k[1]; // kolom No. RM pada data kunjungan
+
+  var pasien = allPasien.find(function(p){
+    return p[0] === noRm;
+  });
+
+  if(!pasien){
+    toast('Data pasien tidak ditemukan','err');
+    return;
+  }
+
+  detailPasien(pasien);
+
+}
+
+function kirimResumeRiwayat(k){
+
+  var pasien = allPasien.find(function(p){
+    return p[0] === k[1];
+  });
+
+  if(!pasien){
+    toast('Data pasien tidak ditemukan','err');
+    return;
+  }
+
+  var jk = pasien[5] || '';
+
+  var imtData = hitungIMT(
+    k[10] || '',
+    k[11] || ''
+  );
+
+  var gizi = imtData
+    ? imtData.status
+    : 'Tidak dilakukan pemeriksaan';
+
+  var tensi = statusTensi(k[7] || '');
+
+  var gula = statusGDS(k[12] || '');
+
+  var kol = statusKolesterol(k[13] || '');
+
+  var au = statusAsamUrat(
+    k[14] || '',
+    jk
+  );
+
+  var rekomendasi = buatRekomendasi({
+    gizi : gizi,
+    tensi : tensi,
+    gula : gula,
+    kolesterol : kol,
+    asamUrat : au
+  });
+
+  kirimResumeWA({
+
+    nama : pasien[1],
+    wa : pasien[2],
+
+    tanggal : k[0],
+
+    tb : k[11] || '',
+    bb : k[10] || '',
+
+    td : k[7] || '',
+
+    gds : k[12] || '',
+
+    kol : k[13] || '',
+
+    au : k[14] || '',
+
+    gizi : gizi,
+    statusTensi : tensi,
+    statusGula : gula,
+    statusKol : kol,
+    statusAu : au,
+
+    rekomendasi : rekomendasi
+
+  });
 
 }
 
@@ -2321,7 +1869,7 @@ function simpanKunjungan(){
   // GENERATE RESUME WA
   // =====================
 
-  var jk = pData ? pData[4] : '';
+  var jk = pData ? pData[5] : '';
 
   var imtData = hitungIMT(
   document.getElementById('k-bb').value,
