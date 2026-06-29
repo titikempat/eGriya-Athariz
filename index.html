@@ -314,15 +314,16 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
             <table class="modern-table">
               <thead>
                 <tr>
-                  <th>Jam</th>
-                  <th>Nama Pelanggan</th>
-                  <th>No Layanan/WA</th>
-                  <th>Layanan</th>
-                  <th>Status</th>
-                </tr>
+  				<th>Tanggal</th>
+  				<th>Jam</th>
+  				<th>Nama</th>
+  				<th>No WA</th>
+  				<th>Layanan</th>
+  				<th>Status</th>
+				</tr>
               </thead>
               <tbody id="dash-jadwal-list">
-                <tr><td colspan="5" class="empty">Belum ada jadwal hari ini</td></tr>
+                <tr><td colspan="6" class="empty">Belum ada jadwal hari ini</td></tr>
               </tbody>
             </table>
           </div>
@@ -1320,11 +1321,37 @@ function loadKunjungan(){
 }
 
 function loadJadwal(){
+
   if(!GAS_URL) return;
+
+  console.log('LOAD JADWAL...');
+
   fetch(GAS_URL + '?action=getJadwal')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ allJadwal = d.data || []; renderJadwal(allJadwal); updateDashJadwal(); })
-    .catch(function(e){ console.error("Gagal load jadwal", e); });
+
+    .then(function(r){
+      return r.json();
+    })
+
+    .then(function(d){
+
+      console.log('DATA JADWAL DARI GAS :', d);
+
+      allJadwal = d.data || [];
+
+      console.log('TOTAL JADWAL :', allJadwal.length);
+
+      renderJadwal(allJadwal);
+
+      updateDashJadwal();
+
+    })
+
+    .catch(function(e){
+
+      console.error('Gagal load jadwal', e);
+
+    });
+
 }
 
 function updateDash(){
@@ -1350,23 +1377,94 @@ function updateDash(){
 }
 
 function updateDashJadwal(){
-  var td = today();
-  var hariIniJadwal = allJadwal.filter(function(j){ return j[0] === td; });
-  var el = document.getElementById('dash-jadwal-list');
-  if(!hariIniJadwal.length){
-    el.innerHTML = '<tr><td colspan="5" class="empty">Belum ada antrean jadwal hari ini</td></tr>';
+
+  const el = document.getElementById('dash-jadwal-list');
+
+  if(!el){
+    console.error('dash-jadwal-list tidak ditemukan');
     return;
   }
-  hariIniJadwal.sort((a,b) => String(a[1]).localeCompare(String(b[1])));
+
+  const td = today();
+
+  console.log('TODAY =', td);
+  console.log('ALL JADWAL =', allJadwal);
+
+  const hariIniJadwal = allJadwal.filter(function(j){
+
+    let tglJadwal = '';
+
+    try{
+
+      if(j[0]){
+
+        // jika dari GAS berupa Date
+        const d = new Date(j[0]);
+
+        if(!isNaN(d)){
+          tglJadwal =
+            d.getFullYear() + '-' +
+            String(d.getMonth()+1).padStart(2,'0') + '-' +
+            String(d.getDate()).padStart(2,'0');
+        }
+
+      }
+
+    }catch(err){
+      console.log(err);
+    }
+
+    console.log('TGL DATABASE =', j[0]);
+    console.log('TGL FORMAT =', tglJadwal);
+
+    return tglJadwal === td;
+
+  });
+
+  console.log('HASIL FILTER =', hariIniJadwal);
+
+  if(hariIniJadwal.length === 0){
+
+    el.innerHTML =
+      '<tr><td colspan="5" class="empty">Belum ada antrean jadwal hari ini</td></tr>';
+
+    return;
+  }
+
+  hariIniJadwal.sort(function(a,b){
+    return String(a[1] || '').localeCompare(String(b[1] || ''));
+  });
+
   el.innerHTML = hariIniJadwal.map(function(j){
-    return `<tr>
-      <td><b>${j[1] || '—'}</b></td>
-      <td>${j[2] || '—'}</td>
-      <td>${j[3] || '—'}</td>
-      <td><span class="tag ${j[4]==='Bekam'?'tag-bekam':j[4]==='Mom Spa'?'tag-mom':'tag-baby'}">${j[4]}</span></td>
-      <td><b style="color:var(--teal)">${j[5] || 'Booking'}</b></td>
-    </tr>`;
+
+    const layananClass =
+      j[4] === 'Bekam'
+        ? 'tag-bekam'
+        : j[4] === 'Mom Spa'
+        ? 'tag-mom'
+        : 'tag-baby';
+
+    return `
+  <tr>
+    <td>${j[0] || '-'}</td>
+    <td><b>${j[1] || '-'}</b></td>
+    <td>${j[2] || '-'}</td>
+    <td>${j[3] || '-'}</td>
+    <td>
+      <span class="tag ${layananClass}">
+        ${j[4] || '-'}
+      </span>
+    </td>
+    <td>
+      <b style="color:var(--teal)">
+        ${j[5] || 'Booking'}
+      </b>
+    </td>
+  </tr>
+`;
+
   }).join('');
+
 }
 
 function visitHTML(k){
@@ -1531,6 +1629,58 @@ function filterRiwayat(){
     var nama = String(k[2] || '').toLowerCase(); var jenis = String(k[3] || '');
     return (!q || nama.includes(q)) && (!j || jenis === j);
   }));
+}
+
+function renderJadwal(data){
+
+  var el = document.getElementById('list-jadwal-all');
+
+  if(!data || !data.length){
+
+    el.innerHTML =
+      '<tr><td colspan="6" class="empty">Belum ada data booking</td></tr>';
+
+    return;
+
+  }
+
+  data.sort(function(a,b){
+
+    var tglA = (a[0] || '') + ' ' + (a[1] || '');
+    var tglB = (b[0] || '') + ' ' + (b[1] || '');
+
+    return tglB.localeCompare(tglA);
+
+  });
+
+  el.innerHTML = data.map(function(j){
+
+    var layananClass =
+      j[4] === 'Bekam'
+        ? 'tag-bekam'
+        : j[4] === 'Mom Spa'
+        ? 'tag-mom'
+        : 'tag-baby';
+
+    return `
+      <tr>
+        <td>${j[0] || '-'}</td>
+        <td>${j[1] || '-'}</td>
+        <td>${j[2] || '-'}</td>
+        <td>${j[3] || '-'}</td>
+        <td>
+          <span class="tag ${layananClass}">
+            ${j[4] || '-'}
+          </span>
+        </td>
+        <td>
+          <b>${j[5] || '-'}</b>
+        </td>
+      </tr>
+    `;
+
+  }).join('');
+
 }
 
 function filterJadwal(){
