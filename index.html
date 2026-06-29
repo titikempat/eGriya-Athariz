@@ -95,6 +95,20 @@ nav{flex:1;padding:10px 0}
 .tag-bekam{background:var(--teal-light);color:var(--teal-dark)}
 .tag-mom{background:var(--amber-light);color:var(--amber)}
 .tag-baby{background:var(--blue-light);color:var(--blue)}
+.tag-success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.tag-danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.tag-warning{
+  background:#fef3c7;
+  color:#92400e;
+}
 .tag-lunas{background:#E1F5EE;color:#0F6E56}
 .tag-belum{background:var(--red-light);color:var(--red)}
 
@@ -294,10 +308,30 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
       <div id="panel-dashboard" class="panel active">
         <!-- GLOBAL STATS -->
         <div class="stats-row">
-          <div class="stat"><i class="ti ti-users stat-ic"></i><div class="stat-num" id="s-total">—</div><div class="stat-lbl">Total Pasien</div></div>
-          <div class="stat"><i class="ti ti-calendar-month stat-ic"></i><div class="stat-num" id="s-bulan">—</div><div class="stat-lbl">Kunjungan Bulan Ini</div></div>
-          <div class="stat"><i class="ti ti-calendar-today stat-ic"></i><div class="stat-num" id="s-hari">—</div><div class="stat-lbl">Kunjungan Hari Ini</div></div>
-        </div>
+  <div class="stat">
+    <i class="ti ti-users stat-ic"></i>
+    <div class="stat-num" id="s-total">—</div>
+    <div class="stat-lbl">Total Pasien</div>
+  </div>
+
+  <div class="stat">
+    <i class="ti ti-calendar-month stat-ic"></i>
+    <div class="stat-num" id="s-bulan">—</div>
+    <div class="stat-lbl">Kunjungan Bulan Ini</div>
+  </div>
+
+  <div class="stat">
+    <i class="ti ti-calendar-today stat-ic"></i>
+    <div class="stat-num" id="s-hari">—</div>
+    <div class="stat-lbl">Kunjungan Hari Ini</div>
+  </div>
+
+  <div class="stat">
+    <i class="ti ti-clock-hour-4 stat-ic"></i>
+    <div class="stat-num" id="s-antrean">0</div>
+    <div class="stat-lbl">Antrean Hari Ini</div>
+  </div>
+</div>
         
         <!-- FILTER LAYANAN COUNTER -->
         <div class="section-label">Distribusi Layanan Terpilih</div>
@@ -310,6 +344,24 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
         <!-- ANTREAN JADWAL HARI INI -->
         <div class="card">
           <div class="card-hd"><i class="ti ti-calendar-event"></i><span>Jadwal &amp; Antrean Pelanggan Hari Ini</span><span class="card-hd-act" onclick="goto('jadwal')">Kelola Jadwal →</span></div>
+
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-num" id="s-booking">0</div>
+    <div class="stat-lbl">Booking Hari Ini</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-num" id="s-selesai">0</div>
+    <div class="stat-lbl">Selesai Hari Ini</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-num" id="s-batal">0</div>
+    <div class="stat-lbl">Batal Hari Ini</div>
+  </div>
+</div>
+        
           <div class="table-responsive">
             <table class="modern-table">
               <thead>
@@ -320,6 +372,7 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
   				<th>No WA</th>
   				<th>Layanan</th>
   				<th>Status</th>
+                
 				</tr>
               </thead>
               <tbody id="dash-jadwal-list">
@@ -507,6 +560,7 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
                   <th>No. WA</th>
                   <th>Layanan</th>
                   <th>Status</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody id="list-jadwal-all">
@@ -1387,9 +1441,6 @@ function updateDashJadwal(){
 
   const td = today();
 
-  console.log('TODAY =', td);
-  console.log('ALL JADWAL =', allJadwal);
-
   const hariIniJadwal = allJadwal.filter(function(j){
 
     let tglJadwal = '';
@@ -1398,7 +1449,6 @@ function updateDashJadwal(){
 
       if(j[0]){
 
-        // jika dari GAS berupa Date
         const d = new Date(j[0]);
 
         if(!isNaN(d)){
@@ -1414,19 +1464,39 @@ function updateDashJadwal(){
       console.log(err);
     }
 
-    console.log('TGL DATABASE =', j[0]);
-    console.log('TGL FORMAT =', tglJadwal);
-
     return tglJadwal === td;
 
   });
 
-  console.log('HASIL FILTER =', hariIniJadwal);
+  // ==========================
+  // COUNTER STATUS HARI INI
+  // ==========================
+
+  const totalBooking = hariIniJadwal.filter(j =>
+    (j[5] || '').toLowerCase() === 'booking'
+  ).length;
+
+  const totalSelesai = hariIniJadwal.filter(j =>
+    (j[5] || '').toLowerCase() === 'selesai'
+  ).length;
+
+  const totalBatal = hariIniJadwal.filter(j =>
+    (j[5] || '').toLowerCase() === 'batal'
+  ).length;
+
+  // isi card dashboard jika sudah dibuat
+  const elBooking = document.getElementById('s-booking');
+  const elSelesai = document.getElementById('s-selesai');
+  const elBatal = document.getElementById('s-batal');
+
+  if(elBooking) elBooking.textContent = totalBooking;
+  if(elSelesai) elSelesai.textContent = totalSelesai;
+  if(elBatal) elBatal.textContent = totalBatal;
 
   if(hariIniJadwal.length === 0){
 
     el.innerHTML =
-      '<tr><td colspan="5" class="empty">Belum ada antrean jadwal hari ini</td></tr>';
+      '<tr><td colspan="6" class="empty">Belum ada antrean jadwal hari ini</td></tr>';
 
     return;
   }
@@ -1444,24 +1514,46 @@ function updateDashJadwal(){
         ? 'tag-mom'
         : 'tag-baby';
 
+    const statusClass =
+      j[5] === 'Selesai'
+        ? 'tag-success'
+        : j[5] === 'Batal'
+        ? 'tag-danger'
+        : 'tag-warning';
+
+    let tanggal = '-';
+
+    try{
+      if(j[0]){
+        const d = new Date(j[0]);
+
+        if(!isNaN(d)){
+          tanggal =
+            d.getFullYear() + '-' +
+            String(d.getMonth()+1).padStart(2,'0') + '-' +
+            String(d.getDate()).padStart(2,'0');
+        }
+      }
+    }catch(err){}
+
     return `
-  <tr>
-    <td>${j[0] || '-'}</td>
-    <td><b>${j[1] || '-'}</b></td>
-    <td>${j[2] || '-'}</td>
-    <td>${j[3] || '-'}</td>
-    <td>
-      <span class="tag ${layananClass}">
-        ${j[4] || '-'}
-      </span>
-    </td>
-    <td>
-      <b style="color:var(--teal)">
-        ${j[5] || 'Booking'}
-      </b>
-    </td>
-  </tr>
-`;
+      <tr>
+        <td>${tanggal}</td>
+        <td><b>${j[1] || '-'}</b></td>
+        <td>${j[2] || '-'}</td>
+        <td>${j[3] || '-'}</td>
+        <td>
+          <span class="tag ${layananClass}">
+            ${j[4] || '-'}
+          </span>
+        </td>
+        <td>
+          <span class="tag ${statusClass}">
+            ${j[5] || 'Booking'}
+          </span>
+        </td>
+      </tr>
+    `;
 
   }).join('');
 
@@ -1662,22 +1754,31 @@ function renderJadwal(data){
         ? 'tag-mom'
         : 'tag-baby';
 
-    return `
-      <tr>
-        <td>${j[0] || '-'}</td>
-        <td>${j[1] || '-'}</td>
-        <td>${j[2] || '-'}</td>
-        <td>${j[3] || '-'}</td>
-        <td>
-          <span class="tag ${layananClass}">
-            ${j[4] || '-'}
-          </span>
-        </td>
-        <td>
-          <b>${j[5] || '-'}</b>
-        </td>
-      </tr>
-    `;
+    var statusClass =
+  j[5] === 'Selesai'
+    ? 'tag-success'
+    : j[5] === 'Batal'
+    ? 'tag-danger'
+    : 'tag-warning';
+
+return `
+  <tr>
+    <td>${j[0] || '-'}</td>
+    <td>${j[1] || '-'}</td>
+    <td>${j[2] || '-'}</td>
+    <td>${j[3] || '-'}</td>
+    <td>
+      <span class="tag ${layananClass}">
+        ${j[4] || '-'}
+      </span>
+    </td>
+    <td>
+      <span class="tag ${statusClass}">
+        ${j[5] || 'Booking'}
+      </span>
+    </td>
+  </tr>
+`;
 
   }).join('');
 
