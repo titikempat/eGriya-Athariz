@@ -560,12 +560,13 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
                   <th>No. WA</th>
                   <th>Layanan</th>
                   <th>Status</th>
-                  <th>Aksi</th>
+<th width="170">Aksi</th>
                 </tr>
               </thead>
               <tbody id="list-jadwal-all">
-                <tr><td colspan="6" class="empty">Belum ada data booking</td></tr>
-              </tbody>
+                <tr><tbody id="list-jadwal-all">
+  
+</tbody>
             </table>
           </div>
         </div>
@@ -695,10 +696,15 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 var GAS_URL = localStorage.getItem('gas_url') || '';
 var allPasien = [];
 var allKunjungan = [];
+var allJadwal = [];
+
 var selectedTitik = [];
 var activePasienRm = '';
 var pasienPage = 1;
 var pasienPerPage = 10;
+
+// Auto Refresh Jadwal
+var jadwalAutoRefresh = null;
 
 var TITIK = ["Al-Kahil","Yafukh","Akhda'in Kanan","Akhda'in Kiri","Al-Wariq","Anas Shalabi","Katifain Kanan","Katifain Kiri","Dzahr Kanan","Dzahr Kiri","Qufaz Kanan","Qufaz Kiri","Warak Kanan","Warak Kiri","Al-Hajibain","Al-Jawf"];
 var DARAH = ["Pekat","Cair","Berbusa","Warna Gelap","Menggumpal","Normal","Sedikit"];
@@ -1394,9 +1400,16 @@ function loadJadwal(){
 
       console.log('TOTAL JADWAL :', allJadwal.length);
 
+      // Render tabel pada menu Atur Jadwal
       renderJadwal(allJadwal);
 
+      // Update tabel Dashboard
       updateDashJadwal();
+
+      // Update seluruh kartu statistik Dashboard
+      if(typeof updateDashboardStats === 'function'){
+        updateDashboardStats();
+      }
 
     })
 
@@ -1730,7 +1743,7 @@ function renderJadwal(data){
   if(!data || !data.length){
 
     el.innerHTML =
-      '<tr><td colspan="6" class="empty">Belum ada data booking</td></tr>';
+      '<tr><td colspan="7" class="empty">Belum ada data booking</td></tr>';
 
     return;
 
@@ -1745,7 +1758,7 @@ function renderJadwal(data){
 
   });
 
-  el.innerHTML = data.map(function(j){
+  el.innerHTML = data.map(function(j,index){
 
     var layananClass =
       j[4] === 'Bekam'
@@ -1773,14 +1786,100 @@ return `
       </span>
     </td>
     <td>
-      <span class="tag ${statusClass}">
-        ${j[5] || 'Booking'}
-      </span>
-    </td>
+  <span class="tag ${statusClass}">
+    ${j[5] || 'Booking'}
+  </span>
+</td>
+
+<td style="white-space:nowrap">
+
+${
+  j[5] === 'Booking'
+  ? `
+    <button
+      class="btn btn-sm btn-success"
+      title="Selesaikan"
+      onclick="ubahStatusJadwal('${j[6]}','Selesai')">
+      <i class="ti ti-check"></i>
+    </button>
+
+    <button
+      class="btn btn-sm btn-danger"
+      title="Batalkan"
+      onclick="ubahStatusJadwal('${j[6]}','Batal')">
+      <i class="ti ti-x"></i>
+    </button>
+  `
+  : j[5] === 'Selesai'
+  ? `
+    <span class="tag tag-success">
+      <i class="ti ti-check"></i> Selesai
+    </span>
+  `
+  : `
+    <span class="tag tag-danger">
+      <i class="ti ti-x"></i> Batal
+    </span>
+  `
+}
+
+</td>
   </tr>
 `;
 
   }).join('');
+
+}
+
+function ubahStatusJadwal(idBooking, status){
+
+  if(!confirm('Ubah status menjadi "' + status + '" ?')){
+    return;
+  }
+
+  showLoading('Memperbarui status jadwal...');
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      action: 'updateStatusJadwal',
+      idBooking: idBooking,
+      status: status
+    })
+  })
+
+  .then(r => r.json())
+
+  .then(res => {
+
+    console.log('HASIL UPDATE STATUS', res);
+
+    if(res.success){
+
+      toast('Status berhasil diperbarui');
+
+      loadJadwal();
+
+    }else{
+
+      alert(res.message || 'Gagal memperbarui status');
+
+    }
+
+  })
+
+  .catch(err => {
+
+    console.error(err);
+    alert('Terjadi kesalahan');
+
+  })
+
+  .finally(() => {
+
+    hideLoading();
+
+  });
 
 }
 
