@@ -1814,11 +1814,64 @@ function updateDashJadwal(){
 }
 
 function visitHTML(k){
+
   var j = k[3] || '';
-  var cls = j==='Bekam'?'bekam':j==='Mom Spa'?'mom':'baby';
-  var tcls = j==='Bekam'?'tag-bekam':j==='Mom Spa'?'tag-mom':'tag-baby';
+
+  var cls =
+    j === 'Bekam'
+      ? 'bekam'
+      : j === 'Mom Spa'
+      ? 'mom'
+      : 'baby';
+
+  var tcls =
+    j === 'Bekam'
+      ? 'tag-bekam'
+      : j === 'Mom Spa'
+      ? 'tag-mom'
+      : 'tag-baby';
+
   var bayar = k[29] || 'Lunas';
-  return '<div class="visit-item ' + cls + '"><div class="visit-head"><span class="visit-date"><i class="ti ti-calendar" style="font-size:11px;vertical-align:-1px"></i> ' + (k[0]||'—') + ' &middot; <strong>' + (k[2]||'—') + '</strong></span><span class="tag ' + tcls + '">' + j + '</span></div><div class="visit-detail">' + (k[1]||'—') + ' &middot; ' + ((k[4]||'').slice(0,55)||'—') + ' &middot; <span class="tag ' + (bayar==='Lunas'?'tag-lunas':'tag-belum') + '" style="padding:1px 6px">' + bayar + '</span></div></div>';
+
+  // Format tanggal agar tidak tampil ISO
+  var tanggal = formatTanggalDisplay(k[0]);
+
+  return `
+    <div class="visit-item ${cls}">
+
+      <div class="visit-head">
+
+        <span class="visit-date">
+          <i class="ti ti-calendar" style="font-size:11px;vertical-align:-1px"></i>
+          ${tanggal} &middot; <strong>${k[2] || '—'}</strong>
+        </span>
+
+        <span class="tag ${tcls}">
+          ${j}
+        </span>
+
+      </div>
+
+      <div class="visit-detail">
+
+        ${k[1] || '—'}
+        &middot;
+        ${((k[4] || '').slice(0,55) || '—')}
+
+        &middot;
+
+        <span class="tag ${bayar === 'Lunas' ? 'tag-lunas' : 'tag-belum'}"
+              style="padding:1px 6px">
+
+          ${bayar}
+
+        </span>
+
+      </div>
+
+    </div>
+  `;
+
 }
 
 function renderPasien(data){
