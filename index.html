@@ -101,6 +101,12 @@ nav{flex:1;padding:10px 0}
   color:#166534;
 }
 
+.tag-info{
+    background:#dbeafe;
+    color:#1d4ed8;
+    border:1px solid #93c5fd;
+}
+
 .tag-danger{
   background:#fee2e2;
   color:#991b1b;
@@ -1993,7 +1999,7 @@ function renderJadwal(data){
 
   });
 
-  el.innerHTML = data.map(function(j,index){
+  el.innerHTML = data.map(function(j){
 
     var layananClass =
       j[4] === 'Bekam'
@@ -2007,60 +2013,75 @@ function renderJadwal(data){
     ? 'tag-success'
     : j[5] === 'Batal'
     ? 'tag-danger'
+    : j[5] === 'Sudah Reminder'
+    ? 'tag-info'
     : 'tag-warning';
 
-return `
-  <tr>
-    <td>${j[0] || '-'}</td>
-    <td>${j[1] || '-'}</td>
-    <td>${j[2] || '-'}</td>
-    <td>${j[3] || '-'}</td>
-    <td>
-      <span class="tag ${layananClass}">
-        ${j[4] || '-'}
-      </span>
-    </td>
-    <td>
-  <span class="tag ${statusClass}">
-    ${j[5] || 'Booking'}
-  </span>
-</td>
+    return `
+      <tr>
+        <td>${j[0] || '-'}</td>
+        <td>${j[1] || '-'}</td>
+        <td>${j[2] || '-'}</td>
+        <td>${j[3] || '-'}</td>
 
-<td style="white-space:nowrap">
+        <td>
+          <span class="tag ${layananClass}">
+            ${j[4] || '-'}
+          </span>
+        </td>
 
-${
-  j[5] === 'Booking'
+        <td>
+          <span class="tag ${statusClass}">
+            ${j[5] || 'Booking'}
+          </span>
+        </td>
+
+        <td style="white-space:nowrap">
+
+          ${
+  (j[5] !== 'Selesai' && j[5] !== 'Batal')
   ? `
-    <button
-      class="btn btn-sm btn-success"
-      title="Selesaikan"
-      onclick="ubahStatusJadwal('${j[6]}','Selesai')">
-      <i class="ti ti-check"></i>
-    </button>
 
-    <button
-      class="btn btn-sm btn-danger"
-      title="Batalkan"
-      onclick="ubahStatusJadwal('${j[6]}','Batal')">
-      <i class="ti ti-x"></i>
-    </button>
-  `
-  : j[5] === 'Selesai'
-  ? `
-    <span class="tag tag-success">
-      <i class="ti ti-check"></i> Selesai
-    </span>
-  `
-  : `
-    <span class="tag tag-danger">
-      <i class="ti ti-x"></i> Batal
-    </span>
-  `
-}
+      <button
+        class="btn btn-sm"
+        style="background:#25D366;color:#fff"
+        title="Kirim Reminder WhatsApp"
+        onclick="kirimReminderWA('${j[6]}')">
+        <i class="ti ti-brand-whatsapp"></i>
+      </button>
 
-</td>
-  </tr>
-`;
+      <button
+        class="btn btn-sm btn-success"
+        title="Selesaikan"
+        onclick="ubahStatusJadwal('${j[6]}','Selesai')">
+        <i class="ti ti-check"></i>
+      </button>
+
+      <button
+        class="btn btn-sm btn-danger"
+        title="Batalkan"
+        onclick="ubahStatusJadwal('${j[6]}','Batal')">
+        <i class="ti ti-x"></i>
+      </button>
+
+    `
+            : j[5] === 'Selesai'
+            ? `
+              <span class="tag tag-success">
+                <i class="ti ti-check"></i> Selesai
+              </span>
+            `
+            : `
+              <span class="tag tag-danger">
+                <i class="ti ti-x"></i> Batal
+              </span>
+            `
+          }
+
+        </td>
+
+      </tr>
+    `;
 
   }).join('');
 
@@ -2072,49 +2093,134 @@ function ubahStatusJadwal(idBooking, status){
     return;
   }
 
-  showLoading('Memperbarui status jadwal...');
+  showLoading('Memperbarui status...');
 
-  fetch(GAS_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'updateStatusJadwal',
-      idBooking: idBooking,
-      status: status
+  fetch(GAS_URL,{
+    method:'POST',
+    body:JSON.stringify({
+      action:'updateStatusJadwal',
+      idBooking:idBooking,
+      status:status
     })
   })
 
-  .then(r => r.json())
+  .then(r=>r.json())
 
-  .then(res => {
+  .then(res=>{
 
-    console.log('HASIL UPDATE STATUS', res);
-
-    if(res.success){
-
-      toast('Status berhasil diperbarui');
-
-      loadJadwal();
-
-    }else{
-
-      alert(res.message || 'Gagal memperbarui status');
-
+    if(!res.success){
+      throw new Error(res.message || 'Gagal memperbarui status');
     }
 
+    // Update data lokal tanpa mengambil ulang spreadsheet
+    const item = allJadwal.find(x => x[6] === idBooking);
+
+    if(item){
+      item[5] = status;
+    }
+
+    // Render ulang tabel & dashboard
+    renderJadwal(allJadwal);
+    updateDashJadwal();
+
+    if(typeof updateDashboardStats === 'function'){
+      updateDashboardStats();
+    }
+
+    toast('Status berhasil diperbarui');
+
   })
 
-  .catch(err => {
+  .catch(err=>{
 
     console.error(err);
-    alert('Terjadi kesalahan');
+    toast(err.message,'err');
 
   })
 
-  .finally(() => {
+  .finally(()=>{
 
     hideLoading();
 
   });
+
+}
+
+function kirimReminderWA(idBooking){
+
+  const item = allJadwal.find(j => j[6] === idBooking);
+
+  if(!item){
+    toast('Data booking tidak ditemukan','err');
+    return;
+  }
+
+  let nomor = String(item[3] || '').trim();
+
+  nomor = nomor.replace(/[^\d]/g,'');
+
+  if(nomor.startsWith('0')){
+    nomor = '62' + nomor.substring(1);
+  }else if(nomor.startsWith('8')){
+    nomor = '62' + nomor;
+  }
+
+  const pesan =
+`Assalamu'alaikum Wr. Wb.
+
+Halo *${item[2]}* 😊
+
+Kami mengingatkan bahwa Anda memiliki jadwal terapi di *Griya Athariz*.
+
+📅 Tanggal : ${item[0]}
+🕒 Jam : ${item[1]}
+💆 Layanan : ${item[4]}
+
+Mohon hadir sekitar 10 menit sebelum jadwal.
+
+Apabila berhalangan hadir, mohon menghubungi kami terlebih dahulu.
+
+Terima kasih 🙏
+
+_Griya Athariz_`;
+
+  fetch(GAS_URL,{
+  method:'POST',
+  body:JSON.stringify({
+    action:'updateStatusJadwal',
+    idBooking:idBooking,
+    status:'Sudah Reminder'
+  })
+})
+.then(r=>r.json())
+.then(res=>{
+
+  if(res.success){
+
+    const itemLocal = allJadwal.find(x=>x[6]===idBooking);
+
+    if(itemLocal){
+      itemLocal[5]='Sudah Reminder';
+    }
+
+    renderJadwal(allJadwal);
+    updateDashJadwal();
+
+    if(typeof updateDashboardStats==="function"){
+      updateDashboardStats();
+    }
+
+  }
+
+  window.open(
+    'https://api.whatsapp.com/send?phone=' +
+    nomor +
+    '&text=' +
+    encodeURIComponent(pesan),
+    '_blank'
+  );
+
+});
 
 }
 
