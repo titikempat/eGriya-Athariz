@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -257,6 +258,90 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
 .modern-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;}
 .modern-table th,.modern-table td{padding:12px;text-align:left;border-bottom:1px solid var(--border);}
 .modern-table th{background:var(--teal-light);color:var(--teal-dark);font-weight:600;}
+
+.titik-btn.kepala{
+    background:#f3e8ff;
+    border:2px solid #9333ea;
+}
+
+.titik-btn.leher{
+    background:#dbeafe;
+    border:2px solid #2563eb;
+}
+
+.titik-btn.punggung{
+    background:#dcfce7;
+    border:2px solid #16a34a;
+}
+
+.titik-btn.tangan{
+    background:#ffedd5;
+    border:2px solid #ea580c;
+}
+
+.titik-btn.kaki{
+    background:#fee2e2;
+    border:2px solid #dc2626;
+}
+
+.titik-btn.perut{
+    background:#fef9c3;
+    border:2px solid #ca8a04;
+}
+
+.titik-btn{
+    white-space: normal;
+    text-align: left;
+    line-height: 1.3;
+    min-height: 60px;
+    padding: 10px;
+}
+
+.titik-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:6px 0 10px;
+}
+
+.titik-legend span{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:600;
+    border:2px solid;
+}
+
+.titik-legend .kepala{
+    background:#f3e8ff;
+    border-color:#9333ea;
+}
+
+.titik-legend .leher{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+.titik-legend .punggung{
+    background:#dcfce7;
+    border-color:#16a34a;
+}
+
+.titik-legend .tangan{
+    background:#ffedd5;
+    border-color:#ea580c;
+}
+
+.titik-legend .kaki{
+    background:#fee2e2;
+    border-color:#dc2626;
+}
+
+.titik-legend .perut{
+    background:#fef9c3;
+    border-color:#ca8a04;
+}
 </style>
 </head>
 
@@ -469,7 +554,21 @@ code{background:var(--bg);padding:1px 6px;border-radius:4px;font-family:'DM Mono
               <div class="field"><label>Jenis Bekam</label><select id="k-bjenis"><option>Bekam Basah</option><option>Bekam Kering</option><option>Bekam Api</option></select></div>
               <div class="field"><label>Jumlah Kop</label><input id="k-kop" type="number" min="1" max="30" placeholder="0"/></div>
             </div>
-            <div class="field" style="margin-top:10px"><label>Titik Bekam (klik untuk pilih)</label><div class="titik-grid" id="titik-grid" style="margin-top:6px"></div></div>
+            <div class="field" style="margin-top:10px">
+  <label>Titik Bekam (klik untuk pilih)</label>
+
+  <div class="titik-legend">
+    <span class="kepala">🟣 Kepala</span>
+    <span class="leher">🔵 Leher</span>
+    <span class="punggung">🟢 Punggung</span>
+    <span class="tangan">🟠 Tangan</span>
+    <span class="kaki">🔴 Kaki</span>
+    <span class="perut">🟡 Perut</span>
+  </div>
+
+  <div class="titik-grid" id="titik-grid" style="margin-top:6px"></div>
+</div>
+            
             <div class="field" style="margin-top:10px"><label>Kondisi Darah</label><div class="check-group" id="cg-darah"></div></div>
           </div>
 
@@ -706,7 +805,57 @@ var pasienPerPage = 10;
 // Auto Refresh Jadwal
 var jadwalAutoRefresh = null;
 
-var TITIK = ["Al-Kahil","Yafukh","Akhda'in Kanan","Akhda'in Kiri","Al-Wariq","Anas Shalabi","Katifain Kanan","Katifain Kiri","Dzahr Kanan","Dzahr Kiri","Qufaz Kanan","Qufaz Kiri","Warak Kanan","Warak Kiri","Al-Hajibain","Al-Jawf"];
+var TITIK = [
+
+/* ==================== KEPALA ==================== */
+"Yafukh | Ubun-ubun | Migrain, vertigo, sakit kepala",
+"Al-Hajibain | Dahi/alis | Sinusitis, sakit kepala depan",
+
+/* ==================== LEHER ==================== */
+"Al-Kahil | Pundak belakang | Nyeri leher, bahu, hipertensi",
+"Akhda'in Kanan | Leher kanan | Migrain, hipertensi, pegal leher",
+"Akhda'in Kiri | Leher kiri | Migrain, hipertensi, pegal leher",
+
+/* ==================== PUNGGUNG ==================== */
+"Anas Shalabi | Bahu atas | Pegal bahu, frozen shoulder",
+"Katifain Kanan | Bahu kanan | Nyeri bahu kanan, kaku bahu",
+"Katifain Kiri | Bahu kiri | Nyeri bahu kiri, kaku bahu",
+"Deltoid Kanan | Bahu luar kanan | Cedera bahu, pegal",
+"Deltoid Kiri | Bahu luar kiri | Cedera bahu, pegal",
+"Dzahr Kanan | Punggung kanan | Nyeri punggung, spasme otot",
+"Dzahr Kiri | Punggung kiri | Nyeri punggung, spasme otot",
+"Al-Wariq | Pinggang | Nyeri pinggang, HNP ringan, linu",
+"Warak Kanan | Panggul kanan | Sciatica, nyeri panggul",
+"Warak Kiri | Panggul kiri | Sciatica, nyeri panggul",
+
+/* ==================== PERUT ==================== */
+"Al-Jawf | Perut | Maag, gangguan pencernaan, konstipasi",
+
+/* ==================== TANGAN ==================== */
+"Biceps Kanan | Lengan atas kanan | Pegal lengan, cedera otot",
+"Biceps Kiri | Lengan atas kiri | Pegal lengan, cedera otot",
+"Triceps Kanan | Lengan belakang kanan | Nyeri lengan",
+"Triceps Kiri | Lengan belakang kiri | Nyeri lengan",
+"Qufaz Kanan | Siku kanan | Tennis elbow, nyeri siku",
+"Qufaz Kiri | Siku kiri | Tennis elbow, nyeri siku",
+"Pergelangan Tangan Kanan | Wrist kanan | Carpal Tunnel Syndrome",
+"Pergelangan Tangan Kiri | Wrist kiri | Carpal Tunnel Syndrome",
+
+/* ==================== KAKI ==================== */
+"Quadriceps Kanan | Paha depan kanan | Nyeri paha, cedera otot",
+"Quadriceps Kiri | Paha depan kiri | Nyeri paha, cedera otot",
+"Hamstring Kanan | Paha belakang kanan | Cedera hamstring",
+"Hamstring Kiri | Paha belakang kiri | Cedera hamstring",
+"Lutut Kanan | Sendi lutut kanan | Osteoarthritis, nyeri lutut",
+"Lutut Kiri | Sendi lutut kiri | Osteoarthritis, nyeri lutut",
+"Betis Kanan | Gastrocnemius kanan | Kram, pegal betis",
+"Betis Kiri | Gastrocnemius kiri | Kram, pegal betis",
+"Pergelangan Kaki Kanan | Ankle kanan | Keseleo, nyeri pergelangan",
+"Pergelangan Kaki Kiri | Ankle kiri | Keseleo, nyeri pergelangan",
+"Telapak Kaki Kanan | Plantar fascia kanan | Plantar fasciitis",
+"Telapak Kaki Kiri | Plantar fascia kiri | Plantar fasciitis"
+
+];
 var DARAH = ["Pekat","Cair","Berbusa","Warna Gelap","Menggumpal","Normal","Sedikit"];
 var TERAPI_MOM = ["Pijat Relaksasi","Pijat Kehamilan","Pijat Pasca Melahirkan","Lulur","Aromaterapi","Refleksi","Perawatan Payudara","Kompres Herbal"];
 var LAYANAN_BABY = ["Berenang","Pijat Bayi","Senam Bayi","Spa Bayi","Mandi Rempah","Baby Gym"];
@@ -1192,20 +1341,106 @@ function init(){
   }
 }
 function buildTitik(){
+
   var g = document.getElementById('titik-grid');
+  g.innerHTML = '';
+
   TITIK.forEach(function(t){
+
     var b = document.createElement('button');
-    b.className = 'titik-btn'; b.textContent = t; b.type = 'button';
+    b.type = 'button';
+    b.className = 'titik-btn';
+
+    // Ambil nama titik untuk menentukan warna
+var nama = t.split('|')[0].trim();
+
+// Tampilkan seluruh isi array
+b.textContent = t;
+
+    // ===== WARNA BERDASARKAN AREA =====
+
+    // Kepala
+    if(
+      nama === "Yafukh" ||
+      nama === "Al-Hajibain"
+    ){
+      b.classList.add('kepala');
+    }
+
+    // Leher
+    else if(
+      nama === "Al-Kahil" ||
+      nama.indexOf("Akhda'in") >= 0
+    ){
+      b.classList.add('leher');
+    }
+
+    // Punggung / Pinggang
+    else if(
+      nama === "Al-Wariq" ||
+      nama === "Anas Shalabi" ||
+      nama.indexOf("Katifain") >= 0 ||
+      nama.indexOf("Dzahr") >= 0 ||
+      nama.indexOf("Warak") >= 0
+    ){
+      b.classList.add('punggung');
+    }
+
+    // Tangan
+    else if(
+      nama.indexOf("Qufaz") >= 0 ||
+      nama.indexOf("Deltoid") >= 0 ||
+      nama.indexOf("Biceps") >= 0 ||
+      nama.indexOf("Triceps") >= 0 ||
+      nama.indexOf("Pergelangan Tangan") >= 0
+    ){
+      b.classList.add('tangan');
+    }
+
+    // Kaki
+    else if(
+      nama.indexOf("Quadriceps") >= 0 ||
+      nama.indexOf("Hamstring") >= 0 ||
+      nama.indexOf("Lutut") >= 0 ||
+      nama.indexOf("Betis") >= 0 ||
+      nama.indexOf("Pergelangan Kaki") >= 0 ||
+      nama.indexOf("Telapak Kaki") >= 0
+    ){
+      b.classList.add('kaki');
+    }
+
+    // Perut
+    else if(
+      nama === "Al-Jawf"
+    ){
+      b.classList.add('perut');
+    }
+
+    // ================================
+
     b.onclick = function(){
+
       if(selectedTitik.indexOf(t) >= 0){
-        selectedTitik = selectedTitik.filter(function(x){return x!==t;});
+
+        selectedTitik = selectedTitik.filter(function(x){
+          return x !== t;
+        });
+
         b.classList.remove('sel');
-      } else {
-        selectedTitik.push(t); b.classList.add('sel');
+
+      }else{
+
+        selectedTitik.push(t);
+        b.classList.add('sel');
+
       }
+
     };
+
     g.appendChild(b);
+
   });
+
 }
 
 function buildCG(id, items, cls){
